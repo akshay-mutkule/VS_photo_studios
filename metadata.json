@@ -1,0 +1,8 @@
+{
+  "name": "VS Studios",
+  "description": "A premium, cinematic photography portfolio and client management system featuring AI-powered galleries and a luxurious professional interface.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

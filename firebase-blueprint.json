@@ -1,0 +1,82 @@
+{
+  "entities": {
+    "users": {
+      "title": "User",
+      "description": "Represents a client or administrator.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["client", "admin"] },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "email", "role"]
+    },
+    "albums": {
+      "title": "Album",
+      "description": "A collection of photographs.",
+      "type": "object",
+      "properties": {
+        "albumId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "coverImageUrl": { "type": "string" },
+        "isPasswordProtected": { "boolean": "boolean" },
+        "password": { "type": "string" },
+        "clientEmail": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "photos": {
+      "title": "Photo",
+      "description": "An individual photograph or video within an album.",
+      "type": "object",
+      "properties": {
+        "photoId": { "type": "string" },
+        "albumId": { "type": "string" },
+        "url": { "type": "string" },
+        "thumbnailUrl": { "type": "string" },
+        "type": { "type": "string", "enum": ["image", "video"] },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "bookings": {
+      "title": "Booking",
+      "description": "A photography session appointment.",
+      "type": "object",
+      "properties": {
+        "bookingId": { "type": "string" },
+        "clientId": { "type": "string" },
+        "clientEmail": { "type": "string" },
+        "sessionType": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "completed", "cancelled"] },
+        "price": { "type": "number" },
+        "paymentStatus": { "type": "string", "enum": ["unpaid", "partially_paid", "paid"] }
+      }
+    }
+  },
+  "firestore": {
+    "users": {
+        "schema": "users",
+        "description": "Public and private user profiles."
+    },
+    "albums": {
+        "schema": "albums",
+        "description": "Galleries created by admin."
+    },
+    "albums/{albumId}/photos": {
+        "schema": "photos",
+        "description": "Photos within an album."
+    },
+    "bookings": {
+        "schema": "bookings",
+        "description": "Client booking records."
+    }
+  }
+}
