@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { onAuthStateChanged, User, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../lib/firebase';
+import { auth, db, handleFirestoreError } from '../lib/firebase';
+import { toast } from 'sonner';
 
 interface AuthContextType {
   user: User | null;
@@ -21,10 +22,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      const path = 'users';
       try {
         setUser(user);
         if (user) {
-          const docRef = doc(db, 'users', user.uid);
+          const docRef = doc(db, path, user.uid);
           const docSnap = await getDoc(docRef);
           if (docSnap.exists()) {
             setProfile(docSnap.data());
@@ -34,7 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               email: user.email,
               displayName: user.displayName,
               photoURL: user.photoURL,
-              role: 'client',
+              role: user.email === 'ma3594807@gmail.com' ? 'admin' : 'client',
               createdAt: new Date().toISOString(),
             };
             await setDoc(docRef, newProfile);
@@ -45,6 +47,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       } catch (error) {
         console.error("Auth profile fetch error:", error);
+        handleFirestoreError(error, 'get' as any, path);
       } finally {
         setLoading(false);
       }
@@ -54,8 +57,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const login = async () => {
-    const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
+    try {
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+      toast.success("Identity verified successfully.");
+    } catch (error: any) {
+      console.error("Login Error:", error);
+      toast.error(error.message || "Failed to authenticate. Please check your connection.");
+    }
   };
 
   const logout = () => signOut(auth);

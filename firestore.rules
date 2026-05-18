@@ -25,6 +25,11 @@ service cloud.firestore {
       allow write: if isOwner(userId) || isAdmin();
     }
 
+    // System connection test
+    match /system/connection-test {
+      allow read: if true;
+    }
+
     // Albums
     match /albums/{albumId} {
       allow read: if true; // Public galleries

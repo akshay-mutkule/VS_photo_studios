@@ -2,7 +2,9 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { useAuth } from '@/context/AuthContext';
 import { db } from '@/lib/firebase';
-import { collection, query, getDocs, addDoc, serverTimestamp, orderBy, limit } from 'firebase/firestore';
+import { collection, query, getDocs, addDoc, serverTimestamp, orderBy, limit, doc, updateDoc } from 'firebase/firestore';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { storage } from '@/lib/firebase';
 import { Album, Booking, UserProfile } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -35,6 +37,10 @@ const AdminPage: React.FC = () => {
 
   // New Album State
   const [newAlbum, setNewAlbum] = React.useState({ title: '', description: '', category: 'Wedding', clientEmail: '', coverImageUrl: '' });
+  const [uploading, setUploading] = React.useState<string | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+  const [selectedAlbumForUpload, setSelectedAlbumForUpload] = React.useState<string | null>(null);
+  const [coverUploadProgress, setCoverUploadProgress] = React.useState<number | null>(null);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -65,7 +71,105 @@ const AdminPage: React.FC = () => {
   }, []);
 
   const handleCreateAlbum = async (e: React.FormEvent) => {
-    // ... logic
+    e.preventDefault();
+    try {
+      const albumDoc = await addDoc(collection(db, 'albums'), {
+        ...newAlbum,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      });
+      toast.success("Collection Blueprint Manifested");
+      setAlbums(prev => [{ id: albumDoc.id, ...newAlbum, createdAt: new Date() } as any, ...prev]);
+      setNewAlbum({ title: '', description: '', category: 'Wedding', clientEmail: '', coverImageUrl: '' });
+    } catch (err) {
+      console.error("Create Album Error:", err);
+      toast.error("Blueprint synthesis failed");
+    }
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    const albumId = selectedAlbumForUpload;
+    if (!files || !albumId) return;
+
+    setUploading(albumId);
+    const toastId = toast.loading(`Uploading ${files.length} assets to production...`);
+
+    try {
+      const uploadedUrls = [];
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const storageRef = ref(storage, `albums/${albumId}/${Date.now()}-${file.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        const url = await new Promise<string>((resolve, reject) => {
+          uploadTask.on(
+            'state_changed',
+            null,
+            (error) => reject(error),
+            async () => {
+              const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
+              resolve(downloadUrl);
+            }
+          );
+        });
+
+        await addDoc(collection(db, 'albums', albumId, 'photos'), {
+          albumId,
+          url,
+          thumbnailUrl: url,
+          type: 'image',
+          tags: ['Studio Upload'],
+          createdAt: serverTimestamp()
+        });
+        uploadedUrls.push(url);
+      }
+      
+      // Update album cover if none exists
+      const album = albums.find(a => a.id === albumId);
+      if (album && !album.coverImageUrl && uploadedUrls.length > 0) {
+        await updateDoc(doc(db, 'albums', albumId), {
+            coverImageUrl: uploadedUrls[0],
+            updatedAt: serverTimestamp()
+        });
+      }
+
+      toast.success(`${files.length} assets integrated into archive`, { id: toastId });
+      // Refresh logic or state update could go here
+    } catch (err) {
+      console.error("Upload error:", err);
+      toast.error("Asset integration failure", { id: toastId });
+    } finally {
+      setUploading(null);
+      setSelectedAlbumForUpload(null);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
+
+  const handleCoverUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const storageRef = ref(storage, `temp/${Date.now()}-${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        setCoverUploadProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      },
+      (error) => {
+        console.error("Cover upload error:", error);
+        toast.error("Cover manifest failure");
+        setCoverUploadProgress(null);
+      },
+      async () => {
+        const url = await getDownloadURL(uploadTask.snapshot.ref);
+        setNewAlbum(prev => ({ ...prev, coverImageUrl: url }));
+        setCoverUploadProgress(null);
+        toast.success("Cover synthesized");
+      }
+    );
   };
 
   const seedDatabase = async () => {
@@ -230,8 +334,18 @@ const AdminPage: React.FC = () => {
                             <Input value={newAlbum.clientEmail} onChange={e => setNewAlbum({...newAlbum, clientEmail: e.target.value})} type="email" className="glass border-white/10 rounded-full h-12 px-6" placeholder="client@example.com" required />
                         </div>
                         <div className="space-y-2">
-                            <Label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Cover Image URL</Label>
-                            <Input value={newAlbum.coverImageUrl} onChange={e => setNewAlbum({...newAlbum, coverImageUrl: e.target.value})} className="glass border-white/10 rounded-full h-12 px-6" placeholder="Unsplash URL recommended for prototype" />
+                            <Label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Cover Image</Label>
+                            <div className="flex gap-4">
+                                <Input value={newAlbum.coverImageUrl} onChange={e => setNewAlbum({...newAlbum, coverImageUrl: e.target.value})} className="glass border-white/10 rounded-full h-12 px-6 flex-grow" placeholder="Image URL or upload" />
+                                <div className="relative">
+                                    <input type="file" className="hidden" id="cover-upload" onChange={handleCoverUpload} accept="image/*" />
+                                    <Button type="button" onClick={() => document.getElementById('cover-upload')?.click()} className="h-12 w-12 rounded-full glass border-white/10 p-0">
+                                        {coverUploadProgress !== null ? (
+                                            <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                                        ) : <Upload className="w-4 h-4" />}
+                                    </Button>
+                                </div>
+                            </div>
                         </div>
                         <div className="space-y-2">
                             <Label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Description</Label>
@@ -362,7 +476,21 @@ const AdminPage: React.FC = () => {
                                         <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold truncate">{album.clientEmail}</p>
                                         <div className="pt-2 flex gap-2">
                                             <Button variant="outline" className="h-12 grow glass border-white/10 hover:bg-white/10 text-white rounded-full uppercase text-[9px] font-bold tracking-widest">Manage Production</Button>
-                                            <Button size="icon" className="h-12 w-12 glass border-white/10 text-white rounded-full"><Upload className="w-4 h-4" /></Button>
+                                            <Button 
+                                                size="icon" 
+                                                className="h-12 w-12 glass border-white/10 text-white rounded-full relative overflow-hidden"
+                                                onClick={() => {
+                                                    setSelectedAlbumForUpload(album.id);
+                                                    fileInputRef.current?.click();
+                                                }}
+                                                disabled={uploading === album.id}
+                                            >
+                                                {uploading === album.id ? (
+                                                    <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                                                ) : (
+                                                    <Upload className="w-4 h-4" />
+                                                )}
+                                            </Button>
                                         </div>
                                     </div>
                                 </div>
@@ -545,6 +673,14 @@ const AdminPage: React.FC = () => {
                 </div>
             </TabsContent>
         </Tabs>
+        <input 
+            type="file" 
+            multiple 
+            ref={fileInputRef} 
+            onChange={handleFileUpload} 
+            className="hidden" 
+            accept="image/*"
+        />
       </div>
     </div>
   );

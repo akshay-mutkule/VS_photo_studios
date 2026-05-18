@@ -13,8 +13,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
-import { db } from '@/lib/firebase';
+import { db, handleFirestoreError } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { useAuth } from '@/context/AuthContext';
+import { LogIn } from 'lucide-react';
 
 const sessionTypes = [
   { id: 'wedding', name: 'Wedding Anthology', icon: Camera, desc: 'Cinematic coverage of your union.' },
@@ -34,6 +36,7 @@ const timeSlots = [
 ];
 
 const BookingPage: React.FC = () => {
+  const { user, login } = useAuth();
   const [date, setDate] = React.useState<Date | undefined>(new Date());
   const [session, setSession] = React.useState<string | null>(null);
   const [selectedPackage, setSelectedPackage] = React.useState<string | null>(null);
@@ -42,13 +45,30 @@ const BookingPage: React.FC = () => {
   const [step, setStep] = React.useState(1);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
+  React.useEffect(() => {
+    if (user && !clientInfo.name) {
+      setClientInfo(prev => ({
+        ...prev,
+        name: user.displayName || '',
+        email: user.email || '',
+      }));
+    }
+  }, [user]);
+
   const selectedPackageData = packages.find(p => p.id === selectedPackage);
 
   const handleFinalize = async () => {
+    if (!user) {
+        toast.error("Authentication required to initialize production.");
+        return;
+    }
+
     setIsSubmitting(true);
+    const path = 'bookings';
     try {
-      await addDoc(collection(db, 'bookings'), {
+      await addDoc(collection(db, path), {
         ...clientInfo,
+        clientId: user.uid,
         sessionType: session,
         packageName: selectedPackage,
         price: selectedPackageData?.price || 0,
@@ -62,7 +82,7 @@ const BookingPage: React.FC = () => {
       toast.success("Artistic production initialized. Confirmation sent.");
       setStep(6);
     } catch (err) {
-      toast.error("Archive transmission failed. Please retry.");
+      handleFirestoreError(err, 'write' as any, path);
     } finally {
       setIsSubmitting(false);
     }
@@ -338,18 +358,29 @@ const BookingPage: React.FC = () => {
                                                 <span className="text-[10px] uppercase text-zinc-600 font-bold tracking-widest">Initialization Deposit (50%)</span>
                                                 <span className="text-xl font-serif italic text-white">${(selectedPackageData?.price || 0) * 0.5}</span>
                                              </div>
-                                             <Button 
-                                                disabled={isSubmitting}
-                                                onClick={handleFinalize}
-                                                className="w-full h-24 bg-white text-black hover:bg-zinc-200 rounded-[2.5rem] font-bold uppercase tracking-[0.5em] text-[12px] shadow-2xl transition-transform active:scale-95 flex items-center justify-center gap-4 group"
-                                            >
-                                                {isSubmitting ? <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin" /> : (
-                                                    <>
-                                                        Initialize Commission
-                                                        <ChevronRight className="w-4 h-4 group-hover:translate-x-4 transition-transform" />
-                                                    </>
-                                                )}
-                                            </Button>
+                                             {user ? (
+                                                <Button 
+                                                    disabled={isSubmitting}
+                                                    onClick={handleFinalize}
+                                                    className="w-full h-24 bg-white text-black hover:bg-zinc-200 rounded-[2.5rem] font-bold uppercase tracking-[0.5em] text-[12px] shadow-2xl transition-transform active:scale-95 flex items-center justify-center gap-4 group"
+                                                >
+                                                    {isSubmitting ? <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin" /> : (
+                                                        <>
+                                                            Initialize Commission
+                                                            <ChevronRight className="w-4 h-4 group-hover:translate-x-4 transition-transform" />
+                                                        </>
+                                                    )}
+                                                </Button>
+                                             ) : (
+                                                <Button 
+                                                    onClick={login}
+                                                    className="w-full h-24 bg-primary text-black hover:bg-accent rounded-[2.5rem] font-bold uppercase tracking-[0.5em] text-[12px] shadow-2xl transition-transform active:scale-95 flex items-center justify-center gap-4 group"
+                                                >
+                                                    <LogIn className="w-5 h-5" />
+                                                    Identity Verification Required
+                                                    <ChevronRight className="w-4 h-4 group-hover:translate-x-4 transition-transform" />
+                                                </Button>
+                                             )}
                                         </div>
                                     </div>
                                 </div>
