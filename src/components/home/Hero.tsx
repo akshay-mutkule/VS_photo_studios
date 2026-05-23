@@ -1,26 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, ArrowRight, Play } from 'lucide-react';
+import { Instagram, Facebook, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const slides = [
   {
-    image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=2069&auto=format&fit=crop',
-    title: 'Emotional',
-    subtitle: 'Weddings',
-    desc: 'Capturing the raw emotions of your most precious day with artistic precision.'
+    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2069&auto=format&fit=crop',
+    title: 'Timeless Moments, Beautifully.',
+    desc: "Photography for the moments you'll cherish forever."
   },
   {
-    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=2020&auto=format&fit=crop',
-    title: 'Avant-Garde',
-    subtitle: 'Fashion',
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2020&auto=format&fit=crop',
+    title: 'Avant-Garde Editorial Fashion.',
     desc: 'Basing editorial visions on cinematic environments and bold styling.'
   },
   {
-    image: 'https://images.unsplash.com/photo-1581333100576-b73bbe92c2cb?q=80&w=1974&auto=format&fit=crop',
-    title: 'Timeless',
-    subtitle: 'Portraits',
+    image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1974&auto=format&fit=crop',
+    title: 'Timeless Fine-Art Portraits.',
     desc: 'A classic approach to modern identity through the lens of history.'
   }
 ];
@@ -36,106 +33,112 @@ const Hero: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-black">
-      {/* Slides */}
+    <section className="relative h-screen w-full overflow-hidden bg-black flex items-center justify-center">
+      {/* Slides Background */}
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
-          initial={{ opacity: 0, scale: 1.1 }}
+          initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.5, ease: [0.25, 1, 0.5, 1] }}
           className="absolute inset-0 z-0"
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/90 z-10" />
+          <div className="absolute inset-0 bg-black/40 z-10" />
           <img
             src={slides[current].image}
-            alt={slides[current].subtitle}
+            alt="Cinematic Portfolio Background"
             className="w-full h-full object-cover"
           />
         </motion.div>
       </AnimatePresence>
 
-      {/* Content */}
-      <div className="relative z-20 h-full max-w-7xl mx-auto px-10 flex flex-col justify-center items-start">
+      {/* Main Content Area */}
+      <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-12 md:px-16 lg:px-20 h-full flex flex-col justify-center items-start">
         <motion.div
           key={current}
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="space-y-6 max-w-3xl"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: 'easeOut' }}
+          className="max-w-2xl text-left space-y-6 sm:space-y-8 pl-0 md:pl-12 lg:pl-16"
         >
-          <div className="flex items-center gap-3 mb-2">
-            <div className="h-[1px] w-12 bg-primary" />
-            <span className="text-[10px] uppercase tracking-[0.3em] text-primary font-bold">VS Cinematic Archive</span>
-          </div>
-          
-          <div className="overflow-hidden">
-            <motion.p
-              initial={{ y: 50 }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="text-[10px] uppercase tracking-[0.6em] text-white/60 mb-6"
-            >
-              Mastering the art of light
-            </motion.p>
+          <div className="space-y-2">
+            <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.5em] text-white/80 font-bold block mb-2 sm:mb-4">
+              WE CAPTURE
+            </span>
+            <h1 className="text-[2.2rem] sm:text-5xl md:text-6xl lg:text-7xl font-serif text-white tracking-tight leading-[1.1] font-medium drop-shadow-sm">
+              {slides[current].title}
+            </h1>
           </div>
 
-          <h1 className="text-7xl md:text-[10rem] font-serif italic text-white tracking-tight leading-[0.8] mb-4">
-            Capturing <span className="block opacity-30">Moments</span>
-          </h1>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 1 }}
-            className="flex flex-col gap-2"
-          >
-            <p className="text-3xl md:text-5xl font-serif italic text-white/80 tracking-tight">
-              That Last Forever
-            </p>
-            <div className="h-[1px] w-full bg-gradient-to-r from-primary/40 to-transparent mt-2" />
-          </motion.div>
-
-          <p className="text-sm font-light text-zinc-400 max-w-md leading-relaxed py-8">
+          <p className="text-sm sm:text-base font-light text-white/80 max-w-md leading-relaxed">
             {slides[current].desc}
           </p>
 
-          <div className="flex flex-col md:flex-row gap-6">
-            <Link to="/booking">
-              <Button className="bg-primary text-black hover:bg-accent rounded-full h-16 px-12 uppercase text-[11px] tracking-[0.3em] font-bold transition-all shadow-[0_0_30px_rgba(212,175,55,0.2)]">
-                Initialize Session
+          <div>
+            <Link to="/portfolio">
+              <Button className="bg-white text-black hover:bg-zinc-200 rounded-none h-14 sm:h-16 px-8 sm:px-10 uppercase text-[10px] sm:text-xs tracking-[0.4em] font-bold transition-all duration-300 shadow-xl flex items-center gap-3">
+                EXPLORE GALLERIES
+                <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
-            <Button variant="outline" className="border-white/10 text-white hover:bg-white/5 rounded-full h-16 px-12 uppercase text-[11px] tracking-[0.3em] font-bold backdrop-blur-md glass">
-              Studio Showreel
-              <Play className="ml-3 w-4 h-4 fill-white" />
-            </Button>
           </div>
         </motion.div>
       </div>
 
-      {/* Controls */}
-      <div className="absolute bottom-16 right-16 z-20 flex items-center gap-4">
-        <div 
-          onClick={() => setCurrent((prev) => (prev - 1 + slides.length) % slides.length)}
-          className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center cursor-pointer hover:bg-white/10 text-white transition-all backdrop-blur-sm"
-        >
-          ←
-        </div>
-        <div 
-          onClick={() => setCurrent((prev) => (prev + 1) % slides.length)}
-          className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center cursor-pointer hover:bg-white/10 text-white transition-all backdrop-blur-sm"
-        >
-          →
-        </div>
+      {/* Slide Indicators on Left Margin */}
+      <div className="absolute left-6 sm:left-10 lg:left-16 top-1/2 -translate-y-1/2 z-20 hidden md:flex flex-col items-center gap-6">
+        {slides.map((_, index) => (
+          <React.Fragment key={index}>
+            <button
+              onClick={() => setCurrent(index)}
+              className={`font-mono text-[10px] lg:text-xs tracking-widest transition-all duration-300 ${
+                current === index ? 'text-white font-bold opacity-100 scale-110' : 'text-white/40 hover:text-white opacity-60'
+              }`}
+            >
+              {String(index + 1).padStart(2, '0')}
+            </button>
+            {index < slides.length - 1 && (
+              <div className="relative w-[1px] h-12 bg-white/20">
+                <motion.div
+                  initial={{ height: 0 }}
+                  animate={{ height: current === index ? '100%' : '0%' }}
+                  transition={{ duration: 0.8 }}
+                  className="absolute top-0 left-0 w-full bg-white"
+                />
+              </div>
+            )}
+          </React.Fragment>
+        ))}
       </div>
 
-      {/* Background Rail Text */}
-      <div className="absolute bottom-1/2 right-12 translate-y-1/2 z-10 pointer-events-none hidden lg:block">
-        <span className="text-[14rem] font-bold text-white/[0.03] uppercase tracking-tighter mix-blend-overlay rotate-90 origin-center block">
-          CINEMATIC
-        </span>
+      {/* Social Icons on Right Margin */}
+      <div className="absolute right-6 sm:right-10 lg:right-16 top-1/2 -translate-y-1/2 z-20 hidden md:flex flex-col items-center gap-8 text-white/60">
+        <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors cursor-pointer">
+          <Instagram className="w-5 h-5" />
+        </a>
+        <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors cursor-pointer">
+          <Facebook className="w-5 h-5" />
+        </a>
+        <a href="https://tiktok.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors cursor-pointer text-sm font-bold tracking-tighter">
+          TikTok
+        </a>
+        <a href="https://pinterest.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors cursor-pointer text-sm font-bold tracking-tighter">
+          Pin
+        </a>
+      </div>
+
+      {/* Carousel Dots on Bottom Left */}
+      <div className="absolute bottom-10 left-6 sm:left-12 lg:left-16 z-20 flex items-center gap-3">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrent(index)}
+            className={`w-2 h-2 rounded-full border transition-all duration-300 ${
+              current === index ? 'bg-white border-white scale-125' : 'bg-transparent border-white/40 hover:border-white'
+            }`}
+          />
+        ))}
       </div>
     </section>
   );

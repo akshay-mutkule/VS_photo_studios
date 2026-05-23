@@ -4,14 +4,14 @@ import { Heart, MessageSquare, Share2, ZoomIn, MessageCircle } from 'lucide-reac
 import { Button } from '@/components/ui/button';
 
 const photos = [
-  { id: 1, url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=2069&auto=format&fit=crop', tall: true },
-  { id: 2, url: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop', tall: false },
-  { id: 3, url: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=2020&auto=format&fit=crop', tall: true },
-  { id: 4, url: 'https://images.unsplash.com/photo-1509233725247-49e657c54213?q=80&w=2000&auto=format&fit=crop', tall: false },
-  { id: 5, url: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1976&auto=format&fit=crop', tall: true },
-  { id: 6, url: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=2070&auto=format&fit=crop', tall: false },
-  { id: 7, url: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=2070&auto=format&fit=crop', tall: true },
-  { id: 8, url: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2070&auto=format&fit=crop', tall: false },
+  { id: 1, url: 'https://images.unsplash.com/photo-1607190074257-dd4b7af0309f?q=80&w=1200&auto=format&fit=crop', tall: true },
+  { id: 2, url: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop', tall: false },
+  { id: 3, url: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1200&auto=format&fit=crop', tall: true },
+  { id: 4, url: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1200&auto=format&fit=crop', tall: false },
+  { id: 5, url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200&auto=format&fit=crop', tall: true },
+  { id: 6, url: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1200&auto=format&fit=crop', tall: false },
+  { id: 7, url: 'https://images.unsplash.com/photo-1591555200843-098737e9dcf8?q=80&w=1200&auto=format&fit=crop', tall: true },
+  { id: 8, url: 'https://images.unsplash.com/photo-1519225495810-7517ccd66cbf?q=80&w=1200&auto=format&fit=crop', tall: false },
 ];
 
 const PortfolioMasonry: React.FC = () => {

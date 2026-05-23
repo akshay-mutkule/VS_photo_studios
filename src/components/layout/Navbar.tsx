@@ -34,40 +34,55 @@ const Navbar: React.FC = () => {
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? 'glass-dark py-3' : 'bg-transparent py-6'}`}>
       <div className="max-w-7xl mx-auto px-10 flex justify-between items-center">
-        <Link to="/" className="flex flex-col group">
-          <span className="text-2xl font-serif tracking-widest uppercase leading-tight text-white">VS</span>
-          <span className="text-[10px] tracking-[0.4em] uppercase opacity-60 text-white">Studio & Archive</span>
+        <Link to="/" className="flex flex-col group items-start">
+          <span className="text-3xl font-serif tracking-[0.2em] uppercase leading-none text-white transition-colors duration-300 group-hover:text-primary">VS</span>
+          <span className="text-[9px] tracking-[0.35em] uppercase opacity-70 text-white mt-1.5 pl-0.5">PHOTOGRAY</span>
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-10">
-          <div className="flex gap-10 text-[11px] uppercase tracking-widest font-medium">
-            {navLinks.map((link) => (
+        <div className="hidden md:flex items-center gap-8 lg:gap-10">
+          <div className="flex gap-6 lg:gap-8 text-[11px] uppercase tracking-[0.3em] font-medium">
+            {[
+              { name: 'HOME', path: '/' },
+              { name: 'ABOUT', path: '/#about' },
+              { name: 'GALLERIES', path: '/portfolio' },
+              { name: 'SERVICES', path: '/booking' },
+              { name: 'BLOG', path: '/#about' },
+              { name: 'CONTACT', path: '/#about' }
+            ].map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
-                className={`transition-all duration-300 hover:text-primary ${location.pathname === link.path ? 'text-primary border-b border-primary pb-1' : 'text-white/60 hover:text-white'}`}
+                className={`transition-all duration-300 hover:text-white relative pb-1 group/link ${
+                  location.pathname === link.path ? 'text-white' : 'text-white/60'
+                }`}
               >
                 {link.name}
+                <span className={`absolute bottom-0 left-0 h-[1px] bg-white transition-all duration-300 ${
+                  location.pathname === link.path ? 'w-full' : 'w-0 group-hover/link:w-full'
+                }`} />
               </Link>
             ))}
           </div>
           
-          <div className="flex items-center gap-6 border-l border-white/10 pl-10 ml-4">
+          <div className="flex items-center gap-4 lg:gap-6 border-l border-white/10 pl-8 lg:pl-10">
             {!user ? (
               <div className="flex items-center gap-4">
-                <Button onClick={login} variant="outline" className="px-8 h-12 border-white/20 rounded-full text-[10px] uppercase tracking-widest bg-white/5 hover:bg-white/10 transition-all font-bold glass">Client Login</Button>
+                <Button onClick={login} variant="ghost" className="px-4 h-11 text-white/60 hover:text-white hover:bg-white/5 rounded-none text-[10px] uppercase tracking-widest transition-all font-bold">Client Login</Button>
                 <Link to="/booking">
-                  <Button className="px-8 h-12 bg-primary text-black rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-all shadow-[0_0_20px_rgba(212,175,55,0.1)]">Book Session</Button>
+                  <Button variant="outline" className="px-6 h-11 border-white/40 hover:border-white hover:bg-white/5 rounded-none text-[10px] font-bold uppercase tracking-widest text-white transition-all flex items-center gap-2">
+                    <Calendar className="w-3.5 h-3.5" />
+                    Book a Session
+                  </Button>
                 </Link>
               </div>
             ) : (
-              <div className="flex items-center gap-2">
-                <span className="hidden lg:block text-[10px] uppercase tracking-widest text-white/40 font-bold mr-2 italic font-serif ">{profile?.displayName || user.displayName}</span>
+              <div className="flex items-center gap-4">
+                <span className="hidden lg:block text-[10px] uppercase tracking-widest text-white/40 font-bold italic font-serif">{profile?.displayName || user.displayName}</span>
                 <DropdownMenu>
                   <DropdownMenuTrigger
                     render={
-                      <Button variant="ghost" className="relative h-12 w-12 rounded-full border border-white/10 hover:bg-white/5 p-0 overflow-hidden glass group">
+                      <Button variant="ghost" className="relative h-11 w-11 rounded-full border border-white/10 hover:bg-white/5 p-0 overflow-hidden group">
                         <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                         {user.photoURL ? (
                           <img src={user.photoURL} alt="Avatar" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
@@ -77,7 +92,7 @@ const Navbar: React.FC = () => {
                       </Button>
                     }
                   />
-                  <DropdownMenuContent align="end" className="w-72 glass-dark border-white/10 text-white p-3 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                  <DropdownMenuContent align="end" className="w-72 glass-dark border-white/10 text-white p-3 rounded-[1.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                     <div className="px-4 py-6 text-center border-b border-white/5 mb-2">
                        <p className="text-[10px] uppercase tracking-[0.3em] text-primary font-bold mb-1">Authenticated</p>
                        <p className="text-xl font-serif italic text-white tracking-tight">{profile?.displayName || user.displayName}</p>
@@ -103,7 +118,7 @@ const Navbar: React.FC = () => {
                     )}
                     <DropdownMenuSeparator className="bg-white/5 my-2" />
                     <DropdownMenuItem onClick={logout} className="focus:bg-red-500/10 p-4 rounded-2xl cursor-pointer group transition-colors text-red-400">
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-4 w-full">
                         <div className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center group-hover:bg-red-500 transition-colors">
                            <LogOut className="w-4 h-4 text-red-500 group-hover:text-white" /> 
                         </div>
@@ -112,6 +127,13 @@ const Navbar: React.FC = () => {
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
+                
+                <Link to="/booking">
+                  <Button variant="outline" className="px-6 h-11 border-white/40 hover:border-white hover:bg-white/5 rounded-none text-[10px] font-bold uppercase tracking-widest text-white transition-all flex items-center gap-2">
+                    <Calendar className="w-3.5 h-3.5" />
+                    Book a Session
+                  </Button>
+                </Link>
               </div>
             )}
           </div>
