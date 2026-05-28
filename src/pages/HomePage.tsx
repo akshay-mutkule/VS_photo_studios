@@ -1,17 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Hero from '@/components/home/Hero';
 import FeaturedAlbums from '@/components/home/FeaturedAlbums';
 import Categories from '@/components/home/Categories';
 import PortfolioMasonry from '@/components/home/PortfolioMasonry';
 import AboutAndAwards from '@/components/home/AboutAndAwards';
+import { motion, useScroll } from 'motion/react';
 
 const HomePage: React.FC = () => {
+  const { scrollYProgress } = useScroll();
+
   return (
-    <div className="bg-black overflow-hidden">
+    <div className="bg-[#FCFAF6] overflow-hidden min-h-screen">
+      {/* Real-time Scroll Progress indicator */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-[#A37E43] origin-left z-50"
+        style={{ scaleX: scrollYProgress }}
+      />
+
+      {/* Primary Landing Content */}
       <Hero />
       <FeaturedAlbums />
       <Categories />
-      <PortfolioMasonry />
+
+      {/* Featured captures section inside homepage holding high-end masonry */}
+      <div className="py-24 max-w-7xl mx-auto px-6 sm:px-10">
+        <div className="text-center space-y-4 mb-16">
+          <span className="text-[10px] tracking-[0.5em] uppercase font-bold text-[#A37E43]">
+            Curated Visual highlights
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-serif text-zinc-900 tracking-tight">
+            Trending <span className="italic text-[#A37E43]">Captures</span>
+          </h2>
+          <div className="h-[1px] w-12 bg-[#A37E43]/40 mx-auto" />
+        </div>
+        <PortfolioMasonry activeCategory="All" />
+      </div>
+
       <AboutAndAwards />
     </div>
   );

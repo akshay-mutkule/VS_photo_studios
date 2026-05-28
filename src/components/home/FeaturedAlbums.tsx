@@ -1,11 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { ExternalLink, Calendar, MapPin, ArrowRight, Users, Camera } from 'lucide-react';
+import { motion } from 'motion/react';
+import { ArrowRight, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { db } from '@/lib/firebase';
 import { collection, query, limit, getDocs, orderBy } from 'firebase/firestore';
 import { Album } from '@/types';
 import { Link } from 'react-router-dom';
+
+const fallbackAlbums: Album[] = [
+  {
+    id: 'florence-heritage',
+    title: 'The Florence Heritage',
+    description: 'An archival documentation of David & Sarah’s monumental Italian ceremony. Captured amidst Renaissance architecture and golden-hour grapevines under the Tuscan sky.',
+    category: 'Wedding',
+    coverImageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop',
+    isPasswordProtected: false,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    id: 'kyoto-ephemera',
+    title: 'Kyoto Ephemera',
+    description: 'An intimate, quiet engagement visual shoot set within the bamboo corridors and traditional tea estates of Kyoto, Japan. Soft ambient light explorations.',
+    category: 'Pre-Wedding',
+    coverImageUrl: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1200&auto=format&fit=crop',
+    isPasswordProtected: false,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    id: 'atelier-lumineux',
+    title: 'Atelier Lumineux',
+    description: 'A structural, high-contrast fashion directory photographed inside a Paris stone gallery. Exploring the intersection of silk textiles and raw renaissance shadows.',
+    category: 'Fashion',
+    coverImageUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200&auto=format&fit=crop',
+    isPasswordProtected: false,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }
+];
 
 const FeaturedAlbums: React.FC = () => {
   const [albums, setAlbums] = useState<Album[]>([]);
@@ -16,9 +49,14 @@ const FeaturedAlbums: React.FC = () => {
       try {
         const q = query(collection(db, 'albums'), orderBy('createdAt', 'desc'), limit(3));
         const snap = await getDocs(q);
-        setAlbums(snap.docs.map(d => ({ id: d.id, ...d.data() } as Album)));
+        if (!snap.empty) {
+          setAlbums(snap.docs.map(d => ({ id: d.id, ...d.data() } as Album)));
+        } else {
+          setAlbums(fallbackAlbums);
+        }
       } catch (err) {
-        console.error("Fetch Albums Error:", err);
+        console.error("Fetch Albums Error (using beautiful fallbacks):", err);
+        setAlbums(fallbackAlbums);
       } finally {
         setLoading(false);
       }
@@ -26,85 +64,80 @@ const FeaturedAlbums: React.FC = () => {
     fetchAlbums();
   }, []);
 
-  if (loading) return null;
-
   return (
-    <section className="py-32 bg-[#080808]">
-      <div className="max-w-7xl mx-auto px-10">
-        <div className="flex flex-col items-center text-center mb-32 space-y-4">
-          <span className="text-[10px] uppercase tracking-[0.6em] font-bold text-primary">Archive of light</span>
-          <h2 className="text-6xl md:text-8xl font-serif italic text-white tracking-tight leading-none">
-            Selected <span className="opacity-30">Stories</span>
+    <section className="py-32 bg-[#FCFAF6] border-t border-[#A37E43]/10">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10">
+        <div className="flex flex-col items-center text-center mb-24 space-y-4">
+          <span className="text-[10px] uppercase tracking-[0.6em] font-bold text-[#A37E43]">ARCHIVE OF LIGHT</span>
+          <h2 className="text-4xl sm:text-6xl font-serif text-zinc-900 tracking-tight leading-none">
+            Selected <span className="italic text-[#A37E43]">Narratives</span>
           </h2>
         </div>
 
-        <div className="space-y-48">
-          {albums.length > 0 ? albums.map((album, i) => (
+        <div className="space-y-36">
+          {albums.map((album, i) => (
             <motion.div
               key={album.id}
-              initial={{ opacity: 0, y: 100 }}
+              initial={{ opacity: 0, y: 70 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-              viewport={{ once: true, margin: "-100px" }}
-              className={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-32 items-center`}
+              transition={{ duration: 1, ease: [0.25, 1, 0.5, 1] }}
+              viewport={{ once: true, margin: "-50px" }}
+              className={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-20 items-center`}
             >
               {/* Image Section */}
-              <div className="w-full lg:w-3/5 group relative overflow-hidden rounded-3xl border border-white/10 glass">
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors z-10" />
-                <div className="aspect-[16/10] overflow-hidden">
+              <div className="w-full lg:w-3/5 group relative overflow-hidden rounded-none border border-[#A37E43]/10 bg-white shadow-sm">
+                <div className="absolute inset-0 bg-stone-900/10 group-hover:bg-transparent transition-colors z-10 duration-700" />
+                <div className="aspect-[16/10] overflow-hidden bg-stone-50">
                   <motion.img
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ scale: 1.03 }}
                     transition={{ duration: 1.5, ease: "easeOut" }}
                     src={album.coverImageUrl}
                     alt={album.title}
-                    className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"
+                    className="w-full h-full object-cover filter saturate-50 hover:saturate-100 transition-all duration-1000"
                   />
                 </div>
-                {/* Floating Meta */}
-                <div className="absolute bottom-10 right-10 z-20 glass p-5 rounded-2xl hidden md:block">
-                  <p className="text-[9px] uppercase tracking-[0.3em] text-white/50 font-bold mb-1">Production Genre</p>
-                  <p className="text-xs font-serif italic text-white">{album.category}</p>
+                {/* Floating Meta tags */}
+                <div className="absolute bottom-6 right-6 z-20 bg-white/90 backdrop-blur-md px-4 py-3 border border-[#A37E43]/10">
+                  <p className="text-[8px] uppercase tracking-[0.2em] text-zinc-400 font-bold mb-0.5">Production Category</p>
+                  <p className="text-xs font-serif italic text-[#A37E43]">{album.category}</p>
                 </div>
               </div>
 
               {/* Text Section */}
-              <div className="w-full lg:w-2/5 space-y-10">
-                <div className="space-y-6">
+              <div className="w-full lg:w-2/5 space-y-6">
+                <div className="space-y-4">
                   <div className="flex items-center gap-3">
-                    <div className="h-[1px] w-8 bg-primary/40" />
-                    <span className="text-[10px] uppercase tracking-widest text-primary font-bold">Volume III • Archival Record {i + 1}</span>
+                    <div className="h-[1px] w-6 bg-[#A37E43]/40" />
+                    <span className="text-[10px] uppercase tracking-widest text-[#A37E43] font-bold">Vol. 2026 • Archival Reel {i + 1}</span>
                   </div>
-                  <h3 className="text-5xl md:text-6xl font-serif italic text-white tracking-tight leading-tight">{album.title}</h3>
-                  <div className="flex flex-wrap gap-8 text-[11px] text-white/40 uppercase tracking-[0.15em] font-medium">
-                    <span className="flex items-center gap-2">Category: <span className="text-white/80">{album.category}</span></span>
-                    <span className="flex items-center gap-2">Origin: <span className="text-white/80">VS Cinematic Studio</span></span>
+                  <h3 className="text-3xl sm:text-4xl font-serif text-zinc-900 tracking-tight leading-tight">{album.title}</h3>
+                  <div className="flex flex-wrap gap-6 text-[10px] text-zinc-400 uppercase tracking-[0.15em] font-medium">
+                    <span className="flex items-center gap-1.5">Style: <span className="text-zinc-600 font-bold">{album.category}</span></span>
+                    <span className="flex items-center gap-1.5">Origin: <span className="text-zinc-600 font-bold">Medium Format Raw</span></span>
                   </div>
                 </div>
 
-                <p className="text-zinc-500 leading-relaxed text-base italic font-light font-serif pl-8 border-l border-white/10">
-                  {album.description || "Exploring the subtle interplay between architectural geometry and human vulnerability. A cinematic documentation of presence."}
+                <p className="text-zinc-500 leading-relaxed text-sm font-light font-sans pl-6 border-l border-[#A37E43]/20">
+                  {album.description}
                 </p>
 
-                <Link to={`/album/${album.id}`}>
-                  <Button variant="link" className="text-white hover:text-primary p-0 h-auto group text-[10px] uppercase tracking-[0.3em] font-bold">
-                    Enter Gallery
-                    <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-4 transition-transform" />
-                  </Button>
-                </Link>
+                <div className="pt-2">
+                  <Link to={`/album/${album.id}`}>
+                    <Button variant="link" className="text-zinc-800 hover:text-[#A37E43] p-0 h-auto group text-[10px] uppercase tracking-[0.3em] font-bold">
+                      Enter Dynamic Experience
+                      <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </motion.div>
-          )) : (
-            <div className="py-24 text-center border-2 border-dashed border-white/5 rounded-3xl glass opacity-20">
-              <Camera className="w-12 h-12 mx-auto mb-4" />
-              <p className="text-[10px] uppercase tracking-widest font-bold">No active collections found in archive</p>
-            </div>
-          )}
+          ))}
         </div>
 
-        <div className="mt-48 text-center">
+        <div className="mt-32 text-center">
           <Link to="/portfolio">
-            <Button size="lg" className="bg-transparent border border-white/10 hover:border-primary hover:bg-primary hover:text-black rounded-full px-16 h-16 uppercase text-[11px] tracking-[0.3em] font-bold transition-all duration-700">
-              View Global Archives
+            <Button size="lg" className="bg-[#A37E43] hover:bg-[#8D6B37] text-white rounded-none px-12 h-16 uppercase text-[10px] tracking-[0.3em] font-bold transition-all duration-300">
+              EXPLORE TIMELINE ARCHIVE
             </Button>
           </Link>
         </div>

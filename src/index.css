@@ -10,26 +10,26 @@
 }
 
 :root {
-    --background: #050505;
-    --foreground: #ffffff;
-    --card: #0a0a0a;
-    --card-foreground: #ffffff;
-    --popover: #0a0a0a;
-    --popover-foreground: #ffffff;
-    --primary: #D4AF37;
-    --primary-foreground: #000000;
-    --secondary: #1a1a1a;
-    --secondary-foreground: #ffffff;
-    --muted: #1a1a1a;
-    --muted-foreground: rgba(255, 255, 255, 0.4);
-    --accent: #D4AF37;
-    --accent-foreground: #000000;
+    --background: #FCFAF6;
+    --foreground: #1A1815;
+    --card: #ffffff;
+    --card-foreground: #1A1815;
+    --popover: #ffffff;
+    --popover-foreground: #1A1815;
+    --primary: #A37E43;
+    --primary-foreground: #ffffff;
+    --secondary: #F3F1ED;
+    --secondary-foreground: #1A1815;
+    --muted: #F8F6F2;
+    --muted-foreground: #7E776E;
+    --accent: #B8975A;
+    --accent-foreground: #ffffff;
     --destructive: #ef4444;
     --destructive-foreground: #ffffff;
-    --border: rgba(255, 255, 255, 0.1);
-    --input: rgba(255, 255, 255, 0.1);
-    --ring: #D4AF37;
-    --radius: 0.75rem;
+    --border: rgba(163, 126, 67, 0.12);
+    --input: rgba(163, 126, 67, 0.15);
+    --ring: #A37E43;
+    --radius: 0px;
 }
 
 @layer base {
@@ -38,7 +38,7 @@
   }
   
   body {
-    @apply bg-[#050505] text-white antialiased font-sans transition-colors duration-500 selection:bg-primary/30 selection:text-white;
+    @apply bg-[#FCFAF6] text-[#1A1815] antialiased font-sans transition-colors duration-500 selection:bg-[#A37E43]/10 selection:text-[#1A1815];
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -51,13 +51,13 @@
 }
 
 .glass {
-  @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  @apply bg-white/70 backdrop-blur-md border border-[#A37E43]/10;
 }
 
 .glass-dark {
-  @apply bg-black/40 backdrop-blur-md border border-white/10;
+  @apply bg-[#1A1815]/95 backdrop-blur-md border border-white/5;
 }
 
 .frosted-white {
-  @apply bg-white/5 backdrop-blur-lg border border-white/20;
+  @apply bg-white/85 backdrop-blur-xl border border-[#A37E43]/12;
 }
