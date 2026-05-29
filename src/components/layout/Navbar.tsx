@@ -26,9 +26,9 @@ const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: 'Portfolio', path: '/portfolio' },
-    { name: 'Categories', path: '/#categories' },
     { name: 'Book a Shoot', path: '/booking' },
-    { name: 'About', path: '/#about' },
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' },
   ];
 
   return (
@@ -44,11 +44,10 @@ const Navbar: React.FC = () => {
           <div className="flex gap-6 lg:gap-8 text-[11px] uppercase tracking-[0.3em] font-medium">
             {[
               { name: 'HOME', path: '/' },
-              { name: 'ABOUT', path: '/#about' },
+              { name: 'ABOUT', path: '/about' },
               { name: 'GALLERIES', path: '/portfolio' },
               { name: 'SERVICES', path: '/booking' },
-              { name: 'BLOG', path: '/#about' },
-              { name: 'CONTACT', path: '/#about' }
+              { name: 'CONTACT', path: '/contact' }
             ].map((link) => (
               <Link
                 key={link.name}

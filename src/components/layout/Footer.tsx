@@ -21,9 +21,10 @@ const Footer: React.FC = () => {
           <div className="space-y-6">
             <h5 className="text-[10px] uppercase tracking-[0.4em] font-bold text-white/40">Studio Archive</h5>
             <ul className="space-y-4 text-[11px] uppercase tracking-widest font-bold">
+              <li><a href="/about" className="text-zinc-400 hover:text-primary transition-colors">About Studio</a></li>
               <li><a href="/portfolio" className="text-zinc-400 hover:text-primary transition-colors">Portfolios</a></li>
-              <li><a href="/#categories" className="text-zinc-400 hover:text-primary transition-colors">Collections</a></li>
               <li><a href="/booking" className="text-zinc-400 hover:text-primary transition-colors">Commissions</a></li>
+              <li><a href="/contact" className="text-zinc-400 hover:text-primary transition-colors">Contact Studio</a></li>
             </ul>
           </div>
 

@@ -321,11 +321,13 @@ const AdminPage: React.FC = () => {
               Seed Studio
             </Button>
             <Dialog>
-              <DialogTrigger asChild>
-                <Button className="bg-[#A37E43] hover:bg-[#8D6B37] text-white rounded-none uppercase font-bold text-[9px] tracking-widest px-6 h-12">
-                  <Plus className="w-3.5 h-3.5 mr-2" /> New Collection
-                </Button>
-              </DialogTrigger>
+              <DialogTrigger
+                render={
+                  <Button className="bg-[#A37E43] hover:bg-[#8D6B37] text-white rounded-none uppercase font-bold text-[9px] tracking-widest px-6 h-12">
+                    <Plus className="w-3.5 h-3.5 mr-2" /> New Collection
+                  </Button>
+                }
+              />
               <DialogContent className="bg-[#FCFAF6] border border-[#A37E43]/15 p-8 rounded-none max-w-2xl text-zinc-905">
                 <DialogHeader>
                   <DialogTitle className="text-2xl font-serif text-zinc-900">Collection Blueprint</DialogTitle>

@@ -14,6 +14,8 @@ import DashboardPage from './pages/DashboardPage';
 import AdminPage from './pages/AdminPage';
 import AlbumPage from './pages/AlbumPage';
 import BookingPage from './pages/BookingPage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode; adminOnly?: boolean }> = ({ children, adminOnly }) => {
   const { user, profile, loading, isAdmin } = useAuth();
@@ -50,6 +52,8 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/portfolio" element={<PortfolioPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/album/:id" element={<AlbumPage />} />
             <Route path="/booking" element={<BookingPage />} />
             
