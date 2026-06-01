@@ -22,13 +22,13 @@ const AboutPage: React.FC = () => {
         {/* Editorial Heading */}
         <div className="space-y-4 mb-16 sm:mb-20">
           <span className="text-[10px] tracking-[0.5em] uppercase font-bold text-[#A37E43]">
-            Creative Statement
+            Our Story
           </span>
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif tracking-tight leading-[1.1] text-zinc-900">
             About the <span className="italic text-[#A37E43]">Artist</span>
           </h1>
           <p className="max-w-xl text-zinc-500 font-light text-xs sm:text-sm md:text-base leading-relaxed mt-4">
-            A comprehensive overview of our creative methodology, refined technical vision, and studio legacy.
+            A simple welcome to our photography world, our story, our cameras, and how we capture beautiful memories for you.
           </p>
         </div>
 
@@ -52,7 +52,7 @@ const AboutPage: React.FC = () => {
             <div className="bg-[#FAF8F4] p-6 sm:p-8 border border-[#A37E43]/10">
               <h3 className="text-xs uppercase tracking-[0.2em] font-bold text-[#A37E43] mb-4">Studio Principles</h3>
               <p className="text-[11px] sm:text-xs text-zinc-500 leading-relaxed font-light">
-                Every individual is a walking masterpiece. True portraiture is not an act of capture, but an elegant dance of trust, light exploration, and silent storytelling.
+                Every person has a beautiful story to tell. For us, photography is about creating a friendly bond of trust, playing with natural light, and capturing your genuine smiles.
               </p>
             </div>
           </motion.div>
@@ -60,14 +60,14 @@ const AboutPage: React.FC = () => {
           <div className="lg:col-span-7 space-y-8 sm:space-y-12">
             <div className="space-y-6">
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-zinc-900 leading-tight">
-                “Light is my legacy; raw emotion is my medium.”
+                “Capturing happy emotions with natural light is my passion.”
               </h2>
               <div className="h-[1px] w-20 bg-[#A37E43]/40" />
               <p className="text-zinc-600 font-light leading-relaxed text-xs sm:text-sm md:text-base">
-                For over a decade, we have traveled across continents drafting beautiful moments for royal weddings, lifestyle editorials, and high-fashion directories. Based in a warm, state-of-the-art visual archive, we craft luxury editorial films and photographs that defy typical temporal boundaries.
+                For over ten years, we have traveled across India and abroad capturing beautiful moments for gorgeous weddings, pre-wedding functions, and family celebrations. Operating from our comfortable studio, we make timeless films and photographs that you and your family can cherish forever.
               </p>
               <p className="text-zinc-600 font-light leading-relaxed text-xs sm:text-sm md:text-base">
-                Our distinct method blends contemporary documentary style with beautiful renaissance lighting, producing imagery that feels both fresh today and incredibly nostalgic generations down the road.
+                Our style focuses on natural candid moments mixed with soft cinematic light. This makes every picture look fresh and lively today, and keeps your memories sweet forever.
               </p>
             </div>
 
@@ -76,20 +76,20 @@ const AboutPage: React.FC = () => {
               <div className="space-y-2">
                 <div className="flex items-center gap-3">
                   <Compass className="w-5 h-5 text-[#A37E43]" />
-                  <h4 className="text-xs uppercase tracking-widest font-bold">Uncompromising Vision</h4>
+                  <h4 className="text-xs uppercase tracking-widest font-bold">Our Honest Vision</h4>
                 </div>
                 <p className="text-zinc-500 text-xs font-light leading-relaxed">
-                  Refined composition processes curated perfectly for the unique aesthetic palette of every esteemed client.
+                  We carefully plan every photo shoot to suit your personal style, comfort, and functions elegantly.
                 </p>
               </div>
 
               <div className="space-y-2">
                 <div className="flex items-center gap-3">
                   <Award className="w-5 h-5 text-[#A37E43]" />
-                  <h4 className="text-xs uppercase tracking-widest font-bold">Award-Winning Standard</h4>
+                  <h4 className="text-xs uppercase tracking-widest font-bold">High Quality Standards</h4>
                 </div>
                 <p className="text-zinc-500 text-xs font-light leading-relaxed">
-                  Published across major creative fashion catalogs and celebrated globally for our pristine emotional candor.
+                  Loved by family clients and couples alike for our highly natural candid photographs and professional service.
                 </p>
               </div>
             </div>
@@ -99,10 +99,10 @@ const AboutPage: React.FC = () => {
         {/* Equipment & Gear Showcase */}
         <div className="border-t border-[#A37E43]/10 pt-16 sm:pt-24 mb-20 sm:mb-28">
           <div className="text-center space-y-3 mb-12 sm:mb-16">
-            <h3 className="text-xs uppercase tracking-[0.4em] text-[#A37E43] font-bold">TECHNICAL PRECISION</h3>
+            <h3 className="text-xs uppercase tracking-[0.4em] text-[#A37E43] font-bold">OUR CAMERAS & LENSES</h3>
             <h2 className="text-2xl sm:text-4xl font-serif text-zinc-900">Equipment Showcase</h2>
             <p className="text-zinc-500 max-w-md mx-auto text-xs font-light px-4">
-              Only the highest caliber medium format sensors and legendary prime optics are trusted to document your timeless treasures.
+              We use professional high-end cameras and top-quality lenses to make your photo memories look crisp, colorful, and beautiful.
             </p>
           </div>
 

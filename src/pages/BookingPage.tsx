@@ -16,20 +16,20 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useAuth } from '@/context/AuthContext';
 
 const sessionTypes = [
-  { id: 'wedding', name: 'Wedding Anthology', icon: Camera, desc: 'Bespoke documentation of your union.' },
-  { id: 'fashion', name: 'Fashion Editorial', icon: Sparkles, desc: 'High-concept visual storytelling.' },
-  { id: 'portrait', name: 'Heritage Portrait', icon: Camera, desc: 'Authentic medium-format captures.' },
-  { id: 'travel', name: 'Travel & Lifestyle', icon: Compass, desc: 'Cinematic destination excursions.' },
+  { id: 'wedding', name: 'Wedding Shoot', icon: Camera, desc: 'Beautiful captures of your happy marriage ceremonies.' },
+  { id: 'fashion', name: 'Fashion Professional', icon: Sparkles, desc: 'Clean creative shoots for styling and lifestyle brands.' },
+  { id: 'portrait', name: 'Personal Portrait', icon: Camera, desc: 'Natural individual portraits and professional headshots.' },
+  { id: 'travel', name: 'Pre-Wedding & Travel', icon: Compass, desc: 'Cinematic pre-wedding shoots in beautiful locations.' },
 ];
 
 const packages = [
-  { id: 'essential', name: 'Essential Archive', price: 950, features: ['4 Hours Coverage', '150 High-Res Master files', 'Private Handcrafted Gallery', 'Personal Print License'] },
-  { id: 'signature', name: 'Signature Suite', price: 1900, features: ['8 Hours Coverage', '350 High-Res Master files', 'Fine-Art Keepsake Box', 'Private Online Gallery', '2nd Professional Photographer'] },
-  { id: 'masterpiece', name: 'Masterpiece Commission', price: 3800, features: ['Full Day Coverage', '550+ Cinematic Captures', 'Handmade Leather Album', 'Highlight Video reel', 'Priority 48hr delivery'] },
+  { id: 'essential', name: 'Essential Package', price: 950, features: ['4 Hours Shoot', '150 High-Quality Digital Photos', 'Private Secure Online Gallery', 'Full Print Rights Included'] },
+  { id: 'signature', name: 'Signature Package', price: 1900, features: ['8 Hours Shoot', '350 High-Quality Digital Photos', 'Beautiful Printed Gift Box', 'Private Online Gallery', 'Two Professional Photographers'] },
+  { id: 'masterpiece', name: 'Premium Album Package', price: 3800, features: ['Full Day Shoot', '550+ Cinematic Photos', 'Handmade Leather Photo Album', 'HD Highlight Video Reel', 'Fast 48-Hour Delivery'] },
 ];
 
 const timeSlots = [
-  '09:00 AM (Soft sunrise)', '11:30 AM (Bright sky)', '02:00 PM (Direct studio)', '04:30 PM (Golden hour)', '07:00 PM (Twilight blue)'
+  '09:00 AM (Early morning shoot)', '11:30 AM (Midday session)', '02:00 PM (Afternoon studio)', '04:30 PM (Sunset timing)', '07:00 PM (Evening twilight)'
 ];
 
 const BookingPage: React.FC = () => {
@@ -105,13 +105,13 @@ const BookingPage: React.FC = () => {
         {/* Upper Editorial Title */}
         <div className="text-center space-y-4 mb-20">
           <span className="text-[10px] tracking-[0.5em] font-bold uppercase text-[#A37E43]">
-            Atelier reservation
+            Studio Booking
           </span>
           <h1 className="text-4xl sm:text-6xl font-serif text-zinc-900 tracking-tight">
-            Schedule <span className="italic text-[#A37E43]">Production</span>
+            Book a <span className="italic text-[#A37E43]">Photoshoot</span>
           </h1>
-          <p className="max-w-md mx-auto text-xs sm:text-sm text-zinc-500 font-light leading-relaxed">
-            Specify your timeline, artistic genre, and chosen session package parameters to reserve your visual heirloom.
+          <p className="max-w-xl mx-auto text-xs sm:text-sm text-zinc-500 font-light leading-relaxed">
+            Choose your preferred date, shoot style, and package to quickly and easily book your photoshoot session with our expert team.
           </p>
         </div>
 
@@ -122,11 +122,11 @@ const BookingPage: React.FC = () => {
             {/* Live Progress Nodes */}
             <div className="space-y-6 relative pl-3 border-l border-[#A37E43]/15">
               {[
-                { s: 1, title: 'Artistic Genre', sub: 'Chose medium format style' },
-                { s: 2, title: 'Inclusion Tier', sub: 'Archive parameters' },
-                { s: 3, title: 'Temporal slot', sub: 'Calendar & Daylight hour' },
-                { s: 4, title: 'Registration Brief', sub: 'Entity contact information' },
-                { s: 5, title: 'Bespoke Clearing', sub: 'Initialization summary' }
+                { s: 1, title: 'Shoot Style', sub: 'Choose your shoot category' },
+                { s: 2, title: 'Session Package', sub: 'Choose your pricing plan' },
+                { s: 3, title: 'Date & Time', sub: 'Select date and preferred slot' },
+                { s: 4, title: 'Your Details', sub: 'Enter your contact info' },
+                { s: 5, title: 'Final Summary', sub: 'Review shoot parameters' }
               ].map((item) => (
                 <div key={item.s} className="flex gap-4 items-center relative py-1">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center border text-[10px] font-bold transition-all duration-500 ${
@@ -156,28 +156,28 @@ const BookingPage: React.FC = () => {
             {/* Offline Studio Information Map and details */}
             <div className="bg-white border border-[#A37E43]/10 p-8 rounded-none space-y-6 shadow-sm">
               <h4 className="text-xs uppercase font-bold tracking-widest text-[#A37E43]">
-                PHYSICAL ATELIER
+                OUR STUDIO
               </h4>
               <div className="space-y-4 text-xs font-light text-zinc-650">
                 <p className="flex items-start gap-2 leading-relaxed">
                   <MapPin className="w-4 h-4 text-[#A37E43] shrink-0 mt-0.5" />
-                  <span>Suite 45, Rue de l'Académie, 75006 Paris, France</span>
+                  <span>Colaba Causeway, Block A, Mumbai, India</span>
                 </p>
                 <p className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-[#A37E43] shrink-0" />
-                  <span>+33 1 45 67 89 00</span>
+                  <span>+91 9075910381</span>
                 </p>
                 <p className="flex items-center gap-2">
                   <Mail className="w-4 h-4 text-[#A37E43] shrink-0" />
-                  <span>atelier@vsstudios.com</span>
+                  <span>shoot@vsphotography.in</span>
                 </p>
               </div>
 
               {/* High-End Direct Map embed Iframe */}
               <div className="h-44 w-full border border-[#A37E43]/10 overflow-hidden relative">
                 <iframe
-                  title="VS Studio Paris Map"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9916256937586!2d2.32996231567439!3d48.8583700792873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2sParis%2C%20France!5e0!3m2!1sen!2sus!4v1689201994321!5m2!1sen!2sus"
+                  title="VS Photography Studio Map"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.9711677332215!2d72.8272!3d18.9156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1bfc9b!2sColaba%20Causeway%2C%20Apollo%20Bandar%2C%20Colaba%2C%20Mumbai%20400001!5e0!3m2!1sen!2sin!4v1689201994321!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0, filter: 'grayscale(0.85) contrast(1.1)' }}
@@ -192,7 +192,7 @@ const BookingPage: React.FC = () => {
                 <a href="https://wa.me/919075910381" target="_blank" rel="noopener noreferrer">
                   <Button variant="outline" className="w-full h-12 border-[#A37E43]/30 hover:border-[#A37E43] hover:bg-[#A37E43]/5 text-[#A37E43] rounded-none uppercase text-[9px] tracking-widest font-bold flex items-center justify-center gap-2 transition-all">
                     <MessageSquare className="w-4 h-4" />
-                    CHOP CONCIERGE ON WHATSAPP
+                    CHAT WITH US ON WHATSAPP
                   </Button>
                 </a>
               </div>
@@ -208,7 +208,7 @@ const BookingPage: React.FC = () => {
               {step === 1 && (
                 <motion.div key="st1" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} className="space-y-6">
                   <h3 className="text-xl font-serif text-zinc-900 border-b border-[#A37E43]/10 pb-3">
-                    01. Select Photographic Genre
+                    01. Select Photography Style
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {sessionTypes.map((type) => (
@@ -242,7 +242,7 @@ const BookingPage: React.FC = () => {
               {step === 2 && (
                 <motion.div key="st2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
                   <h3 className="text-xl font-serif text-zinc-900 border-b border-[#A37E43]/10 pb-3 flex justify-between items-center">
-                    <span>02. Choose Archival Tier</span>
+                    <span>02. Choose Session Package</span>
                     <button onClick={prevStep} className="text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-900">&larr; Back</button>
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -275,7 +275,7 @@ const BookingPage: React.FC = () => {
                             selectedPackage === pkg.id ? 'bg-[#A37E43] text-white' : 'bg-transparent border border-[#A37E43]/30 text-[#A37E43] hover:bg-[#A37E43] hover:text-white'
                           }`}
                         >
-                          SELECT TIER &rarr;
+                          SELECT PLAN &rarr;
                         </Button>
                       </div>
                     ))}
@@ -287,7 +287,7 @@ const BookingPage: React.FC = () => {
               {step === 3 && (
                 <motion.div key="st3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8">
                   <h3 className="text-xl font-serif text-zinc-900 border-b border-[#A37E43]/10 pb-3 flex justify-between items-center">
-                    <span>03. Temporal Slot的选择</span>
+                    <span>03. Choose your Date & Time</span>
                     <button onClick={prevStep} className="text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-900">&larr; Back</button>
                   </h3>
 
@@ -304,7 +304,7 @@ const BookingPage: React.FC = () => {
 
                     <div className="space-y-5 flex flex-col justify-between">
                       <div className="space-y-3">
-                        <Label className="text-[10px] uppercase font-bold tracking-widest text-[#A37E43]">Daylight Hour Choice</Label>
+                        <Label className="text-[10px] uppercase font-bold tracking-widest text-[#A37E43]">Select Preferred Time Slot</Label>
                         <div className="space-y-2">
                           {timeSlots.map(slot => (
                             <button
@@ -331,7 +331,7 @@ const BookingPage: React.FC = () => {
                         onClick={nextStep}
                         className="h-14 bg-[#A37E43] hover:bg-[#8D6B37] text-white rounded-none font-bold uppercase tracking-[0.3em] text-[10px]"
                       >
-                        CONFIRM CHRONOLOGY &rarr;
+                        CONFIRM DATE & TIME &rarr;
                       </Button>
                     </div>
                   </div>
@@ -342,17 +342,17 @@ const BookingPage: React.FC = () => {
               {step === 4 && (
                 <motion.div key="st4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
                   <h3 className="text-xl font-serif text-zinc-900 border-b border-[#A37E43]/10 pb-3 flex justify-between items-center">
-                    <span>04. Client Brief & Registry</span>
+                    <span>04. Your Contact Details</span>
                     <button onClick={prevStep} className="text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-900">&larr; Back</button>
                   </h3>
 
                   <div className="bg-white border border-[#A37E43]/10 p-8 space-y-6 rounded-none shadow-sm">
                     <div className="space-y-2">
-                      <Label className="text-[10px] uppercase font-bold tracking-widest text-zinc-500">Full Name</Label>
+                       <Label className="text-[10px] uppercase font-bold tracking-widest text-zinc-500">Your Full Name</Label>
                       <Input
                         value={clientInfo.name}
                         onChange={e => setClientInfo({...clientInfo, name: e.target.value})}
-                        placeholder="e.g. Sarah Elizabeth Jenkins"
+                        placeholder="e.g. Pooja Sharma"
                         className="h-12 border-[#A37E43]/15 rounded-none px-4 text-sm focus-visible:ring-[#A37E43]"
                       />
                     </div>
@@ -363,28 +363,28 @@ const BookingPage: React.FC = () => {
                         <Input
                           value={clientInfo.email}
                           onChange={e => setClientInfo({...clientInfo, email: e.target.value})}
-                          placeholder="e.g. sarah@example.com"
+                          placeholder="e.g. pooja@example.com"
                           type="email"
                           className="h-12 border-[#A37E43]/15 rounded-none px-4 text-sm focus-visible:ring-[#A37E43]"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label className="text-[10px] uppercase font-bold tracking-widest text-zinc-500">Phone Code</Label>
+                        <Label className="text-[10px] uppercase font-bold tracking-widest text-zinc-500">Phone Number</Label>
                         <Input
                           value={clientInfo.phone}
                           onChange={e => setClientInfo({...clientInfo, phone: e.target.value})}
-                          placeholder="e.g. +1 (555) 234-5678"
+                          placeholder="e.g. +91 98765 43210"
                           className="h-12 border-[#A37E43]/15 rounded-none px-4 text-sm focus-visible:ring-[#A37E43]"
                         />
                       </div>
                     </div>
 
                     <div className="space-y-2">
-                      <Label className="text-[10px] uppercase font-bold tracking-widest text-zinc-500">Atmospheric Notes & Creative Desires</Label>
+                      <Label className="text-[10px] uppercase font-bold tracking-widest text-zinc-500">Your Specific Requirements & Desires</Label>
                       <Textarea
                         value={clientInfo.notes}
                         onChange={e => setClientInfo({...clientInfo, notes: e.target.value})}
-                        placeholder="Detail any destination logistics, stylistic lookboards, or specific portraits requested..."
+                        placeholder="Please tell us about your event locations, special requests, timeline, or exact timing..."
                         className="min-h-[140px] border-[#A37E43]/15 rounded-none p-4 text-sm focus-visible:ring-[#A37E43]"
                       />
                     </div>
@@ -394,7 +394,7 @@ const BookingPage: React.FC = () => {
                       onClick={nextStep}
                       className="w-full h-14 bg-[#A37E43] hover:bg-[#8D6B37] text-white font-bold uppercase tracking-[0.3em] text-[10px] rounded-none shadow-md"
                     >
-                      CLEAR TO SUMMARIZE &rarr;
+                      PROCEED TO SUMMARY &rarr;
                     </Button>
                   </div>
                 </motion.div>
@@ -404,29 +404,29 @@ const BookingPage: React.FC = () => {
               {step === 5 && (
                 <motion.div key="st5" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
                   <h3 className="text-xl font-serif text-zinc-900 border-b border-[#A37E43]/10 pb-3 flex justify-between items-center">
-                    <span>05. Secured Production Clearing</span>
+                    <span>05. Review & Confirm</span>
                     <button onClick={prevStep} className="text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-900">&larr; Back</button>
                   </h3>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Summary Card */}
                     <div className="bg-white border border-[#A37E43]/15 p-8 rounded-none space-y-6 shadow-sm">
-                      <h4 className="text-[10px] uppercase font-bold tracking-[0.3em] text-[#A37E43]">Commission Statement</h4>
+                      <h4 className="text-[10px] uppercase font-bold tracking-[0.3em] text-[#A37E43]">Your Booking Summary</h4>
                       <div className="space-y-4 text-sm">
                         <div className="flex justify-between border-b border-[#A37E43]/10 pb-3">
-                          <span className="text-zinc-500">Tier:</span>
+                          <span className="text-zinc-500">Package Plan:</span>
                           <span className="font-bold text-zinc-905">{selectedPackageData?.name}</span>
                         </div>
                         <div className="flex justify-between border-b border-[#A37E43]/10 pb-3">
-                          <span className="text-zinc-500">Genre:</span>
+                          <span className="text-zinc-500">Shoot Style:</span>
                           <span className="font-semibold text-zinc-905">{session}</span>
                         </div>
                         <div className="flex justify-between border-b border-[#A37E43]/10 pb-3">
-                          <span className="text-zinc-500">Target Date:</span>
+                          <span className="text-zinc-500">Selected Date:</span>
                           <span className="font-semibold text-zinc-905">{date?.toDateString()}</span>
                         </div>
                         <div className="flex justify-between border-b border-[#A37E43]/10 pb-3">
-                          <span className="text-zinc-500">Chosen hour:</span>
+                          <span className="text-zinc-500">Time Slot:</span>
                           <span className="font-semibold text-[#A37E43]">{timeSlot}</span>
                         </div>
                         <div className="flex justify-between pt-2">
@@ -437,16 +437,16 @@ const BookingPage: React.FC = () => {
 
                       <div className="bg-[#FCFAF6] border border-[#A37E43]/10 p-4 flex gap-3 text-zinc-500 text-[10px] tracking-wide leading-relaxed uppercase">
                         <ShieldCheck className="w-5 h-5 text-[#A37E43] shrink-0" />
-                        <span>The commission files will be stored permanently inside your secure private Client Gallery for high-res downloads.</span>
+                        <span>Your high-quality photos will be secure inside your private client gallery for safe downloads.</span>
                       </div>
                     </div>
 
                     {/* Submit Actions */}
                     <div className="bg-white border border-[#A37E43]/15 p-8 rounded-none space-y-6 shadow-sm flex flex-col justify-between">
                       <div className="space-y-4">
-                        <h4 className="text-[10px] uppercase font-bold tracking-[0.3em] text-zinc-400">Instantiate Request</h4>
+                        <h4 className="text-[10px] uppercase font-bold tracking-[0.3em] text-zinc-400">Request Photoshoot Session</h4>
                         <p className="text-xs text-zinc-500 font-light leading-relaxed">
-                          By clicking below, you submit your photographic parameters to the VS Studio curating team. No immediate financial credit card charge occurs until scope alignment.
+                          By submitting, you reserve this slot with the VS Photography team. No payment is charged right now. We will call you to discuss setup details first.
                         </p>
                       </div>
 
@@ -459,7 +459,7 @@ const BookingPage: React.FC = () => {
                           <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                         ) : (
                           <>
-                            CONFIRM COMMISSION &rarr;
+                            CONFIRM BOOKING &rarr;
                           </>
                         )}
                       </Button>
@@ -476,9 +476,9 @@ const BookingPage: React.FC = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <h2 className="text-3xl font-serif text-zinc-900 leading-tight">Timeline Secured!</h2>
+                    <h2 className="text-3xl font-serif text-zinc-900 leading-tight">Photoshoot Booked!</h2>
                     <p className="text-zinc-500 font-light text-xs sm:text-sm leading-relaxed max-w-sm mx-auto">
-                      Thank you. Your request has been written successfully to our archive. Our chief director will reach out within 2 daylight hours to finalize coordinates.
+                      Thank you so much! Your booking request has been saved successfully. We will call you within 2-4 hours to discuss and finalize the details.
                     </p>
                   </div>
 
@@ -486,11 +486,11 @@ const BookingPage: React.FC = () => {
                     <a href="https://wa.me/919075910381" target="_blank" rel="noopener noreferrer">
                       <Button className="w-full h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-bold uppercase tracking-widest text-[9px] rounded-none flex items-center justify-center gap-2">
                         <MessageSquare className="w-4 h-4" />
-                        INSTANT WHATSAPP CONNECT
+                        CHAT ON WHATSAPP
                       </Button>
                     </a>
                     <Button onClick={() => setStep(1)} className="w-full h-12 bg-transparent hover:bg-zinc-100 text-zinc-500 border border-zinc-200 uppercase tracking-widest text-[9px] rounded-none">
-                      BOOK ANOTHER EVENT
+                      BOOK ANOTHER SHOOT
                     </Button>
                   </div>
                 </motion.div>

@@ -3,12 +3,12 @@ import { motion } from 'motion/react';
 import { Heart, Sparkles, User, Mountain, Smile } from 'lucide-react';
 
 const categories = [
-  { id: 'wedding', name: 'WEDDINGS', icon: Heart, img: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop' },
-  { id: 'maternity', name: 'MATERNITY', icon: Sparkles, img: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=800&auto=format&fit=crop' },
-  { id: 'portraits', name: 'PORTRAITS', icon: User, img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop' },
-  { id: 'landscapes', name: 'LANDSCAPES', icon: Mountain, img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=800&auto=format&fit=crop' },
-  { id: 'couples', name: 'COUPLES', icon: Heart, img: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=800&auto=format&fit=crop' },
-  { id: 'kids', name: 'KIDS', icon: Smile, img: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?q=80&w=800&auto=format&fit=crop' },
+  { id: 'wedding', name: 'MARRIAGE FUNCTIONS', icon: Heart, img: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop' },
+  { id: 'maternity', name: 'MATERNITY SHOOTS', icon: Sparkles, img: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=800&auto=format&fit=crop' },
+  { id: 'portraits', name: 'PERSONAL PORTRAITS', icon: User, img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop' },
+  { id: 'landscapes', name: 'NATURE & TRAVELS', icon: Mountain, img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=800&auto=format&fit=crop' },
+  { id: 'couples', name: 'COUPLE SHOOTS', icon: Heart, img: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=800&auto=format&fit=crop' },
+  { id: 'kids', name: 'KIDS & BABIES', icon: Smile, img: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?q=80&w=800&auto=format&fit=crop' },
 ];
 
 const Categories: React.FC = () => {

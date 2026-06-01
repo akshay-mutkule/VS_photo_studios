@@ -5,9 +5,9 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
 const testimonials = [
-  { name: 'Sarah & Michael McAvoy', role: 'Amalfi Coast Wedding', text: '“VS didn’t just take photos; they captured the soul of our wedding ceremony. The medium-format cinematic depth is absolutely breathtaking.”', rating: 5 },
-  { name: 'Marcus Chen', role: 'Creative Director, Atelier Paris', text: '“The best studio vision I have collaborated with. Their manipulation of morning backlight is exemplary.”', rating: 5 },
-  { name: 'Isabella Vance-Ross', role: 'Fine-Art Portrait Client', text: '“Highly professional, calm, and astonishingly fast. Our personal gallery has become our family’s centerpiece heirloom.”', rating: 5 },
+  { name: 'Ananya & Rohan Sharma', role: 'Royal Udaipur Wedding', text: '“VS is an amazing photographer! They did not just click pictures, but captured the true emotion of our marriage ceremony. The photos are beautifully clear and natural.”', rating: 5 },
+  { name: 'Amit Patel', role: 'Portrait & Family Client', text: '“Very professional and polite studio team. They made us feel super comfortable during our family photo shoot. The delivery was also fast!”', rating: 5 },
+  { name: 'Priya Deshmukh', role: 'Fashion & Event Client', text: '“Highly recommended! The way they capture lighting and real smiles is very beautiful. Our family custom album looks like a piece of art.”', rating: 5 },
 ];
 
 const AboutAndAwards: React.FC = () => {
@@ -36,7 +36,7 @@ const AboutAndAwards: React.FC = () => {
             </div>
 
             <p className="text-zinc-600 text-sm leading-relaxed font-light font-sans">
-              I believe every landmark event is a quiet collection of masterpiece moments waiting to be written. My process is calm, tailored, and carefully engineered to capture the emotional reality of your lifetime milestones.
+              I believe every family celebration and special event is full of beautiful emotions that deserve to be saved forever. My photoshoot style is very simple, natural, and helpful, so that you feel fully comfortable during your shoots, helping us capture sweet family moments and real smiles.
             </p>
 
             <p className="text-3xl text-[#A37E43] font-serif italic tracking-wide font-normal py-2">
@@ -73,10 +73,10 @@ const AboutAndAwards: React.FC = () => {
         <div className="mt-24 sm:mt-32 border-t border-b border-[#A37E43]/10 py-12 bg-white/40">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 divide-y lg:divide-y-0 lg:divide-x divide-[#A37E43]/10">
             {[
-              { icon: Camera, val: "10+", label: "YEARS ARCHIVE" },
-              { icon: Users, val: "450+", label: "TIMELINE PORTRAITS" },
-              { icon: LucideImage, val: "1500+", label: "COMMISSIONS" },
-              { icon: Heart, val: "100%", label: "DEVOTED CARE" }
+              { icon: Camera, val: "10+", label: "YEARS EXPERIENCE" },
+              { icon: Users, val: "450+", label: "HAPPY FAMILIES" },
+              { icon: LucideImage, val: "1500+", label: "COMPLETED SESSIONS" },
+              { icon: Heart, val: "100%", label: "HAPPY CLIENTS" }
             ].map((stat, idx) => (
               <div key={idx} className="flex flex-col items-center text-center px-4 py-6 lg:py-4 space-y-2 justify-center">
                 <stat.icon className="w-5 h-5 text-[#A37E43]" />
@@ -153,9 +153,9 @@ const AboutAndAwards: React.FC = () => {
           <div className="absolute inset-0 bg-[#FAF8F5]/50 bg-[url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2071&auto=format&fit=crop')] opacity-[0.02] bg-cover bg-center grayscale" />
           <div className="relative z-10 space-y-8 sm:space-y-12">
             <h4 className="text-4xl sm:text-6xl md:text-7xl font-serif text-zinc-900 tracking-tight leading-[1.1]">
-              Ready to sculpt your <br /> <span className="text-[#A37E43] italic font-light decoration-1">Visual Legacy?</span>
+              Ready to plan your <br /> <span className="text-[#A37E43] italic font-light decoration-1">Dream Photoshoot?</span>
             </h4>
-            <p className="text-zinc-500 max-w-xl mx-auto font-serif italic text-sm sm:text-base leading-relaxed opacity-90">Custom productions are currently open for the 2026/2027 season. Initial consultation is complimentary for international visions.</p>
+            <p className="text-zinc-500 max-w-xl mx-auto font-serif italic text-sm sm:text-base leading-relaxed opacity-90">Bookings are fully open for the 2026/2027 marriage and festival seasons. Friendly chats and consultation are completely free.</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 pt-6 sm:pt-8 w-full max-w-md mx-auto">
               <Link to="/booking" className="w-full sm:w-auto">
                 <Button size="lg" className="bg-[#A37E43] hover:bg-[#8D6B37] text-white rounded-none w-full sm:px-12 h-16 uppercase font-bold tracking-[0.3em] text-[10px] sm:text-xs transition-all duration-300 border border-transparent">

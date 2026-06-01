@@ -22,14 +22,14 @@ const PortfolioPage: React.FC = () => {
             <div className="flex items-center gap-3">
               <div className="h-[1px] w-12 bg-[#A37E43]" />
               <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#A37E43]">
-                The Creative Archive
+                Our Master Gallery
               </span>
             </div>
             <h1 className="text-5xl sm:text-7xl font-serif text-zinc-900 tracking-tight leading-none">
-              Silent <span className="italic text-[#A37E43] font-light">Dialogues</span>
+              Beautiful <span className="italic text-[#A37E43] font-light">Shoots</span>
             </h1>
             <p className="text-zinc-500 font-light font-sans text-sm sm:text-base leading-relaxed">
-              Explore our meticulously curated selection of editorial visual narratives, categorized elegantly by theme, geography, and emotional residue.
+              Browse through our premium collection of marriage moments, pre-wedding functions, happy families, and fashion portraits captured beautifully.
             </p>
           </div>
 
@@ -40,7 +40,7 @@ const PortfolioPage: React.FC = () => {
               <Input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="SEARCH ARCHIVE..."
+                placeholder="SEARCH GALLERY..."
                 className="bg-white border-[#A37E43]/15 h-14 pl-14 pr-6 rounded-none text-[10px] uppercase tracking-widest font-semibold focus-visible:ring-1 focus-visible:ring-[#A37E43]/40"
               />
             </div>
@@ -70,14 +70,14 @@ const PortfolioPage: React.FC = () => {
         {/* Consultation Call Action Block */}
         <div className="mt-32 text-center py-16 px-6 bg-white border border-[#A37E43]/10 rounded-none space-y-8 shadow-[0_15px_40px_rgba(163,126,67,0.03)] max-w-4xl mx-auto">
           <div className="space-y-3">
-            <h3 className="text-2xl sm:text-3xl font-serif text-zinc-900">Seeking a custom photographic vision?</h3>
+            <h3 className="text-2xl sm:text-3xl font-serif text-zinc-900">Want to plan a dream photoshoot?</h3>
             <p className="text-zinc-500 max-w-md mx-auto font-sans font-light text-xs sm:text-sm leading-relaxed">
-              We specialize in custom editorial productions and high-end destination projects globally. Let's sculpt your story together.
+              We specialize in custom wedding shoots, premium portraits, and beautiful pre-wedding sessions both in-studio and at gorgeous locations. Let's capture your story beautifully.
             </p>
           </div>
           <Link to="/booking">
             <Button className="bg-[#A37E43] hover:bg-[#8D6B37] text-white px-12 h-16 rounded-none uppercase text-[10px] font-bold tracking-[0.3em] transition-all">
-              INITIATE CONSULTATION
+              BOOK YOUR PHOTOSHOOT
             </Button>
           </Link>
         </div>
