@@ -16,10 +16,10 @@ import { toast } from 'sonner';
 import { QRCodeSVG } from 'qrcode.react';
 
 const mockPhotos: Photo[] = [
-  { id: 'm1', albumId: 'demo', url: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop', thumbnailUrl: '', type: 'image', tags: ['Cinematic', 'Wedding'], favoritesCount: 32, createdAt: new Date() },
-  { id: 'm2', albumId: 'demo', url: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=800&auto=format&fit=crop', thumbnailUrl: '', type: 'image', tags: ['Candid', 'Pre-Wedding'], favoritesCount: 24, createdAt: new Date() },
-  { id: 'm3', albumId: 'demo', url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop', thumbnailUrl: '', type: 'image', tags: ['Editorial', 'Portrait'], favoritesCount: 45, createdAt: new Date() },
-  { id: 'm4', albumId: 'demo', url: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=800&auto=format&fit=crop', thumbnailUrl: '', type: 'image', tags: ['Candid', 'Maternity'], favoritesCount: 19, createdAt: new Date() }
+  { id: 'm1', albumId: 'demo', url: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800&auto=format&fit=crop', thumbnailUrl: '', type: 'image', tags: ['Cinematic', 'Wedding'], favoritesCount: 32, createdAt: new Date() },
+  { id: 'm2', albumId: 'demo', url: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=800&auto=format&fit=crop', thumbnailUrl: '', type: 'image', tags: ['Candid', 'Pre-Wedding'], favoritesCount: 24, createdAt: new Date() },
+  { id: 'm3', albumId: 'demo', url: 'https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=800&auto=format&fit=crop', thumbnailUrl: '', type: 'image', tags: ['Editorial', 'Portrait'], favoritesCount: 45, createdAt: new Date() },
+  { id: 'm4', albumId: 'demo', url: 'https://images.unsplash.com/photo-1614945419451-9f9394bf7eb1?q=80&w=800&auto=format&fit=crop', thumbnailUrl: '', type: 'image', tags: ['Candid', 'Kids'], favoritesCount: 19, createdAt: new Date() }
 ];
 
 const AlbumPage: React.FC = () => {
@@ -62,7 +62,7 @@ const AlbumPage: React.FC = () => {
             title: 'Florence Legacy',
             description: 'A beautiful fine-art editorial archive documenting timeless high-society landscape events.',
             category: 'Wedding',
-            coverImageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop',
+            coverImageUrl: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800&auto=format&fit=crop',
             isPasswordProtected: false,
             createdAt: new Date(),
             updatedAt: new Date()
@@ -76,7 +76,7 @@ const AlbumPage: React.FC = () => {
           title: 'Florence Legacy',
           description: 'A beautiful fine-art editorial archive documenting timeless high-society landscape events.',
           category: 'Wedding',
-          coverImageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop',
+          coverImageUrl: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800&auto=format&fit=crop',
           isPasswordProtected: false,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -286,6 +286,7 @@ const AlbumPage: React.FC = () => {
                 loading="lazy"
                 alt="Studio Collection Item" 
                 className={`w-full h-auto object-cover transition-transform duration-1000 ${selectedPhotos.includes(photo.id) ? 'saturate-100' : 'saturate-75 hover:scale-103'}`} 
+                referrerPolicy="no-referrer"
               />
               
               {/* Overlay elements */}
@@ -368,7 +369,7 @@ const AlbumPage: React.FC = () => {
               </button>
 
               <div className="max-w-4xl max-h-[80vh] flex flex-col items-center">
-                <img src={activePhoto.url} className="max-w-full max-h-[70vh] object-contain border border-[#A37E43]/20 shadow-2xl" alt="" />
+                <img src={activePhoto.url} className="max-w-full max-h-[70vh] object-contain border border-[#A37E43]/20 shadow-2xl" referrerPolicy="no-referrer" alt="" />
                 <div className="flex gap-4 mt-6 text-white text-xs font-serif italic text-center uppercase tracking-widest">
                   <span>PHOTO ARCHIVE KEY &bull; {album.title}</span>
                 </div>

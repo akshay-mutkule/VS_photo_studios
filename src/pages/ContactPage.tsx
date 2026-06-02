@@ -70,9 +70,10 @@ const ContactPage: React.FC = () => {
           <div className="lg:col-span-5 space-y-8">
             <div className="relative overflow-hidden aspect-[16/10] sm:aspect-[21/9] lg:aspect-[4/3] group bg-stone-100 border border-[#A37E43]/10">
               <img
-                src="https://images.unsplash.com/photo-1478147427282-58a87a120781?q=80&w=800&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=800&auto=format&fit=crop"
                 className="w-full h-full object-cover saturate-75 selection:bg-amber-500/20 group-hover:scale-105 transition-transform duration-1000"
                 alt="Studio interior"
+                referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-stone-900/10 mix-blend-overlay" />
               <div className="absolute top-4 left-4 bg-[#FCFAF6] px-3 py-1 border border-[#A37E43]/15 text-[8px] font-bold uppercase tracking-widest text-[#A37E43]">

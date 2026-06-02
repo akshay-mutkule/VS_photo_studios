@@ -6,44 +6,44 @@ import { Link } from 'react-router-dom';
 
 const reviewsList = [
   {
-    name: 'Sarah & David',
-    role: 'Amalfi Coast Wedding',
+    name: 'Sia & Rahul',
+    role: 'Udaipur Palace Wedding',
     text: '“Working with VS was a masterclass in professional artistry. They became part of our wedding, capturing intimate glances and grand landscapes with standard-setting precision. The final leather portfolio represents our family heirloom.”',
     rating: 5,
     avatar: 'S',
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=300&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=300&auto=format&fit=crop'
   },
   {
-    name: 'Marcus Chen',
-    role: 'Editorial Director, ATELIER',
+    name: 'Karan Mehra',
+    role: 'Editorial Director, VOGUE India',
     text: '“VS brings an incredible cinematic perspective to commercial fashion shoots. Their manipulation of natural shadow is unmatched in modern photography circles. An absolute visual professional.”',
     rating: 5,
-    avatar: 'M',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop'
+    avatar: 'K',
+    image: 'https://images.unsplash.com/photo-1607990283143-e81e7a2c93ab?q=80&w=300&auto=format&fit=crop'
   },
   {
-    name: 'Elizabeth Vance',
+    name: 'Priya Patel',
     role: 'Maternity Session',
     text: '“I felt safe, respected, and incredibly beautiful during our studio portrait session. The direction was light, supportive, and perfectly matching the calm, premium vibe of my luxury nursery brand.”',
     rating: 5,
-    avatar: 'E',
-    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=300&auto=format&fit=crop'
+    avatar: 'P',
+    image: 'https://images.unsplash.com/photo-1594744803329-e58b31de215f?q=80&w=300&auto=format&fit=crop'
   },
   {
-    name: 'Oliver Thorne',
-    role: 'Pre-Wedding in Kyoto',
+    name: 'Rohan Malhotra',
+    role: 'Pre-Wedding in Jaipur',
     text: '“The attention to scheduling, geographical backdrops, and post-production detail is staggering. Highly recommended for couples wanting artistic shots that stand apart from templated wedding photography.”',
     rating: 5,
-    avatar: 'O',
-    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=300&auto=format&fit=crop'
+    avatar: 'R',
+    image: 'https://images.unsplash.com/photo-1590086782957-93c06ef21604?q=80&w=300&auto=format&fit=crop'
   },
   {
-    name: 'Victoria & James',
-    role: 'Chateau de Tourreau Wedding',
+    name: 'Aditi & Vikram',
+    role: 'Goa Beach Wedding',
     text: '“Every photograph is a stunning painting. Our guests are perpetually in awe of the golden-hour captures. The online private gallery makes it incredibly simple to curate custom downloads for our families.”',
     rating: 5,
-    avatar: 'V',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop'
+    avatar: 'A',
+    image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=300&auto=format&fit=crop'
   }
 ];
 
@@ -95,7 +95,7 @@ const TestimonialsPage: React.FC = () => {
               <div className="flex items-center gap-4 pt-6 border-t border-[#A37E43]/10">
                 <div className="w-12 h-12 rounded-full overflow-hidden border border-[#A37E43]/20 shrink-0 bg-[#FCFAF6] flex items-center justify-center font-serif text-lg font-bold text-[#A37E43]">
                   {review.image ? (
-                    <img src={review.image} alt={review.name} className="w-full h-full object-cover grayscale" />
+                    <img src={review.image} alt={review.name} className="w-full h-full object-cover grayscale" referrerPolicy="no-referrer" />
                   ) : (
                     review.avatar
                   )}

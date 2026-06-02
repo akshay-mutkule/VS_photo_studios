@@ -3,12 +3,12 @@ import { motion } from 'motion/react';
 import { Heart, Sparkles, User, Mountain, Smile } from 'lucide-react';
 
 const categories = [
-  { id: 'wedding', name: 'MARRIAGE FUNCTIONS', icon: Heart, img: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop' },
-  { id: 'maternity', name: 'MATERNITY SHOOTS', icon: Sparkles, img: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=800&auto=format&fit=crop' },
-  { id: 'portraits', name: 'PERSONAL PORTRAITS', icon: User, img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop' },
-  { id: 'landscapes', name: 'NATURE & TRAVELS', icon: Mountain, img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=800&auto=format&fit=crop' },
-  { id: 'couples', name: 'COUPLE SHOOTS', icon: Heart, img: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=800&auto=format&fit=crop' },
-  { id: 'kids', name: 'KIDS & BABIES', icon: Smile, img: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?q=80&w=800&auto=format&fit=crop' },
+  { id: 'wedding', name: 'MARRIAGE FUNCTIONS', icon: Heart, img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800&auto=format&fit=crop' },
+  { id: 'maternity', name: 'MATERNITY SHOOTS', icon: Sparkles, img: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800&auto=format&fit=crop' },
+  { id: 'portraits', name: 'PERSONAL PORTRAITS', icon: User, img: 'https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=800&auto=format&fit=crop' },
+  { id: 'landscapes', name: 'NATURE & TRAVELS', icon: Mountain, img: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=800&auto=format&fit=crop' },
+  { id: 'couples', name: 'COUPLE SHOOTS', icon: Heart, img: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=800&auto=format&fit=crop' },
+  { id: 'kids', name: 'KIDS & BABIES', icon: Smile, img: 'https://images.unsplash.com/photo-1614945419451-9f9394bf7eb1?q=80&w=800&auto=format&fit=crop' },
 ];
 
 const Categories: React.FC = () => {
@@ -44,6 +44,7 @@ const Categories: React.FC = () => {
                 src={cat.img}
                 alt={cat.name}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100 filter brightness-95"
+                referrerPolicy="no-referrer"
               />
 
               {/* Bottom aligned visual icons & tag name */}

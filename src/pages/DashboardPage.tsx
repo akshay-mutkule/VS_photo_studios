@@ -13,10 +13,10 @@ import { Link } from 'react-router-dom';
 const mockAlbums: Album[] = [
   {
     id: 'demo-florence',
-    title: 'The Florence Pre-Wedding',
-    description: 'Documenting high-society timeless cinematic love amongst historical Tuscan architectural landmarks.',
+    title: 'The Udaipur Pre-Wedding',
+    description: 'Documenting high-society timeless cinematic love amongst historical Rajasthani palace architectural landmarks.',
     category: 'Wedding',
-    coverImageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&auto=format&fit=crop',
+    coverImageUrl: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=600&auto=format&fit=crop',
     isPasswordProtected: false,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -110,7 +110,7 @@ const DashboardPage: React.FC = () => {
                   <motion.div key={album.id} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}>
                     <Card className="bg-white border border-[#A37E43]/10 rounded-none shadow-sm overflow-hidden group">
                       <div className="aspect-[4/3] relative overflow-hidden bg-stone-50">
-                        <img src={album.coverImageUrl} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-103 saturate-75" alt="" />
+                        <img src={album.coverImageUrl} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-103 saturate-75" referrerPolicy="no-referrer" alt="" />
                         <div className="absolute top-4 right-4 bg-white/90 border border-[#A37E43]/15 px-3 py-1 text-[8px] font-bold text-[#A37E43] uppercase tracking-widest">
                           {album.category}
                         </div>
@@ -205,8 +205,8 @@ const DashboardPage: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {[
-                  { title: 'Paris Editorial Romance', desc: 'Utilizing warm cobblestone alley reflections, long shadows, and neutral silk garments.' },
-                  { title: 'Tuscan Sunset Romance', desc: 'Sunkissed cypress groves in the hills, editorial landscape pairings, and soft linen palettes.' }
+                  { title: 'Jaipur Palace Regal Elegance', desc: 'Utilizing majestic pink-hued fort walls, traditional sunset light, and gorgeous silk garments.' },
+                  { title: 'Kerala Backwaters Serenity', desc: 'Sunkissed coconut groves in the south, pristine luxury houseboat backgrounds, and soft linen palettes.' }
                 ].map((concept, i) => (
                   <div key={i} className="bg-white border border-[#A37E43]/10 p-8 space-y-4 hover:border-[#A37E43]/30 transition-all">
                     <div className="w-10 h-10 bg-[#FCFAF6] border border-[#A37E43]/15 flex items-center justify-center">

@@ -40,7 +40,7 @@ const AboutAndAwards: React.FC = () => {
             </p>
 
             <p className="text-3xl text-[#A37E43] font-serif italic tracking-wide font-normal py-2">
-              VS Studios
+              VS Photography
             </p>
 
             <div>
@@ -62,9 +62,10 @@ const AboutAndAwards: React.FC = () => {
             className="lg:col-span-7 relative overflow-hidden rounded-none border border-[#A37E43]/10"
           >
             <img
-              src="https://images.unsplash.com/photo-1554080353-a576cf803bda?q=80&w=1200&auto=format&fit=crop"
-              alt="VS Photogray Studio"
+              src="https://images.unsplash.com/photo-1607990283143-e81e7a2c93ab?q=80&w=1200&auto=format&fit=crop"
+              alt="VS Photography Studio"
               className="w-full h-auto aspect-[4/3] sm:aspect-video object-cover grayscale saturate-50 hover:grayscale-0 hover:saturate-100 opacity-95 transition-all duration-1000"
+              referrerPolicy="no-referrer"
             />
           </motion.div>
         </div>
@@ -101,13 +102,13 @@ const AboutAndAwards: React.FC = () => {
           
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
             {[
-              'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=400&auto=format&fit=crop',
-              'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=400&auto=format&fit=crop',
-              'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop',
-              'https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=400&auto=format&fit=crop'
+              'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=400&auto=format&fit=crop',
+              'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=400&auto=format&fit=crop',
+              'https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=400&auto=format&fit=crop',
+              'https://images.unsplash.com/photo-1604017011826-d3b4c23f8914?q=80&w=400&auto=format&fit=crop'
             ].map((img, idx) => (
               <a key={idx} href="https://instagram.com" target="_blank" rel="noreferrer" className="relative block group aspect-square overflow-hidden border border-[#A37E43]/10">
-                <img src={img} alt="Instagram preview" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-95 saturation-75 group-hover:saturation-100" />
+                <img src={img} alt="Instagram preview" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-95 saturation-75 group-hover:saturation-100" referrerPolicy="no-referrer" />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <Instagram className="w-6 h-6 text-white" />
                 </div>
@@ -150,7 +151,7 @@ const AboutAndAwards: React.FC = () => {
 
         {/* Booking CTA section */}
         <div className="mt-32 sm:mt-48 bg-white border border-[#A37E43]/15 p-12 sm:p-24 rounded-none relative overflow-hidden text-center shadow-[0_15px_50px_rgba(163,126,67,0.05)]">
-          <div className="absolute inset-0 bg-[#FAF8F5]/50 bg-[url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2071&auto=format&fit=crop')] opacity-[0.02] bg-cover bg-center grayscale" />
+          <div className="absolute inset-0 bg-[#FAF8F5]/50 bg-[url('https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=2071&auto=format&fit=crop')] opacity-[0.02] bg-cover bg-center grayscale" />
           <div className="relative z-10 space-y-8 sm:space-y-12">
             <h4 className="text-4xl sm:text-6xl md:text-7xl font-serif text-zinc-900 tracking-tight leading-[1.1]">
               Ready to plan your <br /> <span className="text-[#A37E43] italic font-light decoration-1">Dream Photoshoot?</span>

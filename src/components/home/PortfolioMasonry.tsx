@@ -13,15 +13,15 @@ export interface GalleryPhoto {
 }
 
 const initialPhotos: GalleryPhoto[] = [
-  { id: 1, url: 'https://images.unsplash.com/photo-1607190074257-dd4b7af0309f?q=80&w=800&auto=format&fit=crop', category: 'Wedding', title: 'Ethereal Veil', location: 'Amalfi, Italy', tall: true },
-  { id: 2, url: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop', category: 'Wedding', title: 'Eternal Promise', location: 'Provence, France', tall: false },
-  { id: 3, url: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop', category: 'Fashion', title: 'Silk & Sand', location: 'Paris, France', tall: true },
-  { id: 4, url: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=800&auto=format&fit=crop', category: 'Pre-Wedding', title: 'Golden Embrace', location: 'Kyoto, Japan', tall: false },
-  { id: 5, url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop', category: 'Portrait', title: 'Serene Focus', location: 'Studio', tall: true },
-  { id: 6, url: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=800&auto=format&fit=crop', category: 'Events', title: 'Symphony Gala', location: 'New York, USA', tall: false },
-  { id: 7, url: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop', category: 'Travel', title: 'Distant Horizons', location: 'Cappadocia, Turkey', tall: true },
-  { id: 8, url: 'https://images.unsplash.com/photo-1591555200843-098737e9dcf8?q=80&w=800&auto=format&fit=crop', category: 'Fashion', title: 'Sculptured Shadow', location: 'Milan, Italy', tall: true },
-  { id: 9, url: 'https://images.unsplash.com/photo-1519225495810-7517ccd66cbf?q=80&w=800&auto=format&fit=crop', category: 'Pre-Wedding', title: 'Whispering Winds', location: 'Santorini, Greece', tall: false },
+  { id: 1, url: 'https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=800&auto=format&fit=crop', category: 'Wedding', title: 'Ethereal Veil', location: 'Udaipur, India', tall: true },
+  { id: 2, url: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800&auto=format&fit=crop', category: 'Wedding', title: 'Eternal Promise', location: 'Jaipur, India', tall: false },
+  { id: 3, url: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=800&auto=format&fit=crop', category: 'Fashion', title: 'Silk & Sand', location: 'Jodhpur, India', tall: true },
+  { id: 4, url: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=800&auto=format&fit=crop', category: 'Pre-Wedding', title: 'Golden Embrace', location: 'Agra, India', tall: false },
+  { id: 5, url: 'https://images.unsplash.com/photo-1607990283143-e81e7a2c93ab?q=80&w=800&auto=format&fit=crop', category: 'Portrait', title: 'Serene Focus', location: 'Mumbai Studio', tall: true },
+  { id: 6, url: 'https://images.unsplash.com/photo-1604017011826-d3b4c23f8914?q=80&w=800&auto=format&fit=crop', category: 'Events', title: 'Symphony Gala', location: 'Goa Beach Resort', tall: false },
+  { id: 7, url: 'https://images.unsplash.com/photo-1477587458883-47135acdb7ae?q=80&w=800&auto=format&fit=crop', category: 'Travel', title: 'Distant Horizons', location: 'Rajasthan, India', tall: true },
+  { id: 8, url: 'https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?q=80&w=800&auto=format&fit=crop', category: 'Fashion', title: 'Sculptured Shadow', location: 'Delhi, India', tall: true },
+  { id: 9, url: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=800&auto=format&fit=crop', category: 'Pre-Wedding', title: 'Whispering Winds', location: 'Lakeside, Udaipur', tall: false },
 ];
 
 interface PortfolioMasonryProps {
@@ -82,6 +82,7 @@ const PortfolioMasonry: React.FC<PortfolioMasonryProps> = ({ activeCategory = 'A
                   alt={photo.title}
                   loading="lazy"
                   className="w-full h-auto object-cover transition-transform duration-1000 group-hover:scale-105 filter saturate-75 group-hover:saturate-100"
+                  referrerPolicy="no-referrer"
                 />
 
                 {/* Info Overlay (Editorial details) */}
@@ -164,6 +165,7 @@ const PortfolioMasonry: React.FC<PortfolioMasonryProps> = ({ activeCategory = 'A
                   src={filteredPhotos[lightboxIndex]?.url}
                   alt={filteredPhotos[lightboxIndex]?.title}
                   className="max-w-full max-h-full object-contain shadow-2xl border border-white/10"
+                  referrerPolicy="no-referrer"
                 />
               </div>
 

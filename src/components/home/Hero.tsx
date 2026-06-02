@@ -6,17 +6,17 @@ import { Button } from '@/components/ui/button';
 
 const slides = [
   {
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2069&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=2069&auto=format&fit=crop',
     title: 'Timeless Stories Told Through Light.',
     sub: 'WEDDING & PORTRAIT ARCHIVE'
   },
   {
-    image: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2000&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=2000&auto=format&fit=crop',
     title: 'Capturing Beautiful Moments Forever.',
     sub: 'BESPOKE DESTINATION PRODUCTIONS'
   },
   {
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2000&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=2000&auto=format&fit=crop',
     title: 'Luxury Fine-Art Editorial Vision.',
     sub: 'HIGH-END CREATIVE DIRECTION'
   }
@@ -51,6 +51,7 @@ const Hero: React.FC = () => {
             src={slides[current].image}
             alt="Cinematic Portfolio Landmark"
             className="w-full h-full object-cover filtering brightness-95"
+            referrerPolicy="no-referrer"
           />
         </motion.div>
       </AnimatePresence>

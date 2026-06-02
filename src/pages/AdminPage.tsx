@@ -175,44 +175,44 @@ const AdminPage: React.FC = () => {
         const albumsColl = collection(db, 'albums');
         const seedAlbums = [
             { 
-              title: 'Paris Editorial', 
+              title: 'Delhi Editorial', 
               category: 'Fashion', 
               clientEmail: user?.email || 'test@example.com', 
-              description: 'High fashion in the city of light.', 
-              coverImageUrl: 'https://images.unsplash.com/photo-1549144511-f099e773c147?q=80&w=600&auto=format&fit=crop',
+              description: 'High fashion in the historic stepwells of Delhi.', 
+              coverImageUrl: 'https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?q=80&w=600&auto=format&fit=crop',
               isPasswordProtected: false
             },
             { 
-              title: 'Tuscan Sunset', 
+              title: 'Udaipur Sunset', 
               category: 'Wedding', 
               clientEmail: user?.email || 'test@example.com', 
-              description: 'Golden emotions in the hills of Italy.', 
-              coverImageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&auto=format&fit=crop',
+              description: 'Golden emotions in the lake palaces of Udaipur.', 
+              coverImageUrl: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=600&auto=format&fit=crop',
               isPasswordProtected: true,
               password: 'vs2026'
             },
             {
-              title: 'Kyoto Sanctuary',
+              title: 'Jaipur Sanctuary',
               category: 'Pre-Wedding',
               clientEmail: user?.email || 'test@example.com',
-              description: 'Exploring traditional shrines and quiet cherry blossom backdrops.',
-              coverImageUrl: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=600&auto=format&fit=crop',
+              description: 'Exploring traditional pink city palaces and quiet fort backdrops.',
+              coverImageUrl: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=600&auto=format&fit=crop',
               isPasswordProtected: false
             }
         ];
 
         const photoLibraries = [
           [
-            'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=600&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?q=80&w=600&auto=format&fit=crop'
+            'https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=600&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600&auto=format&fit=crop'
           ],
           [
-            'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=600&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=600&auto=format&fit=crop'
+            'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=600&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1604017011826-d3b4c23f8914?q=80&w=600&auto=format&fit=crop'
           ],
           [
-            'https://images.unsplash.com/photo-1514306191717-452ec28c7814?q=80&w=600&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1478147427282-58a87a120781?q=80&w=600&auto=format&fit=crop'
+            'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=600&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=600&auto=format&fit=crop'
           ]
         ];
 
@@ -455,7 +455,7 @@ const AdminPage: React.FC = () => {
               {albums.map((album) => (
                 <div key={album.id} className="bg-white border border-[#A37E43]/10 p-4 rounded-none group hover:shadow-md transition-shadow relative">
                   <div className="aspect-[4/5] bg-stone-50 overflow-hidden relative border border-[#A37E43]/10">
-                    <img src={album.coverImageUrl || 'https://images.unsplash.com/photo-1554080353-a576cf803bda?q=80&w=400&auto=format&fit=crop'} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 filter saturate-70" alt={album.title} />
+                    <img src={album.coverImageUrl || 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=400&auto=format&fit=crop'} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 filter saturate-70" referrerPolicy="no-referrer" alt={album.title} />
                     <div className="absolute top-3 left-3 bg-[#FCFAF6] px-2.5 py-1 text-[8px] font-bold uppercase border border-[#A37E43]/10 text-[#A37E43]">
                       {album.category}
                     </div>

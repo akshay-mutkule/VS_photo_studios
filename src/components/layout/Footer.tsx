@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
           <div className="col-span-1 md:col-span-2 space-y-8">
             <div className="flex flex-col">
-              <span className="text-4xl font-serif italic text-white tracking-tight">VS Studio</span>
+              <span className="text-4xl font-serif italic text-white tracking-tight">VS Photography</span>
               <span className="text-[10px] tracking-[0.6em] uppercase text-white/30 mt-2">Visual Anthropology</span>
             </div>
             <p className="text-zinc-500 max-w-sm font-serif italic leading-relaxed text-lg">
@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] uppercase tracking-[0.4em] font-bold text-white/20">
           <div className="flex gap-8">
-            <span>© 2026 VS CINEMATIC STUDIO</span>
+            <span>© 2026 VS PHOTOGRAPHY</span>
             <span>Privacy Policy</span>
           </div>
           <div className="flex items-center gap-6">

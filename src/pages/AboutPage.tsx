@@ -9,9 +9,9 @@ const equipment = [
 ];
 
 const btsImages = [
-  'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=600&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1452780212940-6f5c0d14d848?q=80&w=600&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1604017011826-d3b4c23f8914?q=80&w=600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=600&auto=format&fit=crop',
 ];
 
 const AboutPage: React.FC = () => {
@@ -42,9 +42,10 @@ const AboutPage: React.FC = () => {
           >
             <div className="relative overflow-hidden group">
               <img
-                src="https://images.unsplash.com/photo-1554080353-a576cf803bda?q=80&w=800&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1607990283143-e81e7a2c93ab?q=80&w=800&auto=format&fit=crop"
                 alt="Photographer Portrait"
                 className="w-full h-auto aspect-[3/4] object-cover filter saturate-50 hover:saturate-100 transition-all duration-1000"
+                referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-stone-900/10 mix-blend-overlay" />
             </div>
@@ -143,6 +144,7 @@ const AboutPage: React.FC = () => {
                   src={src}
                   alt={`Behind the scenes ${i + 1}`}
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale hover:grayscale-0 opacity-80 hover:opacity-100"
+                  referrerPolicy="no-referrer"
                 />
               </div>
             ))}
