@@ -48,12 +48,12 @@ const PortfolioPage: React.FC = () => {
         </div>
 
         {/* Categories Filter list bar */}
-        <div className="flex flex-wrap gap-3 sm:gap-4 mb-16 border-b border-[#A37E43]/10 pb-10">
+        <div className="flex flex-row overflow-x-auto whitespace-nowrap md:flex-wrap gap-2 sm:gap-4 mb-16 border-b border-[#A37E43]/10 pb-6 md:pb-10 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-none scroll-smooth snap-x">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`text-[9px] sm:text-[10px] uppercase tracking-[0.25em] font-bold px-8 py-3.5 transition-all duration-300 rounded-none border ${
+              className={`snap-start shrink-0 text-[9px] sm:text-[10px] uppercase tracking-[0.25em] font-bold px-6 sm:px-8 py-3.5 transition-all duration-300 rounded-none border ${
                 filter === cat
                   ? 'bg-[#A37E43] border-transparent text-white'
                   : 'bg-white border-[#A37E43]/15 text-zinc-500 hover:text-zinc-900 hover:border-[#A37E43]/40'

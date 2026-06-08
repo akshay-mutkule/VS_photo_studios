@@ -292,14 +292,16 @@ const BookingPage: React.FC = () => {
                   </h3>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-6 border border-[#A37E43]/10">
-                    <div className="space-y-3">
+                    <div className="space-y-3 w-full overflow-hidden">
                       <Label className="text-[10px] uppercase font-bold tracking-widest text-[#A37E43]">Select Shoot Date</Label>
-                      <Calendar
-                        mode="single"
-                        selected={date}
-                        onSelect={setDate}
-                        className="border border-[#A37E43]/10 rounded-none bg-[#FCFAF6] shadow-inner"
-                      />
+                      <div className="overflow-x-auto max-w-full flex justify-center p-1 bg-[#FCFAF6] border border-[#A37E43]/10">
+                        <Calendar
+                          mode="single"
+                          selected={date}
+                          onSelect={setDate}
+                          className="rounded-none shadow-none p-0 scale-90 sm:scale-100 origin-center"
+                        />
+                      </div>
                     </div>
 
                     <div className="space-y-5 flex flex-col justify-between">

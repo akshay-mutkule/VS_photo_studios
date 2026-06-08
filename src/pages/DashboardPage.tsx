@@ -96,10 +96,10 @@ const DashboardPage: React.FC = () => {
 
         {/* Dashboard Sections Tabs */}
         <Tabs defaultValue="gallery" className="space-y-12">
-          <TabsList className="bg-white border border-[#A37E43]/10 p-1 rounded-none inline-flex flex-wrap overflow-x-auto max-w-full">
-            <TabsTrigger value="gallery" className="rounded-none px-6 py-2.5 uppercase text-[9px] tracking-widest font-bold data-[state=active]:bg-[#A37E43] data-[state=active]:text-white transition-all">YOUR ARCHIVES</TabsTrigger>
-            <TabsTrigger value="bookings" className="rounded-none px-6 py-2.5 uppercase text-[9px] tracking-widest font-bold data-[state=active]:bg-[#A37E43] data-[state=active]:text-white transition-all">PRODUCTIONS</TabsTrigger>
-            <TabsTrigger value="inspirations" className="rounded-none px-6 py-2.5 uppercase text-[9px] tracking-widest font-bold data-[state=active]:bg-[#A37E43] data-[state=active]:text-white transition-all">STUDIO SELECTIONS</TabsTrigger>
+          <TabsList className="bg-white border border-[#A37E43]/10 p-1 rounded-none flex overflow-x-auto whitespace-nowrap scrollbar-none w-full max-w-full">
+            <TabsTrigger value="gallery" className="rounded-none px-4 sm:px-6 py-2.5 uppercase text-[9px] tracking-widest font-bold data-[state=active]:bg-[#A37E43] data-[state=active]:text-white transition-all shrink-0">YOUR ARCHIVES</TabsTrigger>
+            <TabsTrigger value="bookings" className="rounded-none px-4 sm:px-6 py-2.5 uppercase text-[9px] tracking-widest font-bold data-[state=active]:bg-[#A37E43] data-[state=active]:text-white transition-all shrink-0">PRODUCTIONS</TabsTrigger>
+            <TabsTrigger value="inspirations" className="rounded-none px-4 sm:px-6 py-2.5 uppercase text-[9px] tracking-widest font-bold data-[state=active]:bg-[#A37E43] data-[state=active]:text-white transition-all shrink-0">STUDIO SELECTIONS</TabsTrigger>
           </TabsList>
 
           {/* TAB 1: Real and Fallback Private Client Galleries */}

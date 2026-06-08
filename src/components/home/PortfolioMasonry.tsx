@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ZoomIn, Share2, X, Download, Heart } from 'lucide-react';
+import { ZoomIn, Share2, X, Download, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export interface GalleryPhoto {
@@ -31,10 +31,58 @@ interface PortfolioMasonryProps {
 const PortfolioMasonry: React.FC<PortfolioMasonryProps> = ({ activeCategory = 'All' }) => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [likes, setLikes] = useState<Record<number, boolean>>({});
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   const filteredPhotos = activeCategory === 'All' 
     ? initialPhotos 
     : initialPhotos.filter(photo => photo.category.toLowerCase() === activeCategory.toLowerCase());
+
+  const handlePrev = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (lightboxIndex !== null) {
+      setLightboxIndex(prev => (prev !== null && prev > 0 ? prev - 1 : filteredPhotos.length - 1));
+    }
+  };
+
+  const handleNext = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (lightboxIndex !== null) {
+      setLightboxIndex(prev => (prev !== null && prev < filteredPhotos.length - 1 ? prev + 1 : 0));
+    }
+  };
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+    if (isLeftSwipe) {
+      handleNext();
+    } else if (isRightSwipe) {
+      handlePrev();
+    }
+  };
+
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (lightboxIndex === null) return;
+      if (e.key === 'ArrowLeft') handlePrev();
+      if (e.key === 'ArrowRight') handleNext();
+      if (e.key === 'Escape') setLightboxIndex(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxIndex, filteredPhotos]);
 
   const handleLike = (id: number, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -75,18 +123,18 @@ const PortfolioMasonry: React.FC<PortfolioMasonryProps> = ({ activeCategory = 'A
                 onClick={() => setLightboxIndex(i)}
               >
                 {/* Soft glow animation */}
-                <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 z-10" />
                 
                 <img
                   src={photo.url}
                   alt={photo.title}
                   loading="lazy"
-                  className="w-full h-auto object-cover transition-transform duration-1000 group-hover:scale-105 filter saturate-75 group-hover:saturate-100"
+                  className="w-full h-auto object-cover transition-transform duration-1000 group-hover:scale-105 filter saturate-100 md:saturate-75 md:group-hover:saturate-100"
                   referrerPolicy="no-referrer"
                 />
 
                 {/* Info Overlay (Editorial details) */}
-                <div className="absolute inset-x-0 bottom-0 p-6 z-20 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <div className="absolute inset-x-0 bottom-0 p-6 z-20 flex flex-col justify-end opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500">
                   <div className="flex items-center gap-2 mb-1.5">
                     <span className="text-[9px] font-sans tracking-[0.2em] uppercase font-bold text-[#FCFAF6] bg-[#A37E43] px-2 py-0.5">
                       {photo.category}
@@ -155,7 +203,22 @@ const PortfolioMasonry: React.FC<PortfolioMasonryProps> = ({ activeCategory = 'A
               </div>
 
               {/* Central Large image displays */}
-              <div className="flex-grow flex items-center justify-center max-h-[75vh] my-10">
+              <div 
+                className="flex-grow flex items-center justify-center max-h-[75vh] my-10 relative w-full group/lightbox"
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+              >
+                {/* Floating Navigation Paddles */}
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  className="absolute left-2 sm:left-4 z-30 h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-white/15 bg-black/40 hover:bg-black/60 text-white flex items-center justify-center transition-all opacity-100 sm:opacity-0 sm:group-hover/lightbox:opacity-100 shadow-md cursor-pointer"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="w-5 sm:w-6 h-5 sm:h-6" />
+                </button>
+
                 <motion.img
                   key={filteredPhotos[lightboxIndex]?.id}
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -164,9 +227,18 @@ const PortfolioMasonry: React.FC<PortfolioMasonryProps> = ({ activeCategory = 'A
                   transition={{ duration: 0.4 }}
                   src={filteredPhotos[lightboxIndex]?.url}
                   alt={filteredPhotos[lightboxIndex]?.title}
-                  className="max-w-full max-h-full object-contain shadow-2xl border border-white/10"
+                  className="max-w-full max-h-full object-contain shadow-2xl border border-white/10 select-none"
                   referrerPolicy="no-referrer"
                 />
+
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  className="absolute right-2 sm:right-4 z-30 h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-white/15 bg-black/40 hover:bg-black/60 text-white flex items-center justify-center transition-all opacity-100 sm:opacity-0 sm:group-hover/lightbox:opacity-100 shadow-md cursor-pointer"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="w-5 sm:w-6 h-5 sm:h-6" />
+                </button>
               </div>
 
               {/* Bottom interactive descriptors bar */}
