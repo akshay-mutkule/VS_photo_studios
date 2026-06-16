@@ -97,7 +97,7 @@ const AboutAndAwards: React.FC = () => {
           <div className="space-y-3">
             <span className="text-[10px] uppercase tracking-[0.5em] text-[#A37E43] font-bold">INSTAGRAM SHORTS</span>
             <h3 className="text-3xl font-serif text-zinc-900">Follow Our Journey</h3>
-            <p className="text-zinc-500 text-xs font-light max-w-sm mx-auto">Explore daily micro-vlogs, client highlights and behind-the-scenes previews on <a href="https://instagram.com" target="_blank" rel="noreferrer" className="underline font-semibold text-[#A37E43]">@vsstudios</a></p>
+            <p className="text-zinc-500 text-xs font-light max-w-sm mx-auto">Explore daily micro-vlogs, client highlights and behind-the-scenes previews on <a href="https://www.instagram.com/vinayak_sable_photographey?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noreferrer" className="underline font-semibold text-[#A37E43]">@vinayak_sable_photographey</a></p>
           </div>
           
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
@@ -107,7 +107,7 @@ const AboutAndAwards: React.FC = () => {
               'https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=400&auto=format&fit=crop',
               'https://images.unsplash.com/photo-1604017011826-d3b4c23f8914?q=80&w=400&auto=format&fit=crop'
             ].map((img, idx) => (
-              <a key={idx} href="https://instagram.com" target="_blank" rel="noreferrer" className="relative block group aspect-square overflow-hidden border border-[#A37E43]/10">
+              <a key={idx} href="https://www.instagram.com/vinayak_sable_photographey?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noreferrer" className="relative block group aspect-square overflow-hidden border border-[#A37E43]/10">
                 <img src={img} alt="Instagram preview" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-95 saturation-75 group-hover:saturation-100" referrerPolicy="no-referrer" />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <Instagram className="w-6 h-6 text-white" />

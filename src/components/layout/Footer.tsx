@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
           <div className="space-y-6">
             <h5 className="text-[10px] uppercase tracking-[0.4em] font-bold text-white/40">Connect</h5>
             <ul className="space-y-4 text-[11px] uppercase tracking-widest font-bold">
-              <li><a href="#" className="text-zinc-400 hover:text-primary transition-colors">Instagram</a></li>
+              <li><a href="https://www.instagram.com/vinayak_sable_photographey?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noreferrer" className="text-zinc-400 hover:text-primary transition-colors">Instagram</a></li>
               <li><a href="#" className="text-zinc-400 hover:text-primary transition-colors">Vogue Archive</a></li>
               <li><a href="#" className="text-zinc-400 hover:text-primary transition-colors">Behance</a></li>
             </ul>
@@ -41,8 +41,8 @@ const Footer: React.FC = () => {
         <Separator className="bg-white/5 mb-12" />
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] uppercase tracking-[0.4em] font-bold text-white/20">
-          <div className="flex gap-8">
-            <span>© 2026 VS PHOTOGRAPHY</span>
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 text-center md:text-left">
+            <span>© 2026 VINAYAK SABLE PHOTOGRAPHY</span>
             <span>Privacy Policy</span>
           </div>
           <div className="flex items-center gap-6">

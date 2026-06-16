@@ -125,7 +125,7 @@ const Hero: React.FC = () => {
 
       {/* Social Icons on Right Margin */}
       <div className="absolute right-6 sm:right-10 lg:right-16 top-1/2 -translate-y-1/2 z-20 hidden md:flex flex-col items-center gap-8 text-white/70">
-        <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors cursor-pointer">
+        <a href="https://www.instagram.com/vinayak_sable_photographey?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noreferrer" className="hover:text-white transition-colors cursor-pointer">
           <Instagram className="w-4 h-4" />
         </a>
         <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors cursor-pointer text-sm font-bold tracking-tighter">
