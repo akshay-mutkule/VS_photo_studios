@@ -10,10 +10,10 @@ const HomePage: React.FC = () => {
   const { scrollYProgress } = useScroll();
 
   return (
-    <div className="bg-[#FCFAF6] overflow-hidden min-h-screen">
+    <div className="bg-[#FCF8F2] overflow-hidden min-h-screen">
       {/* Real-time Scroll Progress indicator */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-[#A37E43] origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F04E23] to-[#FFC20E] origin-left z-50"
         style={{ scaleX: scrollYProgress }}
       />
 
@@ -25,13 +25,13 @@ const HomePage: React.FC = () => {
       {/* Featured captures section inside homepage holding high-end masonry */}
       <div className="py-24 max-w-7xl mx-auto px-6 sm:px-10">
         <div className="text-center space-y-4 mb-16">
-          <span className="text-[10px] tracking-[0.5em] uppercase font-bold text-[#A37E43]">
-            Curated Visual highlights
+          <span className="text-[10px] tracking-[0.5em] uppercase font-bold text-[#F04E23]">
+            सोनेरी आठवणी • CURATED VISUAL HIGHLIGHTS
           </span>
           <h2 className="text-3xl sm:text-5xl font-serif text-zinc-900 tracking-tight">
-            Trending <span className="italic text-[#A37E43]">Captures</span>
+            Trending <span className="italic text-[#F04E23]">Captures</span>
           </h2>
-          <div className="h-[1px] w-12 bg-[#A37E43]/40 mx-auto" />
+          <div className="h-[2px] w-16 bg-gradient-to-r from-[#F04E23] to-[#FFC20E] mx-auto" />
         </div>
         <PortfolioMasonry activeCategory="All" />
       </div>
