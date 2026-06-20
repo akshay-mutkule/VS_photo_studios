@@ -36,7 +36,7 @@ const Navbar: React.FC = () => {
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? 'glass-dark py-3' : 'bg-transparent py-6'}`}>
       <div className="max-w-7xl mx-auto px-10 flex justify-between items-center">
         <Link to="/" className="flex flex-col group items-start">
-          <span className="text-xl sm:text-2xl font-serif tracking-widest uppercase leading-none text-white transition-colors duration-300 group-hover:text-[#FFC20E]">विनायक साबळे</span>
+          <span className="text-xl sm:text-2xl font-serif tracking-widest uppercase leading-none text-white transition-colors duration-300 group-hover:text-[#FFC20E]">VINAYAK SABLE</span>
           <span className="text-[8px] uppercase tracking-[0.35em] text-[#FFC20E] mt-1.5 hidden sm:block font-sans font-bold">VINAYAK SABLE PHOTOGRAPHY</span>
         </Link>
 

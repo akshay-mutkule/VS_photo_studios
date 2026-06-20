@@ -26,7 +26,7 @@ const HomePage: React.FC = () => {
       <div className="py-24 max-w-7xl mx-auto px-6 sm:px-10">
         <div className="text-center space-y-4 mb-16">
           <span className="text-[10px] tracking-[0.5em] uppercase font-bold text-[#F04E23]">
-            सोनेरी आठवणी • CURATED VISUAL HIGHLIGHTS
+            SACRED RECOLLECTIONS • CURATED VISUAL HIGHLIGHTS
           </span>
           <h2 className="text-3xl sm:text-5xl font-serif text-zinc-900 tracking-tight">
             Trending <span className="italic text-[#F04E23]">Captures</span>

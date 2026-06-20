@@ -108,11 +108,11 @@ const AlbumPage: React.FC = () => {
     if (album && password === album.password) {
       setIsUnlocked(true);
       fetchPhotos(album.id);
-      toast.success("आर्काइव्ह अनलॉक झाले • Archive Decrypted");
+      toast.success("Archive Decrypted Successfully");
     } else {
       setPasswordError(true);
       setTimeout(() => setPasswordError(false), 500);
-      toast.error("चुकीचा पासवर्ड • Invalid Security Credential");
+      toast.error("Invalid Security Credential");
     }
   };
 
@@ -194,7 +194,7 @@ const AlbumPage: React.FC = () => {
     return (
       <div className="min-h-screen bg-[#FCF8F2] flex flex-col items-center justify-center space-y-4">
         <div className="w-10 h-10 border-2 border-[#F04E23] border-t-transparent rounded-full animate-spin" />
-        <p className="text-[10px] uppercase tracking-[0.4em] text-[#F04E23] font-bold">आर्काइव्ह उघडत आहे • LOADING DATABASE</p>
+        <p className="text-[10px] uppercase tracking-[0.4em] text-[#F04E23] font-bold">DECRYPTING ARCHIVE • LOADING DATABASE</p>
       </div>
     );
   }
@@ -202,7 +202,7 @@ const AlbumPage: React.FC = () => {
   if (!album) {
     return (
       <div className="min-h-screen bg-[#FCF8F2] text-[#1A1815] flex flex-col items-center justify-center space-y-6 text-center px-6">
-        <h2 className="text-4xl font-serif text-zinc-900">संग्रह सापडला नाही • Archive Not Found</h2>
+        <h2 className="text-4xl font-serif text-zinc-900">ARCHIVE NOT FOUND</h2>
         <Link to="/portfolio">
           <Button className="bg-[#F04E23] hover:bg-[#D03E15] text-white rounded-none px-8 font-bold uppercase tracking-widest text-[9px] h-12">
             RETURN TO PORTFOLIO
@@ -227,7 +227,7 @@ const AlbumPage: React.FC = () => {
           
           <div className="space-y-3">
             <h2 className="text-2xl sm:text-3xl font-serif text-zinc-900">{album.title}</h2>
-            <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#F04E23]">गुप्त संग्रह • PRIVATE CLIENT ARCHIVE</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#F04E23]">SECURED REPOSITORY • PRIVATE CLIENT ARCHIVE</p>
           </div>
 
           <div className="space-y-4">
@@ -243,7 +243,7 @@ const AlbumPage: React.FC = () => {
               onClick={handleUnlock}
               className="w-full h-14 bg-[#F04E23] hover:bg-[#D03E15] text-white rounded-none font-bold uppercase tracking-[0.3em] text-[10px]"
             >
-              प्रवेश द्वार • DECRYPT PORTAL
+              ACCESS DECRYPTED PORTAL
             </Button>
           </div>
           
@@ -347,7 +347,7 @@ const AlbumPage: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-white">
                 <div className="flex justify-between items-center">
                   <span className="text-[9px] uppercase tracking-widest font-mono text-white/85">
-                    MASTER PHOTO &bull; विनायक साबळे
+                    MASTER PHOTO &bull; VINAYAK SABLE
                   </span>
                   <div className="flex gap-2">
                     <Button size="icon" variant="ghost" className="h-8 w-8 text-white hover:text-[#FFC20E] p-0 bg-white/10 rounded-full">
@@ -398,7 +398,7 @@ const AlbumPage: React.FC = () => {
                   <Button 
                     onClick={() => {
                       navigator.clipboard.writeText(window.location.href);
-                      toast.success("आर्काइव्ह लिंक कॉपी झाली • Gallery link copied");
+                      toast.success("Gallery link successfully copied!");
                     }}
                     className="bg-[#F04E23] hover:bg-[#D03E15] text-white rounded-none px-4 text-[9px] uppercase font-bold"
                   >

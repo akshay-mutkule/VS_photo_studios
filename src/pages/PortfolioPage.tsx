@@ -22,11 +22,11 @@ const PortfolioPage: React.FC = () => {
             <div className="flex items-center gap-3">
               <div className="h-[2px] w-12 bg-gradient-to-r from-[#F04E23] to-[#FFC20E]" />
               <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#F04E23] flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#FFC20E]" /> विश्वसंग्रह • PORTFOLIO SAGA
+                <Sparkles className="w-3.5 h-3.5 text-[#FFC20E]" /> SACRED TREASURES • PORTFOLIO SAGA
               </span>
             </div>
             <h1 className="text-5xl sm:text-7xl font-serif text-zinc-900 tracking-tight leading-none">
-              शाही <span className="italic text-[#F04E23] font-light">क्षणचित्रे</span>
+              Royal <span className="italic text-[#F04E23] font-light">Chronicles</span>
             </h1>
             <p className="text-zinc-600 font-light font-sans text-sm sm:text-base leading-relaxed">
               Browse through our premium collection of Maratha wedding ceremonies, royal pre-wedding shoots, family documentation, and traditional silk portraits.

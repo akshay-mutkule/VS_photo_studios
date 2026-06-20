@@ -8,7 +8,7 @@ const testimonials = [
   { 
     name: 'Tejashree & Abhijit Deshmukh', 
     role: 'Peshwai Wada Wedding, Pune', 
-    text: '“विनायक साबळे यांचे काम अप्रतिम आहे! त्यांनी आमच्या पारंपरिक मराठी लग्नसोहळ्यातील प्रत्येक मंगलमय क्षण अगदी जिवंत टिपला. त्यांच्या कॅमेरा फ्रेममध्ये तो राजेशाही थाट खरोखरच उतरला.”', 
+    text: '“Vinayak\'s creative capture is absolutely breathtaking! He brought every sacred moment of our traditional Peshwai wedding to life. The framing beautifully highlighted the grand royal stature of our family legacy.”', 
     rating: 5,
     initial: 'T'
   },
@@ -22,7 +22,7 @@ const testimonials = [
   { 
     name: 'Sarang & Rutuja Rane', 
     role: 'Heritage Pre-Wedding, Satara Forts', 
-    text: '“आमच्या लग्नाची क्षणचित्रे पाहून मन तृप्त झाले. विनायक यांच्या उत्कृष्ट दृष्टीमुळे सह्याद्रीच्या पार्श्वभूमीवर आमचा मराठमोळा थाट पाहण्यासारखा झाला आहे. खूप खूप धन्यवाद!”', 
+    text: '“Looking at our pre-wedding pictures fills our hearts with immense joy. Vinayak\'s exquisite vision set against the majestic Western Ghats backdrop made our celebratory style look incredibly royal. Thank you!”', 
     rating: 5,
     initial: 'S'
   },
@@ -33,7 +33,7 @@ const AboutAndAwards: React.FC = () => {
     <section id="about" className="py-24 sm:py-32 bg-[#FCF8F2] overflow-hidden border-t border-[#F04E23]/10 relative">
       {/* Absolute traditional design element */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 opacity-5 pointer-events-none z-10 select-none">
-        <span className="text-9xl font-serif text-[#F04E23] uppercase font-bold tracking-widest block whitespace-nowrap">महाराष्ट्र</span>
+        <span className="text-9xl font-serif text-[#F04E23] uppercase font-bold tracking-widest block whitespace-nowrap">MAHARASHTRA</span>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 bg-transparent">
@@ -50,10 +50,10 @@ const AboutAndAwards: React.FC = () => {
           >
             <div className="space-y-3">
               <span className="text-[10px] sm:text-xs uppercase tracking-[0.5em] font-bold text-[#F04E23] flex items-center gap-2">
-                <Sparkles className="w-3.5 h-3.5 animate-pulse text-[#FFC20E]" /> परिचय • OUR LEGACY
+                <Sparkles className="w-3.5 h-3.5 animate-pulse text-[#FFC20E]" /> LEGACY & VISION • ABOUT THE ARTIST
               </span>
               <h2 className="text-4xl sm:text-5xl font-serif text-zinc-900 tracking-tight leading-[1.15]">
-                विनायक साबळे
+                Vinayak Sable
                 <span className="text-xl sm:text-2xl text-[#F04E23] block mt-2 font-serif font-light italic">
                   Vinayak Sable Photography
                 </span>
@@ -64,7 +64,7 @@ const AboutAndAwards: React.FC = () => {
             </div>
 
             <p className="text-zinc-600 text-sm leading-relaxed font-light font-sans">
-              आम्ही केवळ छायाचित्रे काढत नाही, तर वास्तू, संस्कृती आणि तुमच्या आयुष्यातील अनमोल क्षणांचे सुवर्ण संचित तयार करतो. पेशवाई वाडे, नऊवारी साडीचा थाट, पारंपरिक दागिने आणि महाराष्ट्राचा समृद्ध वारसा आमच्या लेन्सच्या माध्यमातून प्रकाशमान करणारी आमची शाही कलाकृती आहे.
+              We do not merely capture photographs—we archive the historic architecture, rich culture, and personal heirloom memories of your family legacy. Introducing the grandeur of traditional Peshwai Wadas, heavy silk Paithani drapes, royal antique ornaments, and the golden heritage of Maharashtra captured through our lens as a custom masterpiece.
             </p>
 
             <p className="text-xl text-zinc-700 text-sm leading-relaxed font-light font-sans -mt-2">
@@ -72,7 +72,7 @@ const AboutAndAwards: React.FC = () => {
             </p>
 
             <p className="text-3xl text-[#F04E23] font-serif italic tracking-wide font-normal py-2 flex items-center gap-2">
-              <span>विनायक साबळे</span>
+              <span>Vinayak Sable</span>
               <span className="text-xs text-zinc-400 font-sans tracking-widest uppercase">&bull; Pune, MH</span>
             </p>
 
@@ -105,7 +105,7 @@ const AboutAndAwards: React.FC = () => {
                 referrerPolicy="no-referrer"
               />
               <div className="absolute bottom-4 left-4 z-10 bg-[#151310]/80 p-3 text-white border-l-2 border-[#FFC20E] text-[9px] uppercase tracking-widest font-sans font-bold">
-                सत्यशिल प्रेम • TRUE ROYAL STYLE
+                HONOR & DEVOTION • TRUE ROYAL STYLE
               </div>
             </div>
           </motion.div>
@@ -162,7 +162,7 @@ const AboutAndAwards: React.FC = () => {
         <div className="mt-32 sm:mt-48 text-center space-y-16">
           <div className="flex flex-col items-center space-y-4">
             <span className="text-[10px] sm:text-xs uppercase tracking-[0.5em] font-normal text-[#F04E23] block">
-              CLIENT GRATITUDE &bull; समाधान आणि आदर
+              CLIENT GRATITUDE &bull; SATISFACTION & TRUST
             </span>
             <h3 className="text-4xl sm:text-5xl font-serif text-zinc-900 tracking-tight">Kind Words</h3>
           </div>
@@ -196,7 +196,7 @@ const AboutAndAwards: React.FC = () => {
           <div className="absolute inset-0 bg-[#FCF8F2]/90 bg-[url('https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=2071&auto=format&fit=crop')] opacity-[0.03] bg-cover bg-center grayscale" />
           <div className="relative z-10 space-y-8 sm:space-y-12">
             <h4 className="text-4xl sm:text-6xl md:text-7xl font-serif text-zinc-900 tracking-tight leading-[1.15]">
-              Ready to catalog your <br /> <span className="text-[#F04E23] italic font-light decoration-1">राजेशाही क्षणचित्र?</span>
+              Ready to catalog your <br /> <span className="text-[#F04E23] italic font-light decoration-1">heritage milestones?</span>
             </h4>
             <p className="text-zinc-600 max-w-xl mx-auto font-serif italic text-sm sm:text-base leading-relaxed opacity-90">
               Bookings are completely open for the upcoming Maharashtrian wedding and traditional festival seasons. Friendly consultation is free and customized to your local Wada or heritage destination.

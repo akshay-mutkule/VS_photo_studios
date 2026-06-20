@@ -69,7 +69,7 @@ const FeaturedAlbums: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
         <div className="flex flex-col items-center text-center mb-24 space-y-4">
           <span className="text-[10px] uppercase tracking-[0.6em] font-bold text-[#F04E23] flex items-center gap-2">
-            <Sparkles className="w-3.5 h-3.5 text-[#FFC20E] animate-pulse" /> शाही कलाकृती • MEMORIES GALLERY
+            <Sparkles className="w-3.5 h-3.5 text-[#FFC20E] animate-pulse" /> REGAL COLLECTION • SACRED GALLERY
           </span>
           <h2 className="text-4xl sm:text-6xl font-serif text-zinc-900 tracking-tight leading-none">
             Featured <span className="italic text-[#F04E23]">Shoots</span>

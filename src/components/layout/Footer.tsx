@@ -10,11 +10,11 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
           <div className="col-span-1 md:col-span-2 space-y-8">
             <div className="flex flex-col">
-              <span className="text-4xl font-serif text-white tracking-wider">विनायक साबळे</span>
-              <span className="text-[10px] tracking-[0.45em] uppercase text-[#FFC20E] mt-2 font-bold">सत्यं शिवं सुंदरम् • PUNE, MH</span>
+              <span className="text-4xl font-serif text-white tracking-wider">Vinayak Sable</span>
+              <span className="text-[10px] tracking-[0.45em] uppercase text-[#FFC20E] mt-2 font-bold">TRUTH • BEAUTY • HERITAGE &bull; PUNE, MH</span>
             </div>
             <p className="text-zinc-400 max-w-sm font-serif italic leading-relaxed text-sm">
-              महाराष्ट्राच्या भव्य विवाह सोहळ्यांचे आणि राजेशाही थाटाचे सोनेरी क्षणचित्रे टिपणारे अव्वल छायाचित्रण दालन.
+              A premier photography atelier specializing in majestic wedding celebrations, traditional Wada portraits, and royal legacies of Maharashtra.
             </p>
           </div>
           

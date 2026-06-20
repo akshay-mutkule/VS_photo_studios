@@ -3,12 +3,12 @@ import { motion } from 'motion/react';
 import { Heart, Sparkles, User, Mountain, Smile } from 'lucide-react';
 
 const categories = [
-  { id: 'wedding', name: 'लग्न सोहळा • WEDDINGS', icon: Heart, img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800&auto=format&fit=crop' },
-  { id: 'maternity', name: 'डोहळा जेवण • MATERNITY', icon: Sparkles, img: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800&auto=format&fit=crop' },
-  { id: 'portraits', name: 'व्यक्तिचित्रे • PORTRAITS', icon: User, img: 'https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=800&auto=format&fit=crop' },
-  { id: 'landscapes', name: 'निसर्ग चित्र • LANDSCAPES', icon: Mountain, img: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=800&auto=format&fit=crop' },
-  { id: 'couples', name: 'प्रीतबंध • COUPLES', icon: Heart, img: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=800&auto=format&fit=crop' },
-  { id: 'kids', name: 'बालपण • LITTLE ONES', icon: Smile, img: 'https://images.unsplash.com/photo-1614945419451-9f9394bf7eb1?q=80&w=800&auto=format&fit=crop' },
+  { id: 'wedding', name: 'ROYAL WEDDINGS', icon: Heart, img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800&auto=format&fit=crop' },
+  { id: 'maternity', name: 'MATERNITY HEIRLOOMS', icon: Sparkles, img: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800&auto=format&fit=crop' },
+  { id: 'portraits', name: 'EDITORIAL PORTRAITS', icon: User, img: 'https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=800&auto=format&fit=crop' },
+  { id: 'landscapes', name: 'HERITAGE LANDSCAPES', icon: Mountain, img: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=800&auto=format&fit=crop' },
+  { id: 'couples', name: 'LOVE CHRONICLES', icon: Heart, img: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=800&auto=format&fit=crop' },
+  { id: 'kids', name: 'LITTLE ONES', icon: Smile, img: 'https://images.unsplash.com/photo-1614945419451-9f9394bf7eb1?q=80&w=800&auto=format&fit=crop' },
 ];
 
 const Categories: React.FC = () => {
@@ -16,7 +16,7 @@ const Categories: React.FC = () => {
     <section id="categories" className="py-24 sm:py-32 bg-[#FCF8F2] overflow-hidden border-t border-[#F04E23]/10">
       <div className="max-w-7xl mx-auto px-6 sm:px-10 text-center mb-16 sm:mb-24 animate-fade-in">
         <span className="text-[10px] sm:text-xs uppercase tracking-[0.5em] font-bold text-[#F04E23] block mb-3 sm:mb-4">
-          कला विजन • PORTFOLIO CATALOG
+          ARTISTIC VISION • PORTFOLIO CATALOG
         </span>
         <div className="inline-block relative">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-zinc-900 tracking-tight pb-4">

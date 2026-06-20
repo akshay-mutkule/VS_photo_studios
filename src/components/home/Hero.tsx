@@ -8,21 +8,21 @@ import { MaharashtrianSparks } from './MaharashtrianSparks';
 const slides = [
   {
     image: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=2069&auto=format&fit=crop',
-    title: 'राजेशाही क्षणचित्रे',
-    tagline: 'Preserving Royal Maharashtrian Legacies.',
-    sub: 'मराठमोळा राजेशाही थाट • WEDDING SAGA'
+    title: 'The Royal Wedding Sagas',
+    tagline: 'Preserving regal heritage and grand Maratha traditions.',
+    sub: 'MAJESTIC WEDDING CHRONICLES'
   },
   {
     image: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=2000&auto=format&fit=crop',
-    title: 'अभिजात कलात्मक वारसा',
-    tagline: 'Capturing Timeless Heritage & Portraits.',
-    sub: 'क्षणचित्रे • ROYAL PORTRAITS & EVENTS'
+    title: 'Heritage Portraiture',
+    tagline: 'Capturing the artistic essence of ancient fortresses.',
+    sub: 'EDITORIAL PORTRAITS & EVENTS'
   },
   {
     image: 'https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=2000&auto=format&fit=crop',
-    title: 'तेजस्वी पारंपरिक सोनेरी रूप',
-    tagline: 'Luxury Fine-Art Maratha Aesthetic.',
-    sub: 'सोनेरी वैभव • HIGH-END FINE-ART ARCHIVE'
+    title: 'The Sacred Golden Hour',
+    tagline: 'Delivering gold-tinted cinematic medium-format vision.',
+    sub: 'HIGH-END FINE-ART ARCHIVES'
   }
 ];
 
@@ -134,7 +134,7 @@ const Hero: React.FC = () => {
           </div>
 
           <p className="text-xs sm:text-sm font-light text-stone-200/90 max-w-lg leading-relaxed tracking-wide font-sans">
-            अनुभवी छायाचित्रकार विनायक साबळे महाराजेशाही लग्नसोहळे आणि मराठमोळ्या अभिजात संस्कृतीचे क्षण मध्यम-प्रारूप कॅमेरा विजनच्या साहाय्याने अजरामर करतात.
+            Acclaimed photographer Vinayak Sable captures majestic wedding celebrations, cultural legacies, and exquisite portraits with premium curation and gold-tinted medium-format cinematic vision.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4 w-full sm:w-auto">
