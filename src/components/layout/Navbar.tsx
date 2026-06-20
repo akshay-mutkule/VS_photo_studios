@@ -36,8 +36,8 @@ const Navbar: React.FC = () => {
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? 'glass-dark py-3' : 'bg-transparent py-6'}`}>
       <div className="max-w-7xl mx-auto px-10 flex justify-between items-center">
         <Link to="/" className="flex flex-col group items-start">
-          <span className="text-xl sm:text-2xl font-serif tracking-widest uppercase leading-none text-white transition-colors duration-300 group-hover:text-[#FFC20E]">VINAYAK SABLE</span>
-          <span className="text-[8px] uppercase tracking-[0.35em] text-[#FFC20E] mt-1.5 hidden sm:block font-sans font-bold">VINAYAK SABLE PHOTOGRAPHY</span>
+          <span className="text-xl sm:text-2xl font-serif tracking-widest uppercase leading-none text-white transition-colors duration-300 group-hover:text-[#B8975A]">VINAYAK SABLE</span>
+          <span className="text-[8px] uppercase tracking-[0.35em] text-[#B8975A] mt-1.5 hidden sm:block font-sans font-bold">VINAYAK SABLE PHOTOGRAPHY</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -47,12 +47,12 @@ const Navbar: React.FC = () => {
               <Link
                 key={link.name}
                 to={link.path}
-                className={`transition-all duration-300 hover:text-[#FFC20E] relative pb-1 group/link ${
-                  location.pathname === link.path ? 'text-[#FFC20E]' : 'text-white/70'
+                className={`transition-all duration-300 hover:text-[#B8975A] relative pb-1 group/link ${
+                  location.pathname === link.path ? 'text-[#B8975A]' : 'text-white/70'
                 }`}
               >
                 {link.name}
-                <span className={`absolute bottom-0 left-0 h-[1.5px] bg-[#FFC20E] transition-all duration-300 ${
+                <span className={`absolute bottom-0 left-0 h-[1.5px] bg-[#B8975A] transition-all duration-300 ${
                   location.pathname === link.path ? 'w-full' : 'w-0 group-hover/link:w-full'
                 }`} />
               </Link>
@@ -77,11 +77,11 @@ const Navbar: React.FC = () => {
                   <DropdownMenuTrigger
                     render={
                       <Button variant="ghost" className="relative h-11 w-11 rounded-full border border-white/10 hover:bg-white/5 p-0 overflow-hidden group">
-                        <div className="absolute inset-0 bg-[#F04E23]/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <div className="absolute inset-0 bg-[#A37E43]/20 opacity-0 group-hover:opacity-100 transition-opacity" />
                         {user.photoURL ? (
                           <img src={user.photoURL} alt="Avatar" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                         ) : (
-                          <User className="w-5 h-5 text-white/60 group-hover:text-[#FFC20E] transition-colors" />
+                          <User className="w-5 h-5 text-white/60 group-hover:text-[#B8975A] transition-colors" />
                         )}
                       </Button>
                     }

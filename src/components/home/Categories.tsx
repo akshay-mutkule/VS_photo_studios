@@ -13,16 +13,16 @@ const categories = [
 
 const Categories: React.FC = () => {
   return (
-    <section id="categories" className="py-24 sm:py-32 bg-[#FCF8F2] overflow-hidden border-t border-[#F04E23]/10">
+    <section id="categories" className="py-24 sm:py-32 bg-[#FCFAF6] overflow-hidden border-t border-[#A37E43]/10">
       <div className="max-w-7xl mx-auto px-6 sm:px-10 text-center mb-16 sm:mb-24 animate-fade-in">
-        <span className="text-[10px] sm:text-xs uppercase tracking-[0.5em] font-bold text-[#F04E23] block mb-3 sm:mb-4">
+        <span className="text-[10px] sm:text-xs uppercase tracking-[0.5em] font-bold text-[#A37E43] block mb-3 sm:mb-4">
           ARTISTIC VISION • PORTFOLIO CATALOG
         </span>
         <div className="inline-block relative">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-zinc-900 tracking-tight pb-4">
-            Framing Every Maratha Story
+            Framing Every Elegant Story
           </h2>
-          <div className="absolute bottom-0 left-1/4 right-1/4 h-[2px] bg-gradient-to-r from-[#F04E23] to-[#FFC20E] mx-auto w-16 text-center" />
+          <div className="absolute bottom-0 left-1/4 right-1/4 h-[2px] bg-gradient-to-r from-[#A37E43] to-[#B8975A] mx-auto w-16 text-center" />
         </div>
       </div>
 
@@ -36,7 +36,7 @@ const Categories: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08, duration: 0.8 }}
               viewport={{ once: true }}
-              className="relative group overflow-hidden bg-zinc-150 cursor-pointer border border-[#F04E23]/10 rounded-none aspect-[2/3] lg:aspect-auto lg:h-full lg:flex-1 lg:hover:flex-[1.5] transition-all duration-700 ease-[0.25,1,0.5,1]"
+              className="relative group overflow-hidden bg-zinc-150 cursor-pointer border border-[#A37E43]/10 rounded-none aspect-[2/3] lg:aspect-auto lg:h-full lg:flex-1 lg:hover:flex-[1.5] transition-all duration-700 ease-[0.25,1,0.5,1]"
             >
               {/* Background cover image with soft dark gradient to keep text readable */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent z-10 transition-colors duration-500 group-hover:from-black/95" />
@@ -49,16 +49,16 @@ const Categories: React.FC = () => {
 
               {/* Bottom aligned visual icons & tag name */}
               <div className="absolute inset-x-0 bottom-0 z-20 p-6 sm:p-8 flex flex-col items-center justify-end text-center h-1/2 gap-3 sm:gap-4">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/30 flex items-center justify-center backdrop-blur-md bg-white/5 transition-all duration-500 group-hover:bg-[#F04E23] group-hover:border-[#FFC20E] group-hover:scale-115">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/30 flex items-center justify-center backdrop-blur-md bg-white/5 transition-all duration-500 group-hover:bg-[#A37E43] group-hover:border-[#B8975A] group-hover:scale-115">
                   <cat.icon className="w-4 h-4 sm:w-5 sm:h-5 text-white transition-colors duration-300" />
                 </div>
-                <h3 className="text-[10px] sm:text-xs font-serif tracking-[0.2em] font-semibold text-white/95 group-hover:text-[#FFC20E] transition-colors duration-300">
+                <h3 className="text-[10px] sm:text-xs font-serif tracking-[0.2em] font-semibold text-white/95 group-hover:text-[#B8975A] transition-colors duration-300">
                   {cat.name}
                 </h3>
               </div>
 
               {/* Decorative bottom hover highlight line */}
-              <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#F04E23] to-[#FFC20E] scale-x-0 group-hover:scale-x-100 transition-transform origin-center duration-500 z-30" />
+              <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#A37E43] to-[#B8975A] scale-x-0 group-hover:scale-x-100 transition-transform origin-center duration-500 z-30" />
             </motion.div>
           ))}
         </div>

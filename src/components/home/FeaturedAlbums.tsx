@@ -65,14 +65,14 @@ const FeaturedAlbums: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-32 bg-[#FCF8F2] border-t border-[#F04E23]/10">
+    <section className="py-32 bg-[#FCFAF6] border-t border-[#A37E43]/10">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
         <div className="flex flex-col items-center text-center mb-24 space-y-4">
-          <span className="text-[10px] uppercase tracking-[0.6em] font-bold text-[#F04E23] flex items-center gap-2">
-            <Sparkles className="w-3.5 h-3.5 text-[#FFC20E] animate-pulse" /> REGAL COLLECTION • SACRED GALLERY
+          <span className="text-[10px] uppercase tracking-[0.6em] font-bold text-[#A37E43] flex items-center gap-2">
+            <Sparkles className="w-3.5 h-3.5 text-[#B8975A] animate-pulse" /> REGAL COLLECTION • SACRED GALLERY
           </span>
           <h2 className="text-4xl sm:text-6xl font-serif text-zinc-900 tracking-tight leading-none">
-            Featured <span className="italic text-[#F04E23]">Shoots</span>
+            Featured <span className="italic text-[#A37E43]">Shoots</span>
           </h2>
         </div>
 
@@ -87,7 +87,7 @@ const FeaturedAlbums: React.FC = () => {
               className={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-20 items-center`}
             >
               {/* Image Section */}
-              <div className="w-full lg:w-3/5 group relative overflow-hidden rounded-none border border-[#F04E23]/15 bg-white shadow-md">
+              <div className="w-full lg:w-3/5 group relative overflow-hidden rounded-none border border-[#A37E43]/15 bg-white shadow-md">
                 <div className="absolute inset-0 bg-stone-900/10 group-hover:bg-transparent transition-colors z-10 duration-700" />
                 <div className="aspect-[16/10] overflow-hidden bg-stone-50">
                   <motion.img
@@ -100,9 +100,9 @@ const FeaturedAlbums: React.FC = () => {
                   />
                 </div>
                 {/* Floating Meta tags */}
-                <div className="absolute bottom-6 right-6 z-20 bg-white/95 backdrop-blur-md px-4 py-3 border border-[#F04E23]/20 shadow-lg">
+                <div className="absolute bottom-6 right-6 z-20 bg-white/95 backdrop-blur-md px-4 py-3 border border-[#A37E43]/20 shadow-lg">
                   <p className="text-[8px] uppercase tracking-[0.2em] text-zinc-400 font-bold mb-0.5">Shoot Type</p>
-                  <p className="text-xs font-serif italic text-[#F04E23] font-bold">{album.category}</p>
+                  <p className="text-xs font-serif italic text-[#A37E43] font-bold">{album.category}</p>
                 </div>
               </div>
 
@@ -110,8 +110,8 @@ const FeaturedAlbums: React.FC = () => {
               <div className="w-full lg:w-2/5 space-y-6">
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
-                    <div className="h-[2px] w-6 bg-gradient-to-r from-[#F04E23] to-[#FFC20E]" />
-                    <span className="text-[10px] uppercase tracking-widest text-[#F04E23] font-bold">Story {i + 1}</span>
+                    <div className="h-[2px] w-6 bg-gradient-to-r from-[#A37E43] to-[#B8975A]" />
+                    <span className="text-[10px] uppercase tracking-widest text-[#A37E43] font-bold">Story {i + 1}</span>
                   </div>
                   <h3 className="text-3xl sm:text-4xl font-serif text-zinc-900 tracking-tight leading-tight">{album.title}</h3>
                   <div className="flex flex-wrap gap-6 text-[10px] text-zinc-400 uppercase tracking-[0.15em] font-medium">
@@ -120,15 +120,15 @@ const FeaturedAlbums: React.FC = () => {
                   </div>
                 </div>
 
-                <p className="text-zinc-600 leading-relaxed text-sm font-light font-sans pl-6 border-l-2 border-[#F04E23]/25">
+                <p className="text-zinc-600 leading-relaxed text-sm font-light font-sans pl-6 border-l-2 border-[#A37E43]/25">
                   {album.description}
                 </p>
 
                 <div className="pt-2">
                   <Link to={`/album/${album.id}`}>
-                    <Button variant="link" className="text-zinc-900 hover:text-[#F04E23] p-0 h-auto group text-[10px] uppercase tracking-[0.3em] font-bold">
+                    <Button variant="link" className="text-zinc-900 hover:text-[#A37E43] p-0 h-auto group text-[10px] uppercase tracking-[0.3em] font-bold">
                       View Full Album
-                      <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-2 transition-transform duration-300 text-[#FFC20E]" />
+                      <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-2 transition-transform duration-300 text-[#B8975A]" />
                     </Button>
                   </Link>
                 </div>
@@ -139,7 +139,7 @@ const FeaturedAlbums: React.FC = () => {
 
         <div className="mt-32 text-center">
           <Link to="/portfolio">
-            <Button size="lg" className="bg-[#F04E23] hover:bg-[#D03E15] text-white rounded-none px-12 h-16 uppercase text-[10px] tracking-[0.3em] font-bold transition-all duration-300 shadow-md">
+            <Button size="lg" className="bg-[#A37E43] hover:bg-[#B8975A] text-white rounded-none px-12 h-16 uppercase text-[10px] tracking-[0.3em] font-bold transition-all duration-300 shadow-md">
               EXPLORE ALL ALBUMS
             </Button>
           </Link>

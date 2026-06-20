@@ -30,10 +30,10 @@ const testimonials = [
 
 const AboutAndAwards: React.FC = () => {
   return (
-    <section id="about" className="py-24 sm:py-32 bg-[#FCF8F2] overflow-hidden border-t border-[#F04E23]/10 relative">
+    <section id="about" className="py-24 sm:py-32 bg-[#FCFAF6] overflow-hidden border-t border-[#A37E43]/10 relative">
       {/* Absolute traditional design element */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 opacity-5 pointer-events-none z-10 select-none">
-        <span className="text-9xl font-serif text-[#F04E23] uppercase font-bold tracking-widest block whitespace-nowrap">MAHARASHTRA</span>
+        <span className="text-9xl font-serif text-[#A37E43] uppercase font-bold tracking-widest block whitespace-nowrap">MAHARASHTRA</span>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 bg-transparent">
@@ -49,12 +49,12 @@ const AboutAndAwards: React.FC = () => {
             className="lg:col-span-5 space-y-6 sm:space-y-8"
           >
             <div className="space-y-3">
-              <span className="text-[10px] sm:text-xs uppercase tracking-[0.5em] font-bold text-[#F04E23] flex items-center gap-2">
-                <Sparkles className="w-3.5 h-3.5 animate-pulse text-[#FFC20E]" /> LEGACY & VISION • ABOUT THE ARTIST
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.5em] font-bold text-[#A37E43] flex items-center gap-2">
+                <Sparkles className="w-3.5 h-3.5 animate-pulse text-[#B8975A]" /> LEGACY & VISION • ABOUT THE ARTIST
               </span>
               <h2 className="text-4xl sm:text-5xl font-serif text-zinc-900 tracking-tight leading-[1.15]">
                 Vinayak Sable
-                <span className="text-xl sm:text-2xl text-[#F04E23] block mt-2 font-serif font-light italic">
+                <span className="text-xl sm:text-2xl text-[#A37E43] block mt-2 font-serif font-light italic">
                   Vinayak Sable Photography
                 </span>
                 <span className="text-[11px] uppercase tracking-[0.25em] font-bold text-zinc-400 block mt-1 font-sans">
@@ -68,19 +68,19 @@ const AboutAndAwards: React.FC = () => {
             </p>
 
             <p className="text-xl text-zinc-700 text-sm leading-relaxed font-light font-sans -mt-2">
-              Every family celebration, Peshwa wedding, and traditional portrait session holds a distinct aesthetic. I work patiently to translate those sacred Maratha emotions into timeless golden masterpieces.
+              Every family celebration, wedding, and traditional portrait session holds a distinct aesthetic. I work patiently to translate those sacred emotions into timeless golden masterpieces.
             </p>
 
-            <p className="text-3xl text-[#F04E23] font-serif italic tracking-wide font-normal py-2 flex items-center gap-2">
+            <p className="text-3xl text-[#A37E43] font-serif italic tracking-wide font-normal py-2 flex items-center gap-2">
               <span>Vinayak Sable</span>
               <span className="text-xs text-zinc-400 font-sans tracking-widest uppercase">&bull; Pune, MH</span>
             </p>
 
             <div>
               <Link to="/portfolio">
-                <Button className="bg-[#F04E23] hover:bg-[#F04E23]/95 text-white border border-transparent rounded-none h-14 px-8 uppercase text-[10px] font-bold tracking-[0.3em] transition-all flex items-center gap-2 shadow-md hover:shadow-orange-700/15">
+                <Button className="bg-[#A37E43] hover:bg-[#A37E43]/95 text-white border border-transparent rounded-none h-14 px-8 uppercase text-[10px] font-bold tracking-[0.3em] transition-all flex items-center gap-2 shadow-md hover:shadow-orange-700/15">
                   EXPLORE THE SAGA
-                  <ArrowRight className="w-4 h-4 text-[#FFC20E]" />
+                  <ArrowRight className="w-4 h-4 text-[#B8975A]" />
                 </Button>
               </Link>
             </div>
@@ -95,16 +95,16 @@ const AboutAndAwards: React.FC = () => {
             className="lg:col-span-7 relative group"
           >
             {/* Absolute Decorative Golden Wada Frame Background */}
-            <div className="absolute -inset-2 rounded-none border border-gradient-to-tr from-[#F04E23]/30 via-transparent to-[#FFC20E]/40 pointer-events-none group-hover:scale-[1.02] transition-transform duration-700" />
+            <div className="absolute -inset-2 rounded-none border border-gradient-to-tr from-[#A37E43]/30 via-transparent to-[#B8975A]/40 pointer-events-none group-hover:scale-[1.02] transition-transform duration-700" />
             
-            <div className="relative overflow-hidden rounded-none border border-[#F04E23]/25 bg-[#151310] shadow-xl">
+            <div className="relative overflow-hidden rounded-none border border-[#A37E43]/25 bg-[#151310] shadow-xl">
               <img
                 src="https://images.unsplash.com/photo-1607990283143-e81e7a2c93ab?q=80&w=1200&auto=format&fit=crop"
                 alt="Vinayak Sable photography Studio"
                 className="w-full h-auto aspect-[4/3] sm:aspect-video object-cover filter brightness-95 saturate-[0.8] hover:saturate-100 hover:brightness-100 transition-all duration-1000"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute bottom-4 left-4 z-10 bg-[#151310]/80 p-3 text-white border-l-2 border-[#FFC20E] text-[9px] uppercase tracking-widest font-sans font-bold">
+              <div className="absolute bottom-4 left-4 z-10 bg-[#151310]/80 p-3 text-white border-l-2 border-[#B8975A] text-[9px] uppercase tracking-widest font-sans font-bold">
                 HONOR & DEVOTION • TRUE ROYAL STYLE
               </div>
             </div>
@@ -112,8 +112,8 @@ const AboutAndAwards: React.FC = () => {
         </div>
 
         {/* 4-Column Statistics section with beautiful saffron/gold layout */}
-        <div className="mt-24 sm:mt-32 border-t border-b border-[#F04E23]/15 py-12 bg-white/40">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 divide-y lg:divide-y-0 lg:divide-x divide-[#F04E23]/15">
+        <div className="mt-24 sm:mt-32 border-t border-b border-[#A37E43]/15 py-12 bg-white/40">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 divide-y lg:divide-y-0 lg:divide-x divide-[#A37E43]/15">
             {[
               { icon: Camera, val: "12+", label: "YEARS ARCHIVING SOULS" },
               { icon: Users, val: "480+", label: "MARATHA WEDDINGS" },
@@ -121,11 +121,11 @@ const AboutAndAwards: React.FC = () => {
               { icon: Heart, val: "100%", label: "DEVOTED CLIENT SERVICE" }
             ].map((stat, idx) => (
               <div key={idx} className="flex flex-col items-center text-center px-4 py-6 lg:py-4 space-y-2 justify-center">
-                <stat.icon className="w-5 h-5 text-[#F04E23]" />
+                <stat.icon className="w-5 h-5 text-[#A37E43]" />
                 <span className="text-4xl sm:text-5xl font-serif text-zinc-900 tracking-tight">
                   {stat.val}
                 </span>
-                <span className="text-[9px] uppercase tracking-[0.25em] font-bold text-[#F04E23]/80">
+                <span className="text-[9px] uppercase tracking-[0.25em] font-bold text-[#A37E43]/80">
                   {stat.label}
                 </span>
               </div>
@@ -136,9 +136,9 @@ const AboutAndAwards: React.FC = () => {
         {/* Instagram Preview */}
         <div className="mt-32 text-center space-y-12">
           <div className="space-y-3">
-            <span className="text-[10px] uppercase tracking-[0.5em] text-[#F04E23] font-bold">INSTAGRAM SHORTS</span>
+            <span className="text-[10px] uppercase tracking-[0.5em] text-[#A37E43] font-bold">INSTAGRAM SHORTS</span>
             <h3 className="text-3xl font-serif text-zinc-900">Follow Our Journey</h3>
-            <p className="text-zinc-500 text-xs font-light max-w-sm mx-auto">Explore daily micro-vlogs, client highlights and behind-the-scenes previews on <a href="https://www.instagram.com/vinayak_sable_photographey?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noreferrer" className="underline font-semibold text-[#F04E23]">@vinayak_sable_photographey</a></p>
+            <p className="text-zinc-500 text-xs font-light max-w-sm mx-auto">Explore daily micro-vlogs, client highlights and behind-the-scenes previews on <a href="https://www.instagram.com/vinayak_sable_photographey?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noreferrer" className="underline font-semibold text-[#A37E43]">@vinayak_sable_photographey</a></p>
           </div>
           
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
@@ -148,7 +148,7 @@ const AboutAndAwards: React.FC = () => {
               'https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=400&auto=format&fit=crop',
               'https://images.unsplash.com/photo-1604017011826-d3b4c23f8914?q=80&w=400&auto=format&fit=crop'
             ].map((img, idx) => (
-              <a key={idx} href="https://www.instagram.com/vinayak_sable_photographey?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noreferrer" className="relative block group aspect-square overflow-hidden border border-[#F04E23]/10">
+              <a key={idx} href="https://www.instagram.com/vinayak_sable_photographey?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noreferrer" className="relative block group aspect-square overflow-hidden border border-[#A37E43]/10">
                 <img src={img} alt="Instagram preview" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-95 saturation-75 group-hover:saturation-100" referrerPolicy="no-referrer" />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <Instagram className="w-6 h-6 text-white" />
@@ -161,7 +161,7 @@ const AboutAndAwards: React.FC = () => {
         {/* Testimonials */}
         <div className="mt-32 sm:mt-48 text-center space-y-16">
           <div className="flex flex-col items-center space-y-4">
-            <span className="text-[10px] sm:text-xs uppercase tracking-[0.5em] font-normal text-[#F04E23] block">
+            <span className="text-[10px] sm:text-xs uppercase tracking-[0.5em] font-normal text-[#A37E43] block">
               CLIENT GRATITUDE &bull; SATISFACTION & TRUST
             </span>
             <h3 className="text-4xl sm:text-5xl font-serif text-zinc-900 tracking-tight">Kind Words</h3>
@@ -174,15 +174,15 @@ const AboutAndAwards: React.FC = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1, duration: 0.8 }}
-                className="bg-white border border-[#F04E23]/10 p-8 sm:p-10 rounded-none hover:shadow-2xl hover:shadow-orange-700/5 hover:border-[#F04E23]/30 transition-all flex flex-col justify-between group text-left"
+                className="bg-white border border-[#A37E43]/10 p-8 sm:p-10 rounded-none hover:shadow-2xl hover:shadow-orange-700/5 hover:border-[#A37E43]/30 transition-all flex flex-col justify-between group text-left"
               >
-                <Quote className="w-8 h-8 text-[#F04E23]/10 mb-8 group-hover:text-[#F04E23]/30 transition-all duration-500" />
+                <Quote className="w-8 h-8 text-[#A37E43]/10 mb-8 group-hover:text-[#A37E43]/30 transition-all duration-500" />
                 <p className="text-zinc-700 font-serif italic mb-10 text-sm sm:text-base leading-relaxed opacity-95">{t.text}</p>
-                <div className="flex items-center gap-4 pt-4 border-t border-[#F04E23]/10">
-                  <div className="w-10 h-10 rounded-full bg-[#FCF8F2] border border-[#F04E23]/25 flex items-center justify-center font-serif italic font-bold text-sm text-[#F04E23]">{t.initial}</div>
+                <div className="flex items-center gap-4 pt-4 border-t border-[#A37E43]/10">
+                  <div className="w-10 h-10 rounded-full bg-[#FCFAF6] border border-[#A37E43]/25 flex items-center justify-center font-serif italic font-bold text-sm text-[#A37E43]">{t.initial}</div>
                   <div className="space-y-0.5">
                     <h5 className="text-[10px] font-bold text-zinc-900 uppercase tracking-widest">{t.name}</h5>
-                    <p className="text-[9px] uppercase tracking-widest text-[#F04E23] font-semibold">{t.role}</p>
+                    <p className="text-[9px] uppercase tracking-widest text-[#A37E43] font-semibold">{t.role}</p>
                   </div>
                 </div>
               </motion.div>
@@ -191,24 +191,24 @@ const AboutAndAwards: React.FC = () => {
         </div>
 
         {/* Booking CTA section with fine Paithani & Wood Wada feeling */}
-        <div className="mt-32 sm:mt-48 bg-white border border-[#F04E23]/15 p-12 sm:p-24 rounded-none relative overflow-hidden text-center shadow-[0_15px_50px_rgba(240,78,35,0.06)]">
+        <div className="mt-32 sm:mt-48 bg-white border border-[#A37E43]/15 p-12 sm:p-24 rounded-none relative overflow-hidden text-center shadow-[0_15px_50px_rgba(163,126,67,0.06)]">
           {/* Subtle traditional texture in background */}
-          <div className="absolute inset-0 bg-[#FCF8F2]/90 bg-[url('https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=2071&auto=format&fit=crop')] opacity-[0.03] bg-cover bg-center grayscale" />
+          <div className="absolute inset-0 bg-[#FCFAF6]/90 bg-[url('https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=2071&auto=format&fit=crop')] opacity-[0.03] bg-cover bg-center grayscale" />
           <div className="relative z-10 space-y-8 sm:space-y-12">
             <h4 className="text-4xl sm:text-6xl md:text-7xl font-serif text-zinc-900 tracking-tight leading-[1.15]">
-              Ready to catalog your <br /> <span className="text-[#F04E23] italic font-light decoration-1">heritage milestones?</span>
+              Ready to catalog your <br /> <span className="text-[#A37E43] italic font-light decoration-1">heritage milestones?</span>
             </h4>
             <p className="text-zinc-600 max-w-xl mx-auto font-serif italic text-sm sm:text-base leading-relaxed opacity-90">
-              Bookings are completely open for the upcoming Maharashtrian wedding and traditional festival seasons. Friendly consultation is free and customized to your local Wada or heritage destination.
+              Bookings are completely open for the upcoming wedding and traditional festival seasons. Friendly consultation is free and customized to your local or heritage destination.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 pt-6 sm:pt-8 w-full max-w-md mx-auto">
               <Link to="/booking" className="w-full sm:w-auto">
-                <Button size="lg" className="bg-[#F04E23] hover:bg-[#D03E15] text-white rounded-none w-full sm:px-12 h-16 uppercase font-bold tracking-[0.3em] text-[10px] sm:text-xs transition-all duration-300 border border-transparent shadow-md">
+                <Button size="lg" className="bg-[#A37E43] hover:bg-[#B8975A] text-white rounded-none w-full sm:px-12 h-16 uppercase font-bold tracking-[0.3em] text-[10px] sm:text-xs transition-all duration-300 border border-transparent shadow-md">
                   BOOK SESSION
                 </Button>
               </Link>
               <Link to="/portfolio" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" className="border-[#F04E23]/30 hover:border-[#F04E23] hover:bg-[#F04E23]/5 rounded-none w-full sm:px-12 h-16 uppercase font-bold tracking-[0.3em] text-[10px] sm:text-xs transition-all duration-300 text-[#F04E23]">
+                <Button size="lg" variant="outline" className="border-[#A37E43]/30 hover:border-[#A37E43] hover:bg-[#A37E43]/5 rounded-none w-full sm:px-12 h-16 uppercase font-bold tracking-[0.3em] text-[10px] sm:text-xs transition-all duration-300 text-[#A37E43]">
                   VIEW JOURNAL
                 </Button>
               </Link>
