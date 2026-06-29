@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Hero from '@/components/home/Hero';
 import FeaturedAlbums from '@/components/home/FeaturedAlbums';
 import Categories from '@/components/home/Categories';
+import { BeforeAfterSlider } from '@/components/home/BeforeAfterSlider';
 import PortfolioMasonry from '@/components/home/PortfolioMasonry';
 import AboutAndAwards from '@/components/home/AboutAndAwards';
 import { motion, useScroll } from 'motion/react';
@@ -21,6 +22,7 @@ const HomePage: React.FC = () => {
       <Hero />
       <FeaturedAlbums />
       <Categories />
+      <BeforeAfterSlider />
 
       {/* Featured captures section inside homepage holding high-end masonry */}
       <div className="py-24 max-w-7xl mx-auto px-6 sm:px-10">

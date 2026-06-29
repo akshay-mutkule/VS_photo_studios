@@ -42,6 +42,15 @@ const BookingPage: React.FC = () => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Bespoke package states
+  const [packageTab, setPackageTab] = useState<'standard' | 'custom'>('standard');
+  const [customHours, setCustomHours] = useState(4);
+  const [includeDrone, setIncludeDrone] = useState(false);
+  const [includeSecondShooter, setIncludeSecondShooter] = useState(false);
+  const [includeAlbum, setIncludeAlbum] = useState(false);
+  const [includeVideo, setIncludeVideo] = useState(false);
+  const [includeExpress, setIncludeExpress] = useState(false);
+
   React.useEffect(() => {
     if (user && !clientInfo.name) {
       setClientInfo(prev => ({
@@ -52,7 +61,36 @@ const BookingPage: React.FC = () => {
     }
   }, [user]);
 
-  const selectedPackageData = packages.find(p => p.id === selectedPackage);
+  const getCustomPrice = () => {
+    let base = customHours * 220; // $220/hour base
+    if (includeSecondShooter) base += 350;
+    if (includeDrone) base += 450;
+    if (includeAlbum) base += 550;
+    if (includeVideo) base += 400;
+    if (includeExpress) base += 250;
+    return base;
+  };
+
+  const getCustomFeatures = () => {
+    const f = [`${customHours} Hours of Continuous Shoot`];
+    f.push(`${customHours * 40}+ Raw & Edited Digital Photos`);
+    if (includeSecondShooter) f.push('Secondary Professional Photographer');
+    if (includeDrone) f.push('Advanced Aerial Drone Coverage (4K)');
+    if (includeAlbum) f.push('Handmade Full-Grain Leather Photo Album');
+    if (includeVideo) f.push('60s Cinematic Highlight Video Reel');
+    if (includeExpress) f.push('Express 48-Hour Secure Delivery');
+    f.push('Private Password-Protected Online Gallery');
+    return f;
+  };
+
+  const selectedPackageData = selectedPackage === 'custom'
+    ? {
+        id: 'custom',
+        name: `Bespoke Custom Package (${customHours} Hours)`,
+        price: getCustomPrice(),
+        features: getCustomFeatures()
+      }
+    : packages.find(p => p.id === selectedPackage);
 
   const handleFinalize = async () => {
     // Form Validation helper
@@ -245,41 +283,180 @@ const BookingPage: React.FC = () => {
                     <span>02. Choose Session Package</span>
                     <button onClick={prevStep} className="text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-900">&larr; Back</button>
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {packages.map((pkg) => (
-                      <div
-                        key={pkg.id}
-                        className={`p-6 border transition-all flex flex-col justify-between ${
-                          selectedPackage === pkg.id 
-                            ? 'border-[#A37E43] bg-white shadow-md' 
-                            : 'border-[#A37E43]/10 bg-white'
-                        }`}
-                      >
-                        <div className="space-y-6">
-                          <div>
-                            <h4 className="text-base font-serif italic text-zinc-900">{pkg.name}</h4>
-                            <p className="text-3xl font-light text-[#A37E43] tracking-tight mt-1">${pkg.price}</p>
-                          </div>
-                          <ul className="space-y-2 text-[10px] text-zinc-500 font-mono uppercase tracking-wider">
-                            {pkg.features.map(f => (
-                              <li key={f} className="flex items-center gap-1.5 leading-relaxed">
-                                <div className="w-1 h-1 bg-[#A37E43] rounded-full" />
-                                {f}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <Button
-                          onClick={() => { setSelectedPackage(pkg.id); nextStep(); }}
-                          className={`w-full mt-6 h-12 rounded-none uppercase tracking-[0.2em] text-[9px] font-bold ${
-                            selectedPackage === pkg.id ? 'bg-[#A37E43] text-white' : 'bg-transparent border border-[#A37E43]/30 text-[#A37E43] hover:bg-[#A37E43] hover:text-white'
+
+                  {/* Tabs Selector for standard vs bespoke custom */}
+                  <div className="flex border border-[#A37E43]/15 p-1 bg-[#FCFAF6] max-w-md">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPackageTab('standard');
+                        setSelectedPackage(null);
+                      }}
+                      className={`flex-1 py-2.5 text-[9px] uppercase tracking-widest font-bold text-center transition-all ${
+                        packageTab === 'standard'
+                          ? 'bg-[#A37E43] text-white shadow-sm'
+                          : 'text-zinc-500 hover:text-zinc-900 bg-transparent'
+                      }`}
+                    >
+                      Studio Curated Plans
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPackageTab('custom');
+                        setSelectedPackage('custom');
+                      }}
+                      className={`flex-1 py-2.5 text-[9px] uppercase tracking-widest font-bold text-center transition-all ${
+                        packageTab === 'custom'
+                          ? 'bg-[#A37E43] text-white shadow-sm'
+                          : 'text-zinc-500 hover:text-zinc-900 bg-transparent'
+                      }`}
+                    >
+                      Bespoke Package Builder
+                    </button>
+                  </div>
+
+                  {packageTab === 'standard' ? (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {packages.map((pkg) => (
+                        <div
+                          key={pkg.id}
+                          className={`p-6 border transition-all flex flex-col justify-between ${
+                            selectedPackage === pkg.id 
+                              ? 'border-[#A37E43] bg-white shadow-md' 
+                              : 'border-[#A37E43]/10 bg-white'
                           }`}
                         >
-                          SELECT PLAN &rarr;
-                        </Button>
+                          <div className="space-y-6">
+                            <div>
+                              <h4 className="text-base font-serif italic text-zinc-900">{pkg.name}</h4>
+                              <p className="text-3xl font-light text-[#A37E43] tracking-tight mt-1">${pkg.price}</p>
+                            </div>
+                            <ul className="space-y-2 text-[10px] text-zinc-500 font-mono uppercase tracking-wider">
+                              {pkg.features.map(f => (
+                                <li key={f} className="flex items-center gap-1.5 leading-relaxed">
+                                  <div className="w-1 h-1 bg-[#A37E43] rounded-full" />
+                                  {f}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <Button
+                            onClick={() => { setSelectedPackage(pkg.id); nextStep(); }}
+                            className={`w-full mt-6 h-12 rounded-none uppercase tracking-[0.2em] text-[9px] font-bold ${
+                              selectedPackage === pkg.id ? 'bg-[#A37E43] text-white' : 'bg-transparent border border-[#A37E43]/30 text-[#A37E43] hover:bg-[#A37E43] hover:text-white'
+                            }`}
+                          >
+                            SELECT PLAN &rarr;
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="bg-white border border-[#A37E43]/10 p-8 rounded-none shadow-sm space-y-8">
+                      <div className="space-y-4">
+                        <div className="flex justify-between items-center">
+                          <Label className="text-[10px] uppercase font-bold tracking-widest text-[#A37E43]">
+                            Hours of Continuous Shoot: <strong className="text-zinc-900 font-sans ml-1">{customHours} Hours</strong>
+                          </Label>
+                          <span className="text-xs font-mono text-zinc-400">${customHours * 220} ($220/hr)</span>
+                        </div>
+                        <input
+                          type="range"
+                          min="2"
+                          max="12"
+                          value={customHours}
+                          onChange={(e) => setCustomHours(parseInt(e.target.value))}
+                          className="w-full accent-[#A37E43] cursor-pointer"
+                        />
+                        <p className="text-[10px] text-zinc-450 font-light font-sans uppercase tracking-wider">
+                          Estimate yields approximately {customHours * 40}+ finalized, fully retouched high-resolution digital plates.
+                        </p>
                       </div>
-                    ))}
-                  </div>
+
+                      <div className="space-y-4 pt-6 border-t border-zinc-100">
+                        <Label className="text-[10px] uppercase font-bold tracking-widest text-[#A37E43] block">Bespoke Add-Ons</Label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {[
+                            {
+                              state: includeSecondShooter,
+                              setState: setIncludeSecondShooter,
+                              label: 'Secondary Professional Photographer',
+                              desc: 'Dual angle coverage to document emotional reactions simultaneously.',
+                              price: '+$350'
+                            },
+                            {
+                              state: includeDrone,
+                              setState: setIncludeDrone,
+                              label: 'Advanced Aerial Drone Footage (4K)',
+                              desc: 'Breath-taking sky panoramas and scenic establishing shots.',
+                              price: '+$450'
+                            },
+                            {
+                              state: includeAlbum,
+                              setState: setIncludeAlbum,
+                              label: 'Handmade Leather Album Print',
+                              desc: 'A heavy luxury layflat photo album handstitched in dark leather.',
+                              price: '+$550'
+                            },
+                            {
+                              state: includeVideo,
+                              setState: setIncludeVideo,
+                              label: '60s Cinematic Highlight Reel',
+                              desc: 'A gorgeous high-definition social media-friendly video.',
+                              price: '+$400'
+                            },
+                            {
+                              state: includeExpress,
+                              setState: setIncludeExpress,
+                              label: 'Express 48-Hour Secure Delivery',
+                              desc: 'Skip our standard queuing with priority editing pipeline.',
+                              price: '+$250'
+                            }
+                          ].map((addon, index) => (
+                            <button
+                              key={index}
+                              type="button"
+                              onClick={() => addon.setState(!addon.state)}
+                              className={`p-4 border text-left flex justify-between gap-4 transition-all ${
+                                addon.state
+                                  ? 'border-[#A37E43] bg-[#A37E43]/5 text-[#A37E43]'
+                                  : 'border-zinc-100 bg-white hover:border-[#A37E43]/30'
+                              }`}
+                            >
+                              <div className="space-y-1">
+                                <p className={`text-xs font-semibold uppercase tracking-wider ${addon.state ? 'text-[#A37E43]' : 'text-zinc-800'}`}>{addon.label}</p>
+                                <p className="text-[10px] text-zinc-400 font-light leading-snug">{addon.desc}</p>
+                              </div>
+                              <span className="text-xs font-mono font-bold self-start mt-0.5 whitespace-nowrap">{addon.price}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Live Price Calculation summary banner */}
+                      <div className="bg-[#FCFAF6] border border-[#A37E43]/20 p-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <div className="space-y-1 text-center sm:text-left">
+                          <p className="text-[9px] uppercase tracking-[0.25em] text-[#A37E43] font-bold">Total Estimated Budget</p>
+                          <h4 className="text-2xl font-serif text-zinc-900">Bespoke Custom Configuration</h4>
+                        </div>
+                        <div className="text-center sm:text-right">
+                          <p className="text-4xl font-serif text-[#A37E43] font-semibold">${getCustomPrice()}</p>
+                          <p className="text-[8px] uppercase tracking-wider text-zinc-400 mt-1">Includes unlimited print licensing</p>
+                        </div>
+                      </div>
+
+                      <Button
+                        onClick={() => {
+                          setSelectedPackage('custom');
+                          nextStep();
+                        }}
+                        className="w-full h-14 bg-[#A37E43] hover:bg-[#8D6B37] text-white rounded-none font-bold uppercase tracking-[0.3em] text-[10px]"
+                      >
+                        SELECT BESPOKE PACKAGE &rarr;
+                      </Button>
+                    </div>
+                  )}
                 </motion.div>
               )}
 

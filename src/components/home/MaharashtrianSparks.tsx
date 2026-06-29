@@ -29,10 +29,10 @@ export const MaharashtrianSparks: React.FC = () => {
         duration: Math.random() * 12 + 10,
         opacity: Math.random() * 0.4 + 0.3,
         color: i % 2 === 0 
-          ? '#F04E23' // Royal Saffron
+          ? '#A37E43' // Vintage Classic Gold
           : i % 3 === 0 
-            ? '#FFC20E' // Marigold Kanak Gold
-            : '#F58220', // Genda Orange
+            ? '#E8D8C8' // Shimmering Champagne
+            : '#B8975A', // Soft Warm Gold
         type: currentType,
         rotateSpeed: Math.random() * 360 + 120,
       };
@@ -41,7 +41,7 @@ export const MaharashtrianSparks: React.FC = () => {
   }, []);
 
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden z-15 select-none" id="mushar-sparks-bg">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-15 select-none" id="luxury-dust-bg">
       {particles.map((p) => {
         if (p.type === 'petal') {
           return (
@@ -68,11 +68,11 @@ export const MaharashtrianSparks: React.FC = () => {
               style={{
                 position: 'absolute',
                 width: p.size,
-                height: p.size * 1.3,
+                height: p.size,
                 backgroundColor: p.color,
-                borderRadius: '80% 15% 55% 50%', // Marigold flower leaf petal style
-                boxShadow: `0 0 10px ${p.color}40`,
-                filter: 'blur(0.5px)',
+                borderRadius: '50%', // Elegant spherical golden bokeh
+                boxShadow: `0 0 12px ${p.color}60`,
+                filter: 'blur(1px)',
               }}
             />
           );
@@ -102,9 +102,9 @@ export const MaharashtrianSparks: React.FC = () => {
                 position: 'absolute',
                 width: p.size,
                 height: p.size,
-                backgroundColor: '#FFA500',
+                backgroundColor: '#E8D8C8',
                 borderRadius: '50%',
-                boxShadow: '0 0 8px #FF8C00, 0 0 16px #FFD700',
+                boxShadow: '0 0 8px #B8975A, 0 0 16px #A37E43',
                 filter: 'blur(0.3px)',
               }}
             />
