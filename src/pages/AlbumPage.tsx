@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { db } from '@/lib/firebase';
-import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
+import { doc, getDoc, collection, getDocs, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { Album, Photo } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useAuth } from '@/context/AuthContext';
 import { 
   Download, Share2, Heart, Lock, ShieldCheck, 
   Sparkles, X, Camera, Play, DownloadCloud, 
   CheckCircle2, SortAsc, SlidersHorizontal,
-  ChevronLeft, ChevronRight, Maximize2, Layers, Info
+  ChevronLeft, ChevronRight, Maximize2, Layers, Info,
+  ShieldAlert, CheckSquare, AlertCircle
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { QRCodeSVG } from 'qrcode.react';
@@ -24,6 +26,7 @@ const mockPhotos: Photo[] = [
 
 const AlbumPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const { user } = useAuth();
   const [album, setAlbum] = React.useState<Album | null>(null);
   const [photos, setPhotos] = React.useState<Photo[]>([]);
   const [loading, setLoading] = React.useState(true);
@@ -38,6 +41,10 @@ const AlbumPage: React.FC = () => {
   const [touchStart, setTouchStart] = React.useState<number | null>(null);
   const [touchEnd, setTouchEnd] = React.useState<number | null>(null);
   
+  // Anti-Screenshot / Blur State
+  const [isWindowBlurred, setIsWindowBlurred] = React.useState(false);
+  const [submittingSelection, setSubmittingSelection] = React.useState(false);
+
   // Password Logic
   const [password, setPassword] = React.useState('');
   const [isUnlocked, setIsUnlocked] = React.useState(false);
@@ -45,6 +52,24 @@ const AlbumPage: React.FC = () => {
 
   // Sharing
   const [showShareModal, setShowShareModal] = React.useState(false);
+
+  // Track Window Blur to prevent screenshot snips
+  React.useEffect(() => {
+    const handleBlur = () => {
+      if (album?.isSelectionEnabled) {
+        setIsWindowBlurred(true);
+      }
+    };
+    const handleFocus = () => {
+      setIsWindowBlurred(false);
+    };
+    window.addEventListener('blur', handleBlur);
+    window.addEventListener('focus', handleFocus);
+    return () => {
+      window.removeEventListener('blur', handleBlur);
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, [album]);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -54,6 +79,12 @@ const AlbumPage: React.FC = () => {
         if (docSnap.exists()) {
           const albumData = { id: docSnap.id, ...docSnap.data() } as Album;
           setAlbum(albumData);
+          if (albumData.selectedPhotosList) {
+            setSelectedPhotos(albumData.selectedPhotosList);
+          }
+          if (albumData.isSelectionEnabled) {
+            setSelectionMode(true);
+          }
           if (!albumData.isPasswordProtected) {
             fetchPhotos(id);
           }
@@ -116,10 +147,54 @@ const AlbumPage: React.FC = () => {
     }
   };
 
-  const toggleSelect = (photoId: string) => {
-    setSelectedPhotos(prev => 
-      prev.includes(photoId) ? prev.filter(id => id !== photoId) : [...prev, photoId]
-    );
+  const toggleSelect = async (photoId: string) => {
+    if (album?.isSelectionEnabled && album?.selectionStatus === 'approved') {
+      toast.error("Curation catalog is locked because your photographer approved this selection.");
+      return;
+    }
+    
+    const nextSelected = selectedPhotos.includes(photoId)
+      ? selectedPhotos.filter(id => id !== photoId)
+      : [...selectedPhotos, photoId];
+      
+    setSelectedPhotos(nextSelected);
+
+    if (album && album.id !== 'legacy-demo') {
+      try {
+        const albumRef = doc(db, 'albums', album.id);
+        await updateDoc(albumRef, {
+          selectedPhotosList: nextSelected,
+          updatedAt: serverTimestamp()
+        });
+      } catch (err) {
+        console.error("Auto-save selection error:", err);
+      }
+    }
+  };
+
+  const handleSubmitCuration = async () => {
+    if (!album || album.id === 'legacy-demo') {
+      toast.success("Demo curation list submitted successfully!");
+      return;
+    }
+    
+    setSubmittingSelection(true);
+    const toastId = toast.loading("Submitting curation list to the studio...");
+    try {
+      const albumRef = doc(db, 'albums', album.id);
+      await updateDoc(albumRef, {
+        selectionStatus: 'submitted',
+        updatedAt: serverTimestamp()
+      });
+      
+      setAlbum(prev => prev ? { ...prev, selectionStatus: 'submitted' } : null);
+      toast.success("Curation list successfully submitted to Vinayak Sable Studio!", { id: toastId });
+    } catch (err) {
+      console.error("Submit selection error:", err);
+      toast.error("Curation list submission failed.", { id: toastId });
+    } finally {
+      setSubmittingSelection(false);
+    }
   };
 
   const handleDownloadSelected = () => {
@@ -257,6 +332,26 @@ const AlbumPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#FCFAF6] text-[#1A1815] pt-32 pb-40 overflow-hidden">
+      {/* Dynamic Screen Blanking/Pause Protection when Focus Lost */}
+      <AnimatePresence>
+        {isWindowBlurred && (
+          <div className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center text-center p-8 select-none">
+            <ShieldAlert className="w-16 h-16 text-[#A37E43] mb-6 animate-pulse" />
+            <h3 className="text-2xl sm:text-3xl font-serif text-white tracking-tight">PREVIEW WORKSPACE SECURED</h3>
+            <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-[#A37E43] font-bold mt-2">PROTECTING INTELLECTUAL PROPERTY &bull; SABLE STUDIO</p>
+            <p className="text-zinc-400 font-sans font-light text-xs sm:text-sm max-w-md leading-relaxed mt-4">
+              The secure curation preview has been paused because focus was lost. This prevents snipping tools or screenshot utilities from capturing protected photo plates.
+            </p>
+            <p className="text-zinc-500 font-sans font-light text-[11px] max-w-md mt-1 italic">
+              Please click below or return focus to this browser window to resume.
+            </p>
+            <Button onClick={() => setIsWindowBlurred(false)} className="mt-8 bg-[#A37E43] hover:bg-[#8D6B37] text-white rounded-none px-8 font-bold uppercase tracking-widest text-[9px] h-12">
+              RESUME preview
+            </Button>
+          </div>
+        )}
+      </AnimatePresence>
+
       <div className="max-w-7xl mx-auto px-6 sm:px-12">
         
         {/* Gallery Headers Section */}
@@ -281,79 +376,204 @@ const AlbumPage: React.FC = () => {
 
           {/* Interactive Tools */}
           <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
-            <div className="bg-white p-6 border border-[#A37E43]/15 space-y-4 shadow-md w-full sm:w-80">
-              <div className="flex justify-between items-center text-zinc-400">
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#A37E43]" />
-                  <span className="text-[9px] uppercase tracking-widest font-bold text-zinc-600">Secure Access Certified</span>
+            {album.isSelectionEnabled ? (
+              <div className="bg-white p-6 border border-[#A37E43]/20 space-y-4 shadow-md w-full sm:w-80">
+                <div className="flex items-center gap-2 text-amber-700">
+                  <ShieldAlert className="w-4 h-4" />
+                  <span className="text-[9px] uppercase tracking-widest font-bold">Preview Protections Active</span>
+                </div>
+                <p className="text-[10px] text-zinc-500 font-sans leading-relaxed">
+                  Downloads are disabled for copyright security. Please utilize the checkbox selection tools directly on the photo plates.
+                </p>
+                <div className="bg-[#FCFAF6] border border-[#A37E43]/10 p-3 text-center">
+                  <span className="text-[8px] uppercase tracking-wider text-zinc-400 block mb-0.5">CURRENT SELECTION MODE</span>
+                  <span className="text-xs uppercase font-bold text-[#A37E43] tracking-widest">ENABLED ON DEV PANEL</span>
                 </div>
               </div>
-              
-              <div className="grid grid-cols-2 gap-3">
-                <Button 
-                  onClick={() => setSelectionMode(!selectionMode)}
-                  variant="outline"
-                  className={`h-11 rounded-none uppercase font-bold text-[8px] sm:text-[9px] tracking-wider transition-all border-[#A37E43]/35 ${
-                    selectionMode ? 'bg-[#A37E43] text-white border-transparent' : 'bg-transparent text-zinc-700 hover:bg-[#A37E43]/5'
-                  }`}
-                >
-                  <Layers className="w-3.5 h-3.5 mr-2" /> SELECT
-                </Button>
-                <Button 
-                  onClick={handleDownloadSelected}
-                  disabled={selectedPhotos.length === 0}
-                  className="h-11 bg-[#A37E43] hover:bg-[#B8975A] text-white rounded-none uppercase font-bold text-[8px] sm:text-[9px] tracking-wider disabled:opacity-20 shadow-md"
-                >
-                  <DownloadCloud className="w-3.5 h-3.5 mr-2" /> EXPORT
-                </Button>
-              </div>
+            ) : (
+              <div className="bg-white p-6 border border-[#A37E43]/15 space-y-4 shadow-md w-full sm:w-80">
+                <div className="flex justify-between items-center text-zinc-400">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-[#A37E43]" />
+                    <span className="text-[9px] uppercase tracking-widest font-bold text-zinc-600">Secure Access Certified</span>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-3">
+                  <Button 
+                    onClick={() => setSelectionMode(!selectionMode)}
+                    variant="outline"
+                    className={`h-11 rounded-none uppercase font-bold text-[8px] sm:text-[9px] tracking-wider transition-all border-[#A37E43]/35 ${
+                      selectionMode ? 'bg-[#A37E43] text-white border-transparent' : 'bg-transparent text-zinc-700 hover:bg-[#A37E43]/5'
+                    }`}
+                  >
+                    <Layers className="w-3.5 h-3.5 mr-2" /> SELECT
+                  </Button>
+                  <Button 
+                    onClick={handleDownloadSelected}
+                    disabled={selectedPhotos.length === 0}
+                    className="h-11 bg-[#A37E43] hover:bg-[#B8975A] text-white rounded-none uppercase font-bold text-[8px] sm:text-[9px] tracking-wider disabled:opacity-20 shadow-md"
+                  >
+                    <DownloadCloud className="w-3.5 h-3.5 mr-2" /> EXPORT
+                  </Button>
+                </div>
 
-              <div className="flex gap-2">
-                <Button 
-                  onClick={() => setShowShareModal(true)}
-                  className="flex-grow h-10 border border-[#A37E43]/25 bg-[#FCFAF6] hover:bg-[#A37E43]/5 text-[#A37E43] rounded-none font-bold uppercase tracking-widest text-[8px]"
-                >
-                  <Share2 className="w-3.5 h-3.5 mr-2" /> SECURE DISTRIBUTE
-                </Button>
+                <div className="flex gap-2">
+                  <Button 
+                    onClick={() => setShowShareModal(true)}
+                    className="flex-grow h-10 border border-[#A37E43]/25 bg-[#FCFAF6] hover:bg-[#A37E43]/5 text-[#A37E43] rounded-none font-bold uppercase tracking-widest text-[8px]"
+                  >
+                    <Share2 className="w-3.5 h-3.5 mr-2" /> SECURE DISTRIBUTE
+                  </Button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
+        {/* Selection/Curation Workspace Board */}
+        {album.isSelectionEnabled && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-12 bg-white border border-[#A37E43]/20 p-6 sm:p-8 shadow-sm flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6"
+          >
+            <div className="space-y-2 max-w-2xl">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#A37E43] animate-ping" />
+                <span className="text-[9px] font-bold text-[#A37E43] uppercase tracking-[0.3em]">SECURE PORTAL &bull; PRIVATE CLIENT ARCHIVE</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-serif text-zinc-900">Your Photographic Selection Workspace</h3>
+              <p className="text-zinc-500 font-sans font-light text-xs sm:text-sm leading-relaxed">
+                {album.clientInstructions || "Please select your favorite photo plates from this collection. Your selections are securely synced with the studio in real-time."}
+              </p>
+              
+              {/* Alert explaining screenshot protection */}
+              <div className="flex items-center gap-2 text-[#A37E43] bg-[#FCFAF6] border border-[#A37E43]/10 px-3 py-1.5 mt-2 max-w-xl">
+                <ShieldAlert className="w-3.5 h-3.5 shrink-0" />
+                <span className="text-[9px] uppercase tracking-wider font-mono">
+                  Protected Preview: Screenshots and drag-saving are disabled to protect copyrights.
+                </span>
+              </div>
+            </div>
+
+            {/* Selection Progress & Submission Status */}
+            <div className="bg-[#FCFAF6] border border-[#A37E43]/15 p-6 w-full lg:w-80 space-y-4 text-center shrink-0">
+              <div className="space-y-1">
+                <span className="text-[8px] uppercase tracking-widest text-zinc-400 block">YOUR SELECTIONS</span>
+                <div className="flex items-center justify-center gap-1.5">
+                  <span className="text-3xl font-serif font-bold text-[#A37E43]">{selectedPhotos.length}</span>
+                  <span className="text-zinc-300 font-serif text-xl">/</span>
+                  <span className="text-xl font-serif text-zinc-500">{album.selectionTargetCount || 30}</span>
+                </div>
+                <span className="text-[8px] text-zinc-400 uppercase tracking-widest block">
+                  {selectedPhotos.length >= (album.selectionTargetCount || 30) ? "Target Goal Achieved!" : "Keep selecting favorite plates"}
+                </span>
+              </div>
+
+              {/* Submit Curation Action */}
+              {album.selectionStatus === 'approved' ? (
+                <div className="bg-emerald-50 text-emerald-700 border border-emerald-200 py-2.5 px-4 text-center text-[9px] font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+                  <Lock className="w-3.5 h-3.5" /> Selections Approved &amp; Locked
+                </div>
+              ) : album.selectionStatus === 'submitted' ? (
+                <div className="space-y-2">
+                  <div className="bg-amber-50 text-amber-700 border border-amber-200 py-2.5 px-4 text-center text-[9px] font-bold uppercase tracking-widest animate-pulse">
+                    Selections Submitted
+                  </div>
+                  <p className="text-[8px] text-zinc-405 uppercase tracking-wider">Photographer is reviewing your catalog.</p>
+                </div>
+              ) : (
+                <Button
+                  onClick={handleSubmitCuration}
+                  disabled={selectedPhotos.length === 0 || submittingSelection}
+                  className="w-full h-11 bg-[#A37E43] hover:bg-[#8D6B37] text-white rounded-none text-[9px] font-bold uppercase tracking-widest shadow-md flex items-center justify-center gap-2"
+                >
+                  {submittingSelection ? (
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      <CheckSquare className="w-3.5 h-3.5" />
+                      SUBMIT SELECTION CATALOG
+                    </>
+                  )}
+                </Button>
+              )}
+            </div>
+          </motion.div>
+        )}
+
         {/* Dynamic Photo Wall Masonry */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
+        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6 select-none" onContextMenu={(e) => e.preventDefault()}>
           {photos.length > 0 ? photos.map((photo, i) => (
             <motion.div
               key={photo.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: Math.min(i * 0.05, 0.3) }}
-              onClick={() => selectionMode ? toggleSelect(photo.id) : setActivePhoto(photo)}
+              onClick={() => {
+                if (album.isSelectionEnabled) {
+                  toggleSelect(photo.id);
+                } else if (selectionMode) {
+                  toggleSelect(photo.id);
+                } else {
+                  setActivePhoto(photo);
+                }
+              }}
               className={`relative group overflow-hidden break-inside-avoid border transition-all cursor-pointer rounded-none ${
                 selectedPhotos.includes(photo.id) 
                   ? 'border-[#A37E43] ring-4 ring-[#A37E43]/15' 
                   : 'border-[#A37E43]/10 bg-white hover:shadow-xl'
               }`}
             >
+              {/* Transparent drag protection overlay */}
+              <div className="absolute inset-0 z-10 bg-transparent select-none cursor-pointer" draggable="false" />
+
+              {/* Dynamic diagonal screenshot watermark overlay */}
+              {album.isSelectionEnabled && (
+                <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none overflow-hidden opacity-25">
+                  <div className="text-[10px] font-mono tracking-[0.2em] text-white uppercase rotate-12 whitespace-nowrap bg-black/40 px-2 py-0.5">
+                    PROOF ONLY &bull; {user?.email || 'CLIENT PREVIEW'} &bull; SABLE STUDIO
+                  </div>
+                </div>
+              )}
+
               <img 
                 src={photo.url} 
                 loading="lazy"
                 alt="Studio Collection Item" 
+                draggable="false"
+                onContextMenu={(e) => e.preventDefault()}
                 className={`w-full h-auto object-cover transition-transform duration-1000 ${selectedPhotos.includes(photo.id) ? 'saturate-100' : 'saturate-[0.7] md:hover:scale-103 md:hover:saturate-100'}`} 
                 referrerPolicy="no-referrer"
               />
               
+              {/* Checkbox indicator tray */}
+              {album.isSelectionEnabled && (
+                <div className="absolute top-3 right-3 z-20 bg-white/90 backdrop-blur-sm p-1.5 border border-[#A37E43]/20 shadow-md">
+                  <div className={`w-5 h-5 flex items-center justify-center border ${
+                    selectedPhotos.includes(photo.id) 
+                      ? 'bg-[#A37E43] border-transparent text-white' 
+                      : 'border-zinc-300 bg-white'
+                  }`}>
+                    {selectedPhotos.includes(photo.id) && <CheckSquare className="w-3.5 h-3.5" />}
+                  </div>
+                </div>
+              )}
+
               {/* Overlay elements */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-white">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-white z-10">
                 <div className="flex justify-between items-center">
                   <span className="text-[9px] uppercase tracking-widest font-mono text-white/85">
-                    MASTER PHOTO &bull; VINAYAK SABLE
+                    {album.isSelectionEnabled ? "PLATE FOR SELECTION" : "MASTER PHOTO • VINAYAK SABLE"}
                   </span>
-                  <div className="flex gap-2">
-                    <Button size="icon" variant="ghost" className="h-8 w-8 text-white hover:text-[#B8975A] p-0 bg-white/10 rounded-full">
-                      <Heart className="w-4 h-4" />
-                    </Button>
-                  </div>
+                  {!album.isSelectionEnabled && (
+                    <div className="flex gap-2">
+                      <Button size="icon" variant="ghost" className="h-8 w-8 text-white hover:text-[#B8975A] p-0 bg-white/10 rounded-full">
+                        <Heart className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>
@@ -455,17 +675,32 @@ const AlbumPage: React.FC = () => {
                    <ChevronLeft className="w-5 sm:w-6 h-5 sm:h-6 hover:text-[#B8975A]" />
                  </button>
   
-                 <motion.img
-                   key={activePhoto.id}
-                   initial={{ opacity: 0, scale: 0.95 }}
-                   animate={{ opacity: 1, scale: 1 }}
-                   exit={{ opacity: 0 }}
-                   transition={{ duration: 0.4 }}
-                   src={activePhoto.url}
-                   className="max-w-full max-h-full object-contain shadow-2xl border border-white/10 select-none text-white"
-                   referrerPolicy="no-referrer"
-                   alt=""
-                 />
+                 <div className="relative max-w-full max-h-[75vh] flex items-center justify-center">
+                   {/* Transparent drag protection overlay for Lightbox */}
+                   <div className="absolute inset-0 z-10 bg-transparent select-none cursor-default" draggable="false" onContextMenu={(e) => e.preventDefault()} />
+                   
+                   {album.isSelectionEnabled && (
+                     <div className="absolute inset-0 z-15 flex items-center justify-center pointer-events-none select-none overflow-hidden opacity-30">
+                       <div className="text-[12px] font-mono tracking-[0.25em] text-white uppercase rotate-12 whitespace-nowrap bg-black/60 px-3 py-1 border border-white/10">
+                         PROOF ONLY &bull; {user?.email || 'CLIENT PREVIEW'} &bull; SABLE STUDIO
+                       </div>
+                     </div>
+                   )}
+
+                   <motion.img
+                     key={activePhoto.id}
+                     initial={{ opacity: 0, scale: 0.95 }}
+                     animate={{ opacity: 1, scale: 1 }}
+                     exit={{ opacity: 0 }}
+                     transition={{ duration: 0.4 }}
+                     src={activePhoto.url}
+                     draggable="false"
+                     onContextMenu={(e) => e.preventDefault()}
+                     className="max-w-full max-h-[75vh] object-contain shadow-2xl border border-white/10 select-none text-white relative"
+                     referrerPolicy="no-referrer"
+                     alt=""
+                   />
+                 </div>
   
                  <button
                    type="button"
@@ -484,17 +719,23 @@ const AlbumPage: React.FC = () => {
                    <span>FORMAT: <strong className="text-white font-semibold flex items-center gap-1"><Sparkles className="w-3.5 h-3.5 text-[#B8975A]" /> MASTER RAW</strong></span>
                  </div>
                  <div className="flex gap-4">
-                   <a
-                     href={activePhoto.url}
-                     download={`vs-studio-${activePhoto.id}.jpg`}
-                     target="_blank"
-                     rel="noreferrer"
-                   >
-                     <Button variant="outline" className="h-11 px-6 border-white/20 hover:border-[#B8975A] hover:bg-[#A37E43] hover:border-transparent rounded-none text-[10px] tracking-widest font-bold uppercase text-white transition-all flex items-center gap-2">
-                       <Download className="w-3.5 h-3.5" />
-                       DOWNLOAD HIGH RESOLUTION
-                     </Button>
-                   </a>
+                   {album.isSelectionEnabled ? (
+                     <div className="flex items-center gap-2 bg-black/50 px-4 py-2.5 border border-[#A37E43]/30 text-[#A37E43] font-mono text-[9px] uppercase tracking-wider select-none">
+                       <Lock className="w-3.5 h-3.5" /> Premium Download Locked for Curation
+                     </div>
+                   ) : (
+                     <a
+                       href={activePhoto.url}
+                       download={`vs-studio-${activePhoto.id}.jpg`}
+                       target="_blank"
+                       rel="noreferrer"
+                     >
+                       <Button variant="outline" className="h-11 px-6 border-white/20 hover:border-[#B8975A] hover:bg-[#A37E43] hover:border-transparent rounded-none text-[10px] tracking-widest font-bold uppercase text-white transition-all flex items-center gap-2">
+                         <Download className="w-3.5 h-3.5" />
+                         DOWNLOAD HIGH RESOLUTION
+                       </Button>
+                     </a>
+                   )}
                  </div>
                </div>
              </motion.div>

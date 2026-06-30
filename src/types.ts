@@ -23,6 +23,12 @@ export interface Album {
   clientEmail?: string;
   createdAt: any;
   updatedAt: any;
+  // Selection fields
+  isSelectionEnabled?: boolean;
+  selectionTargetCount?: number;
+  selectedPhotosList?: string[];
+  selectionStatus?: 'pending' | 'submitted' | 'approved';
+  clientInstructions?: string;
 }
 
 export interface Photo {

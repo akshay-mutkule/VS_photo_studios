@@ -28,7 +28,12 @@
         "password": { "type": "string" },
         "clientEmail": { "type": "string" },
         "createdAt": { "type": "string", "format": "date-time" },
-        "updatedAt": { "type": "string", "format": "date-time" }
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "isSelectionEnabled": { "type": "boolean" },
+        "selectionTargetCount": { "type": "number" },
+        "selectedPhotosList": { "type": "array", "items": { "type": "string" } },
+        "selectionStatus": { "type": "string", "enum": ["pending", "submitted", "approved"] },
+        "clientInstructions": { "type": "string" }
       }
     },
     "photos": {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useAuth } from '@/context/AuthContext';
 import { db } from '@/lib/firebase';
 import { collection, query, getDocs, addDoc, serverTimestamp, orderBy, limit, doc, updateDoc, deleteDoc } from 'firebase/firestore';
@@ -14,7 +14,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { LayoutDashboard, Users, Camera, DollarSign, Upload, Plus, MoreVertical, Search, BarChart3, TrendingUp, Activity, Shield, Mail, Ticket, HardDrive, Bell, Settings as SettingsIcon, Download } from 'lucide-react';
+import { LayoutDashboard, Users, Camera, DollarSign, Upload, Plus, MoreVertical, Search, BarChart3, TrendingUp, Activity, Shield, Mail, Ticket, HardDrive, Bell, Settings as SettingsIcon, Download, Sliders, ClipboardCopy, CheckSquare, FileSpreadsheet, Lock } from 'lucide-react';
 import { toast } from 'sonner';
 import { AreaChart, Area, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -41,6 +41,20 @@ const AdminPage: React.FC = () => {
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const [selectedAlbumForUpload, setSelectedAlbumForUpload] = React.useState<string | null>(null);
   const [coverUploadProgress, setCoverUploadProgress] = React.useState<number | null>(null);
+  
+  // Selection Portal States
+  const [configuringSelectionAlbum, setConfiguringSelectionAlbum] = React.useState<Album | null>(null);
+  const [isSelectionEnabled, setIsSelectionEnabled] = React.useState(false);
+  const [selectionTargetCount, setSelectionTargetCount] = React.useState(30);
+  const [clientInstructions, setClientInstructions] = React.useState('');
+
+  React.useEffect(() => {
+    if (configuringSelectionAlbum) {
+      setIsSelectionEnabled(configuringSelectionAlbum.isSelectionEnabled ?? false);
+      setSelectionTargetCount(configuringSelectionAlbum.selectionTargetCount ?? 30);
+      setClientInstructions(configuringSelectionAlbum.clientInstructions ?? '');
+    }
+  }, [configuringSelectionAlbum]);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -69,6 +83,143 @@ const AdminPage: React.FC = () => {
     };
     fetchData();
   }, []);
+
+  // Selection sub-collection photos
+  const [selectionAlbumPhotos, setSelectionAlbumPhotos] = React.useState<any[]>([]);
+  const [loadingSelectionPhotos, setLoadingSelectionPhotos] = React.useState(false);
+
+  React.useEffect(() => {
+    const fetchSelectionPhotos = async () => {
+      if (!configuringSelectionAlbum) {
+        setSelectionAlbumPhotos([]);
+        return;
+      }
+      setLoadingSelectionPhotos(true);
+      try {
+        const snap = await getDocs(collection(db, 'albums', configuringSelectionAlbum.id, 'photos'));
+        const photosList = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        setSelectionAlbumPhotos(photosList);
+      } catch (err) {
+        console.error("Error fetching selection album photos:", err);
+      } finally {
+        setLoadingSelectionPhotos(false);
+      }
+    };
+    fetchSelectionPhotos();
+  }, [configuringSelectionAlbum]);
+
+  const handleSaveSelectionConfig = async () => {
+    if (!configuringSelectionAlbum) return;
+    const toastId = toast.loading("Updating Selection Portal settings...");
+    try {
+      const albumRef = doc(db, 'albums', configuringSelectionAlbum.id);
+      const updateData = {
+        isSelectionEnabled,
+        selectionTargetCount: Number(selectionTargetCount),
+        clientInstructions,
+        selectionStatus: configuringSelectionAlbum.selectionStatus || 'pending',
+        updatedAt: serverTimestamp()
+      };
+      await updateDoc(albumRef, updateData);
+      
+      // Update local state
+      const localUpdate = {
+        isSelectionEnabled,
+        selectionTargetCount: Number(selectionTargetCount),
+        clientInstructions,
+        selectionStatus: (configuringSelectionAlbum.selectionStatus || 'pending') as any,
+        updatedAt: new Date()
+      };
+      setAlbums(prev => prev.map(a => a.id === configuringSelectionAlbum.id ? { ...a, ...localUpdate } as any : a));
+      setConfiguringSelectionAlbum(prev => prev ? { ...prev, ...localUpdate } as any : null);
+      
+      toast.success("Selection Portal config deployed successfully", { id: toastId });
+    } catch (error) {
+      console.error("Save selection config error:", error);
+      toast.error("Failed to deploy selection config", { id: toastId });
+    }
+  };
+
+  const handleApproveSelection = async () => {
+    if (!configuringSelectionAlbum) return;
+    const toastId = toast.loading("Approving client selections...");
+    try {
+      const albumRef = doc(db, 'albums', configuringSelectionAlbum.id);
+      const updateData = {
+        selectionStatus: 'approved',
+        updatedAt: serverTimestamp()
+      };
+      await updateDoc(albumRef, updateData as any);
+      
+      // Update local state
+      const localUpdate = {
+        selectionStatus: 'approved' as any,
+        updatedAt: new Date()
+      };
+      setAlbums(prev => prev.map(a => a.id === configuringSelectionAlbum.id ? { ...a, ...localUpdate } as any : a));
+      setConfiguringSelectionAlbum(prev => prev ? { ...prev, ...localUpdate } as any : null);
+      
+      toast.success("Selections approved & catalog locked", { id: toastId });
+    } catch (error) {
+      console.error("Approve selection error:", error);
+      toast.error("Failed to approve selection", { id: toastId });
+    }
+  };
+
+  const handleUnlockSelection = async () => {
+    if (!configuringSelectionAlbum) return;
+    const toastId = toast.loading("Re-opening selection portal...");
+    try {
+      const albumRef = doc(db, 'albums', configuringSelectionAlbum.id);
+      const updateData = {
+        selectionStatus: 'pending',
+        updatedAt: serverTimestamp()
+      };
+      await updateDoc(albumRef, updateData as any);
+      
+      // Update local state
+      const localUpdate = {
+        selectionStatus: 'pending' as any,
+        updatedAt: new Date()
+      };
+      setAlbums(prev => prev.map(a => a.id === configuringSelectionAlbum.id ? { ...a, ...localUpdate } as any : a));
+      setConfiguringSelectionAlbum(prev => prev ? { ...prev, ...localUpdate } as any : null);
+      
+      toast.success("Portal unlocked. Client can edit selections again.", { id: toastId });
+    } catch (error) {
+      console.error("Unlock selection error:", error);
+      toast.error("Failed to unlock selection portal", { id: toastId });
+    }
+  };
+
+  const handleDownloadLightroomCSV = () => {
+    if (!configuringSelectionAlbum) return;
+    const selectedIds = configuringSelectionAlbum.selectedPhotosList || [];
+    if (selectedIds.length === 0) {
+      toast.error("No photos selected yet.");
+      return;
+    }
+    
+    // Match photos
+    const selectedPhotos = selectionAlbumPhotos.filter(p => selectedIds.includes(p.id));
+    const csvRows = [
+      ["Photo ID", "File URL", "Category", "Tags"],
+      ...selectedPhotos.map(p => [p.id, p.url, configuringSelectionAlbum.category, p.tags?.join("; ") || ""])
+    ];
+    
+    const csvContent = "data:text/csv;charset=utf-8," 
+      + csvRows.map(e => e.map(val => `"${String(val).replace(/"/g, '""')}"`).join(",")).join("\n");
+      
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `${configuringSelectionAlbum.title.toLowerCase().replace(/\s+/g, '_')}_selections.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    toast.success("Lightroom photo index exported successfully!");
+  };
 
   const handleCreateAlbum = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -465,7 +616,7 @@ const AdminPage: React.FC = () => {
                     <h4 className="text-xl font-serif text-zinc-905">{album.title}</h4>
                     <p className="text-[10px] text-zinc-400 font-mono tracking-wide truncate">{album.clientEmail}</p>
                     
-                    <div className="pt-2 flex gap-2">
+                    <div className="pt-2 flex flex-col gap-2">
                       <Button 
                         onClick={() => {
                           setSelectedAlbumForUpload(album.id);
@@ -482,6 +633,14 @@ const AdminPage: React.FC = () => {
                             UPLOAD ASSETS
                           </>
                         )}
+                      </Button>
+                      <Button
+                        onClick={() => setConfiguringSelectionAlbum(album)}
+                        variant="outline"
+                        className="border-[#A37E43]/30 text-[#A37E43] hover:bg-[#A37E43]/5 rounded-none w-full uppercase text-[9px] tracking-widest font-bold h-10 flex items-center justify-center gap-1.5"
+                      >
+                        <Sliders className="w-3.5 h-3.5" />
+                        SELECTION PORTAL
                       </Button>
                     </div>
                   </div>
@@ -587,6 +746,206 @@ const AdminPage: React.FC = () => {
           className="hidden" 
           accept="image/*"
         />
+
+        {/* Selection Configuration & View Modal */}
+        <AnimatePresence>
+          {configuringSelectionAlbum && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+              <div className="absolute inset-0 bg-black/85 backdrop-blur-sm" onClick={() => setConfiguringSelectionAlbum(null)} />
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                className="relative bg-[#FCFAF6] border border-[#A37E43]/25 w-full max-w-5xl h-[90vh] sm:h-[80vh] flex flex-col shadow-2xl overflow-hidden text-zinc-900 rounded-none"
+              >
+                {/* Header */}
+                <div className="flex justify-between items-center px-6 py-4 border-b border-[#A37E43]/15 bg-white">
+                  <div>
+                    <span className="text-[8px] font-bold text-[#A37E43] uppercase tracking-[0.3em]">SECURE SELECTION ENGINE</span>
+                    <h3 className="text-xl font-serif text-zinc-950 truncate max-w-md">{configuringSelectionAlbum.title}</h3>
+                  </div>
+                  <Button 
+                    onClick={() => setConfiguringSelectionAlbum(null)} 
+                    variant="ghost" 
+                    className="h-10 w-10 text-zinc-400 hover:text-zinc-900 hover:bg-stone-100 rounded-none p-0"
+                  >
+                    ✕
+                  </Button>
+                </div>
+
+                {/* Content Area (Scrollable) */}
+                <div className="flex-grow overflow-y-auto grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-[#A37E43]/15">
+                  
+                  {/* Left Column: Configuration Settings */}
+                  <div className="lg:col-span-5 p-6 sm:p-8 space-y-6">
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-serif font-semibold text-zinc-805 uppercase tracking-wider">Curation Configuration</h4>
+                      <p className="text-[11px] text-zinc-500 font-sans font-light leading-relaxed">
+                        Control how the client interacts with this collection. Activating Selection mode will provide the client with a curated checkbox tray and protect these assets from unauthorized downloads or screens.
+                      </p>
+                    </div>
+
+                    {/* Enable toggle */}
+                    <div className="flex items-center justify-between p-4 bg-white border border-[#A37E43]/10">
+                      <div className="space-y-1">
+                        <Label className="text-xs uppercase tracking-wider text-zinc-800 font-bold flex items-center gap-1.5">
+                          <CheckSquare className="w-4 h-4 text-[#A37E43]" /> Selection Mode
+                        </Label>
+                        <p className="text-[10px] text-zinc-400 font-light font-sans">Enable client checkbox curation tray</p>
+                      </div>
+                      <input 
+                        type="checkbox" 
+                        checked={isSelectionEnabled} 
+                        onChange={(e) => setIsSelectionEnabled(e.target.checked)} 
+                        className="w-5 h-5 rounded-none accent-[#A37E43] cursor-pointer"
+                      />
+                    </div>
+
+                    {isSelectionEnabled && (
+                      <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="space-y-4"
+                      >
+                        {/* Target Selection Count */}
+                        <div className="space-y-2">
+                          <Label className="text-[9px] uppercase tracking-widest text-[#A37E43] font-bold">Target Count of Photos</Label>
+                          <Input 
+                            type="number" 
+                            min={1} 
+                            max={1000}
+                            value={selectionTargetCount} 
+                            onChange={e => setSelectionTargetCount(Number(e.target.value))} 
+                            className="border-[#A37E43]/15 rounded-none h-11 bg-white" 
+                            placeholder="e.g. 30" 
+                          />
+                          <p className="text-[9px] text-zinc-405 font-sans">The recommended number of visual plates the client should select.</p>
+                        </div>
+
+                        {/* Custom Instructions */}
+                        <div className="space-y-2">
+                          <Label className="text-[9px] uppercase tracking-widest text-[#A37E43] font-bold">Curation Guidelines / Instructions</Label>
+                          <Textarea 
+                            value={clientInstructions} 
+                            onChange={e => setClientInstructions(e.target.value)} 
+                            className="border-[#A37E43]/15 rounded-none min-h-[100px] bg-white text-xs" 
+                            placeholder="e.g. Dear client, please curate 30 fine-art plates for the final customized leather-bound printed album." 
+                          />
+                        </div>
+                      </motion.div>
+                    )}
+
+                    <Button 
+                      onClick={handleSaveSelectionConfig}
+                      className="w-full h-12 bg-[#A37E43] hover:bg-[#8D6B37] text-white rounded-none uppercase font-bold tracking-widest text-[9px]"
+                    >
+                      DEPLOY SELECTION CONFIG
+                    </Button>
+                  </div>
+
+                  {/* Right Column: Selections Status & Viewer */}
+                  <div className="lg:col-span-7 p-6 sm:p-8 bg-white flex flex-col space-y-6 overflow-hidden">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-100 pb-4">
+                      <div className="space-y-1">
+                        <h4 className="text-sm font-serif font-semibold text-zinc-805 uppercase tracking-wider">Client Selections Overview</h4>
+                        <p className="text-[10px] text-zinc-405">Real-time sync of chosen items</p>
+                      </div>
+
+                      {/* Status indicator */}
+                      <div className="flex items-center gap-2">
+                        <span className="text-[9px] font-mono uppercase text-zinc-400">STATUS:</span>
+                        <span className={`px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest ${
+                          configuringSelectionAlbum.selectionStatus === 'approved' 
+                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' 
+                            : configuringSelectionAlbum.selectionStatus === 'submitted'
+                            ? 'bg-amber-50 text-amber-700 border border-amber-200 animate-pulse'
+                            : 'bg-zinc-100 text-zinc-650'
+                        }`}>
+                          {configuringSelectionAlbum.selectionStatus || 'pending'}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Progress details */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="p-4 bg-[#FCFAF6] border border-[#A37E43]/10 text-center">
+                        <span className="text-[8px] uppercase tracking-wider text-zinc-400 block mb-1">TOTAL CHOSEN</span>
+                        <span className="text-2xl font-serif text-[#A37E43] font-bold">
+                          {configuringSelectionAlbum.selectedPhotosList?.length || 0}
+                        </span>
+                        <span className="text-[9px] text-zinc-400 block mt-0.5">
+                          out of {configuringSelectionAlbum.selectionTargetCount || 30} targets
+                        </span>
+                      </div>
+
+                      <div className="p-4 bg-[#FCFAF6] border border-[#A37E43]/10 flex flex-col justify-center items-center gap-2">
+                        <Button 
+                          onClick={handleDownloadLightroomCSV}
+                          disabled={!configuringSelectionAlbum.selectedPhotosList?.length}
+                          className="w-full h-9 bg-[#FCFAF6] border border-[#A37E43]/20 text-[#A37E43] hover:bg-[#A37E43]/5 rounded-none text-[8px] font-bold uppercase tracking-widest disabled:opacity-30"
+                        >
+                          <FileSpreadsheet className="w-3.5 h-3.5 mr-1" /> EXPORT FOR LIGHTROOM
+                        </Button>
+                      </div>
+                    </div>
+
+                    {/* Actions: Approve / Lock */}
+                    <div className="flex gap-3">
+                      {configuringSelectionAlbum.selectionStatus !== 'approved' ? (
+                        <Button
+                          onClick={handleApproveSelection}
+                          disabled={!configuringSelectionAlbum.selectedPhotosList?.length}
+                          className="grow h-11 bg-emerald-600 hover:bg-emerald-700 text-white rounded-none text-[9px] font-bold uppercase tracking-widest disabled:opacity-40"
+                        >
+                          <Lock className="w-3.5 h-3.5 mr-2" /> APPROVE & LOCK SELECTION
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={handleUnlockSelection}
+                          className="grow h-11 bg-zinc-750 hover:bg-zinc-800 text-zinc-800 border border-zinc-300 rounded-none text-[9px] font-bold uppercase tracking-widest"
+                        >
+                          <Lock className="w-3.5 h-3.5 mr-2" /> RE-OPEN & UNLOCK PORTAL
+                        </Button>
+                      )}
+                    </div>
+
+                    {/* Selected Photos List (Scrollable grid) */}
+                    <div className="flex-grow overflow-y-auto border border-stone-100 p-4 bg-stone-50/50">
+                      <h5 className="text-[9px] uppercase tracking-widest font-bold text-zinc-400 mb-3">Selected Photo Plates</h5>
+                      
+                      {loadingSelectionPhotos ? (
+                        <div className="h-40 flex items-center justify-center">
+                          <div className="w-6 h-6 border-2 border-[#A37E43] border-t-transparent rounded-full animate-spin" />
+                        </div>
+                      ) : configuringSelectionAlbum.selectedPhotosList?.length ? (
+                        <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                          {selectionAlbumPhotos
+                            .filter(p => configuringSelectionAlbum.selectedPhotosList?.includes(p.id))
+                            .map((p, idx) => (
+                              <div key={p.id} className="relative aspect-square border border-[#A37E43]/10 bg-white group">
+                                <img src={p.url} className="w-full h-full object-cover filter saturate-75" referrerPolicy="no-referrer" alt="" />
+                                <div className="absolute top-1 left-1 bg-[#A37E43] text-white text-[7px] font-bold px-1 py-0.5 rounded-none">
+                                  #{idx + 1}
+                                </div>
+                              </div>
+                            ))}
+                        </div>
+                      ) : (
+                        <div className="h-40 flex flex-col items-center justify-center text-zinc-400 italic text-xs">
+                          <CheckSquare className="w-6 h-6 text-zinc-300 mb-2" />
+                          Client has not selected any photos yet.
+                        </div>
+                      )}
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
 
       </div>
     </div>
